@@ -1,0 +1,12 @@
+:root {
+  font-size: 62.5%;
+  
+  --sidebar-nav-bg: #000;
+  --black: #000;
+  --gray: #b3b3b3;
+  --white: #fff;
+
+  --fs-14: 1.4rem;
+
+  --lh-16: 1.6rem;
+}
