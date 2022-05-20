@@ -15,23 +15,51 @@ export const MainNav = styled.nav`
   flex-direction: column;
 `
 
-export const Banner = styled.div`
-  margin-bottom: 1.8rem;
-
-  a {
-    display: block;
-    padding: 0 2.4rem 0.633rem;
-
-    svg {
-      width: 100%;
-      max-width: 13.1rem;
-      margin: 0;
-    }
-  }
-`
-
-export const MenuList = styled.ul`
+export const Menu = styled.ul`
   display: flex;
   flex-direction: column;
   padding: 0 0.8rem;
+`
+
+export const SubMenu = styled.ul`
+  margin-top: 2.4rem;
+`
+
+export const HorizontalRule = styled.hr`
+  position: relative;
+  margin: 0.8rem 2.4rem 0;
+  height: 1px;
+  border: none;
+  background-color: #282828;
+  z-index: 11;
+`
+
+export const Shadow = styled.div`
+  position: relative;
+  box-shadow: -40px 0px 10px 10px rgb(0 0 0 / 60%);
+  z-index: 10;
+`
+
+export const UserPlaylists = styled.ul`
+  padding: 0.8rem 0;
+  flex: 1;
+  height: 100%;
+  max-height: ${props => props.height ? `${props.height}px` : "100%"};
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+`
+
+export const SidebarFooter = styled.ul`
+  padding: 0 0.8px;
 `
