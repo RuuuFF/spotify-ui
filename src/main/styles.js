@@ -6,4 +6,8 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 24.1rem auto;
   grid-template-rows: auto 9.1rem;
+
+  @media (max-width: 1480px) {
+    grid-template-columns: 23.6rem auto;
+  }
 `

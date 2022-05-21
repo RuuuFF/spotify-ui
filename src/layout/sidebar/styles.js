@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const SidebarContainer = styled.aside`
-  width: 24.1rem;
   height: 100%;
   grid-column: 1;
   grid-row: 1;

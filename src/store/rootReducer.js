@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
 
-import tabReducer from "./reducers/tabReducer"
+import spotifyReducer from "./reducers/spotifyReducer"
 
 export const store = configureStore({
   reducer: {
-    tab: tabReducer
+    spotify: spotifyReducer
   }
 })

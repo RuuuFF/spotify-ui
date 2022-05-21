@@ -1,29 +1,30 @@
 import styled from "styled-components"
-import { useDispatch, useSelector } from "react-redux"
-import { selectTab } from "../store/reducers/tabReducer"
+import { connect } from "react-redux"
+import { selectTab } from "../store/reducers/spotifyReducer"
 
 const PlaylistItem = props => {
-  const labelLowerCase = props?.label.toLowerCase()
-  const active = useSelector(state => state.tab.active?.[labelLowerCase] || false)
-  const dispatch = useDispatch()
+  const { label, activeTab, dispatch } = props
+  const active = activeTab === label
 
   function handleLink(event) {
     event.preventDefault()
-    dispatch(selectTab(labelLowerCase))
+    dispatch(selectTab(label))
   }
 
   return (
     <li>
       <Link href="/" onClick={handleLink} className={active ? 'active' : ''}>
         <div>
-          {props?.label}
+          {label}
         </div>
       </Link>
     </li>
   )
 }
 
-export default PlaylistItem
+export default connect(state => ({
+  activeTab: state.spotify.tabs.activeTab
+}))(PlaylistItem)
 
 const Link = styled.a`
   height: 3.2rem;
