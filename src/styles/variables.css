@@ -5,9 +5,11 @@
   --black: #000;
   --gray: #b3b3b3;
   --white: #fff;
+  --green: #1ed760;
 
   --fs-14: 1.4rem;
+  --fs-11: 1.1rem;
 
-  --lh-16: 1.6rem;
   --lh-32: 3.2rem;
+  --lh-16: 1.6rem;
 }

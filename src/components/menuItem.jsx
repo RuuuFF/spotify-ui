@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { selectTab } from "../store/reducers/spotifyReducer"
+import { selectTab } from "../store/spotifyReducer"
 
 import styled from "styled-components"
 import Icons from "./icons"
@@ -42,7 +42,7 @@ const Link = styled.a`
   color: var(--white);
   font-size: var(--fs-14);
   line-height: var(--lh-16);
-  font-family: "Spotify Circular Bold";
+  font-family: "Spotify Circular Bold", sans-serif;
   opacity: 0.7;
   transition: opacity 0.2s linear;
 

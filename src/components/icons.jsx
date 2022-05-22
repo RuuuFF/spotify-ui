@@ -36,15 +36,27 @@ const Icons = props => {
   }
 
   if (icon === "create playlist") {
-    return <Div bg={props.bg}>
-      <svg role="img" height="12" width="12" aria-hidden="true" viewBox="0 0 16 16" fill="#000"><path d="M15.25 8a.75.75 0 01-.75.75H8.75v5.75a.75.75 0 01-1.5 0V8.75H1.5a.75.75 0 010-1.5h5.75V1.5a.75.75 0 011.5 0v5.75h5.75a.75.75 0 01.75.75z"></path></svg>
-    </Div>
+    return <Div bg={props.bg}><svg role="img" height="12" width="12" aria-hidden="true" viewBox="0 0 16 16" fill="#000"><path d="M15.25 8a.75.75 0 01-.75.75H8.75v5.75a.75.75 0 01-1.5 0V8.75H1.5a.75.75 0 010-1.5h5.75V1.5a.75.75 0 011.5 0v5.75h5.75a.75.75 0 01.75.75z"></path></svg></Div>
   }
 
   if (icon === "liked songs") {
-    return <Div>
-      <svg role="img" height="12" width="12" aria-hidden="true" viewBox="0 0 16 16" fill="var(--white)"><path d="M15.724 4.22A4.313 4.313 0 0012.192.814a4.269 4.269 0 00-3.622 1.13.837.837 0 01-1.14 0 4.272 4.272 0 00-6.21 5.855l5.916 7.05a1.128 1.128 0 001.727 0l5.916-7.05a4.228 4.228 0 00.945-3.577z"></path></svg>
-    </Div>
+    return <Div><svg role="img" height="12" width="12" aria-hidden="true" viewBox="0 0 16 16" fill="var(--white)"><path d="M15.724 4.22A4.313 4.313 0 0012.192.814a4.269 4.269 0 00-3.622 1.13.837.837 0 01-1.14 0 4.272 4.272 0 00-6.21 5.855l5.916 7.05a1.128 1.128 0 001.727 0l5.916-7.05a4.228 4.228 0 00.945-3.577z"></path></svg></Div>
+  }
+
+  if (icon === "heart") {
+    return props.like ? (
+      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="var(--green)"><path d="M15.724 4.22A4.313 4.313 0 0012.192.814a4.269 4.269 0 00-3.622 1.13.837.837 0 01-1.14 0 4.272 4.272 0 00-6.21 5.855l5.916 7.05a1.128 1.128 0 001.727 0l5.916-7.05a4.228 4.228 0 00.945-3.577z"></path></svg>
+    ) : (
+      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="var(--white)"><path d="M1.69 2A4.582 4.582 0 018 2.023 4.583 4.583 0 0111.88.817h.002a4.618 4.618 0 013.782 3.65v.003a4.543 4.543 0 01-1.011 3.84L9.35 14.629a1.765 1.765 0 01-2.093.464 1.762 1.762 0 01-.605-.463L1.348 8.309A4.582 4.582 0 011.689 2zm3.158.252A3.082 3.082 0 002.49 7.337l.005.005L7.8 13.664a.264.264 0 00.311.069.262.262 0 00.09-.069l5.312-6.33a3.043 3.043 0 00.68-2.573 3.118 3.118 0 00-2.551-2.463 3.079 3.079 0 00-2.612.816l-.007.007a1.501 1.501 0 01-2.045 0l-.009-.008a3.082 3.082 0 00-2.121-.861z"></path></svg>
+    )
+  }
+
+  if (icon === "popup") {
+    return <svg width="16" height="16" fill="var(--white)"><g><path d="M1 3v9h14V3H1zm0-1h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"></path><path d="M10 8h4v3h-4z"></path></g></svg>
+  }
+
+  if (icon === "arrow-up") {
+    return <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="var(--white)"><path d="M.47 11.03a.75.75 0 001.06 0L8 4.56l6.47 6.47a.75.75 0 101.06-1.06L8 2.44.47 9.97a.75.75 0 000 1.06z"></path></svg>
   }
 }
 
@@ -59,4 +71,3 @@ const Div = styled.div`
   border-radius: 2px;
   background: ${props => props.bg || "linear-gradient(135deg,#450af5,#c4efd9)"};
 `
-

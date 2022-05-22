@@ -1,7 +1,7 @@
 import { Container } from "./style"
 
-const MainContent = props => (
+const Main = props => (
   <Container></Container>
 )
 
-export default MainContent
+export default Main

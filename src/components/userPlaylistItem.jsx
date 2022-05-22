@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { connect } from "react-redux"
-import { selectTab } from "../store/reducers/spotifyReducer"
+import { selectTab } from "../store/spotifyReducer"
 
-const PlaylistItem = props => {
+const UserPlaylistItem = props => {
   const { label, activeTab, dispatch } = props
   const active = activeTab === label
 
@@ -24,13 +24,13 @@ const PlaylistItem = props => {
 
 export default connect(state => ({
   activeTab: state.spotify.tabs.activeTab
-}))(PlaylistItem)
+}))(UserPlaylistItem)
 
 const Link = styled.a`
   height: 3.2rem;
   line-height: var(--lh-32);
   font-size: var(--fs-14);
-  font-family: "Spotify Circular Book";
+  font-family: "Spotify Circular Book", sans-serif;
   display: block;
   width: 100%;
   height: 100%;
