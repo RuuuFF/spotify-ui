@@ -1,28 +1,26 @@
+import { connect } from "react-redux"
 import { useEffect, useRef, useState } from "react"
-import styled from "styled-components"
 
+import styled from "styled-components"
 import UserPlaylistItem from "./userPlaylistItem"
 
 const UserPlaylists = ({ playlists = [] }) => {
   const [height, setHeight] = useState(null)
   const element = useRef(null)
 
-  function getPlaylists() {
-    return playlists.map((name, index) => <UserPlaylistItem key={index} label={name} />)
-  }
-
-  useEffect(() => {
-    setHeight(element.current.getBoundingClientRect().height)
-  }, [])
+  useEffect(() => setHeight(element.current.getBoundingClientRect().height), [])
 
   return (
     <Container ref={element} height={height}>
-      {height ? getPlaylists() : false}
+      {height ? (
+        playlists.map((name, index) => <UserPlaylistItem key={index} label={name} />)
+      ) : false}
     </Container>
   )
 }
 
-export default UserPlaylists
+const mapStateToProps = state => ({ playlists: state.spotify.playlists })
+export default connect(mapStateToProps)(UserPlaylists)
 
 const Container = styled.ul`
   padding: 0.8rem 0;

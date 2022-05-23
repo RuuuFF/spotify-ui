@@ -22,9 +22,8 @@ const UserPlaylistItem = props => {
   )
 }
 
-export default connect(state => ({
-  activeTab: state.spotify.tabs.activeTab
-}))(UserPlaylistItem)
+const mapStateToProps = state => ({ activeTab: state.spotify.tabs.activeTab })
+export default connect(mapStateToProps)(UserPlaylistItem)
 
 const Link = styled.a`
   height: 3.2rem;

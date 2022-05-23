@@ -8,7 +8,7 @@ const MenuItem = props => {
   const { label, path, action, bg, activeTab, dispatch } = props
   const active = label === activeTab
 
-  const handleClick = props?.action ? (event, label) => action(event, label) : event => {
+  const handleClick = action ? (event, label) => action(event, label) : event => {
     event.preventDefault()
     dispatch(selectTab(label))
   }
@@ -28,9 +28,8 @@ const MenuItem = props => {
   )
 }
 
-export default connect(state => ({
-  activeTab: state.spotify.tabs.activeTab
-}))(MenuItem)
+const mapStateToProps = state => ({ activeTab: state.spotify.tabs.activeTab })
+export default connect(mapStateToProps)(MenuItem)
 
 const Link = styled.a`
   display: flex;

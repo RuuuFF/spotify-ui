@@ -11,11 +11,6 @@ export const PlayerContainer = styled.footer`
   border-top: 1px solid #282828;
 `
 
-export const PlayerControl = styled.div`
-  max-width: 72.2rem;
-  width: 40%;
-`
-
 export const PlayerButtons = styled.div`
   width: 30%;
   min-width: 18rem;

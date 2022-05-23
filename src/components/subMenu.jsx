@@ -1,9 +1,11 @@
+import { useDispatch } from "react-redux"
+import { newPlaylist } from "../store/spotifyReducer"
+
 import styled from "styled-components"
 import MenuItem from "./menuItem"
 
-import { newPlaylist } from "../store/spotifyReducer"
-
-const SubMenu = ({ dispatch }) => {
+const SubMenu = props => {
+  const dispatch = useDispatch()
   const createNewPlaylist = event => {
     event.preventDefault()
     dispatch(newPlaylist())

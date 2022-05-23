@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
   tabs: { activeTab: 'Home' },
-  albumExpanded: true,
+  expandedAlbum: false,
   playlists: []
 }
 
@@ -19,7 +19,7 @@ export const spotifySlice = createSlice({
       state.tabs.activeTab = name
     },
     toggleAlbum: state => {
-      state.albumExpanded = !state.albumExpanded
+      state.expandedAlbum = !state.expandedAlbum
     }
   }
 })

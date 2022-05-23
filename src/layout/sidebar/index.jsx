@@ -1,5 +1,3 @@
-import { connect } from "react-redux"
-
 import Banner from "../../components/banner"
 import Menu from "../../components/menu"
 import SubMenu from "../../components/subMenu"
@@ -13,20 +11,20 @@ import {
   Shadow,
 } from "./styles"
 
-const Sidebar = ({ playlists = [], dispatch }) => (
+const Sidebar = props => (
   <SidebarContainer>
     <MainNav>
       <Banner />
       <Menu />
-      <SubMenu dispatch={dispatch} />
+      <SubMenu />
 
       <HorizontalRule />
       <Shadow />
 
-      <UserPlaylists playlists={playlists} />
+      <UserPlaylists />
       <SidebarFooter />
     </MainNav>
   </SidebarContainer>
 )
 
-export default connect(state => ({ playlists: state.spotify.playlists }))(Sidebar)
+export default Sidebar
