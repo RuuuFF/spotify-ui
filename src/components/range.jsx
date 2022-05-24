@@ -1,30 +1,27 @@
-import { useState } from "react"
 import styled from "styled-components"
 
-const Range = props => {
-  const [value, setValue] = useState(0)
+const Range = ({ value, max, onChange }) => {
+  const moreThan = value >= (max * 90) / 100
+  const lowerThan = value <= (max * 10) / 100
+
   return (
     <Input
       type="range"
       min={0}
-      max={100}
+      max={max}
       value={value}
-      className={value >= 80 ? "positive" : value <= 20 ? "negative" : "normal"}
-      onChange={event => setValue(event.target.value)} />
+      className={moreThan ? "end" : lowerThan ? "start" : "middle"}
+      onChange={event => onChange(Number(event.target.value))} />
   )
 }
 
 export default Range
 
 const makeLongShadow = (color, size) => {
-  let i = 4;
-  let shadow = `${i}px 0 0 ${size} ${color}`;
-  while (i < 706) {
-    shadow = `${shadow}, ${i}px 0 0 ${size} ${color}`;
-    i++
-  }
-
-  return shadow;
+  let offsetX = 4
+  let shadow = `${offsetX}px 0 0 ${size} ${color}`
+  while (offsetX < 722) { shadow = `${shadow}, ${offsetX++}px 0 0 ${size} ${color}`; }
+  return shadow
 }
 
 const Input = styled.input`
@@ -46,16 +43,16 @@ const Input = styled.input`
     box-shadow: ${makeLongShadow("var(--progress-input-bg)", "-4px")};
   }
 
-  &.positive::-webkit-slider-thumb {
-    background-color: var(--white);
+  &.start::-webkit-slider-thumb {
+    background-color: var(--progress-input-bg);
   }
 
-  &.normal::-webkit-slider-thumb {
+  &.middle::-webkit-slider-thumb {
     background: linear-gradient(to right, var(--white), var(--progress-input-bg));
   }
 
-  &.negative::-webkit-slider-thumb {
-    background-color: var(--progress-input-bg);
+  &.end::-webkit-slider-thumb {
+    background-color: var(--white);
   }
 
   // Barra
@@ -67,7 +64,7 @@ const Input = styled.input`
     overflow: hidden;
   }
 
-  &:hover {
+  &:is(:hover, :active) {
     &::-webkit-slider-thumb {
       background: var(--white);
     }

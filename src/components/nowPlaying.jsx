@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import { connect } from "react-redux";
-import { toggleAlbum } from "../store/spotifyReducer";
 
 import styled from "styled-components"
-import { grow, shake } from "../styles/keyframes"
-import Icons from "./icons"
 
-const NowPlaying = ({ expandedAlbum, dispatch }) => {
+import Icons from "./icons"
+import { grow, shake } from "../assets/styles/keyframes"
+import { toggleAlbum } from "../store/spotifyReducer";
+
+const NowPlaying = ({ currentMusic, expandAlbum, dispatch }) => {
   const [right, setRight] = useState(0)
   const [liked, setLiked] = useState(false)
   const [animation, setAnimation] = useState('')
@@ -17,16 +18,16 @@ const NowPlaying = ({ expandedAlbum, dispatch }) => {
     setLiked(!liked)
   }
 
-  useEffect(() => setRight(image.current.getBoundingClientRect().right), [expandedAlbum])
+  useEffect(() => setRight(image.current.getBoundingClientRect().right), [expandAlbum])
 
   return (
     <Container>
       <div style={{
-        transform: `translateX(-${expandedAlbum ? right : 0}px)`,
-        transition: `transform 0.4s ${expandedAlbum ? 'ease-out 0s' : 'ease-in .4s'}`
+        transform: `translateX(-${expandAlbum ? right : 0}px)`,
+        transition: `transform 0.4s ${expandAlbum ? 'ease-out 0s' : 'ease-in .4s'}`
       }}>
         <div className="album-image-container" >
-          {!expandedAlbum ? (
+          {!expandAlbum ? (
             <button className="expand-image" onClick={() => dispatch(toggleAlbum())}>
               <Icons icon="arrow-up" />
             </button>
@@ -34,16 +35,16 @@ const NowPlaying = ({ expandedAlbum, dispatch }) => {
           <img
             ref={image}
             className="album-image"
-            src={"./images/image1.jpg"}
+            src={currentMusic.albumImage}
             alt="WALK THE MOON" />
         </div>
 
         <div className="music">
           <a href="/" className="music-name" onClick={e => e.preventDefault()}>
-            Shut Up and Dance
+            {currentMusic.name}
           </a>
           <a href="/" className="music-artist" onClick={e => e.preventDefault()}>
-            WALK THE MOON
+            {currentMusic.artist}
           </a>
         </div>
 
@@ -60,7 +61,10 @@ const NowPlaying = ({ expandedAlbum, dispatch }) => {
   )
 }
 
-const mapStateToProps = state => ({ expandedAlbum: state.spotify.expandedAlbum })
+const mapStateToProps = state => ({
+  expandAlbum: state.spotify.expandAlbum,
+  currentMusic: state.spotify.currentMusic
+})
 export default connect(mapStateToProps)(NowPlaying)
 
 const Container = styled.div`

@@ -1,18 +1,15 @@
 import NowPlaying from "../../components/nowPlaying"
-import PlayerControl from "../../components/playerControl"
+import MainPlayerControl from "../../components/mainPlayerControl"
+import RightPlayerControl from "../../components/rightPlayerControl"
 
-import {
-  PlayerContainer,
-  PlayerButtons,
-} from "./styles"
+import { PlayerContainer } from "./styles"
 
 const Footer = props => {
   return (
     <PlayerContainer>
       <NowPlaying />
-      <PlayerControl />
-
-      <PlayerButtons></PlayerButtons>
+      <MainPlayerControl />
+      <RightPlayerControl />
     </PlayerContainer>
   )
 }

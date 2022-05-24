@@ -17,9 +17,9 @@ a {
 }
 
 button {
+  line-height: 0;
   background: 0;
   border: none;
-  line-height: 0;
 }
 
 ul {

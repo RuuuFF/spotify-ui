@@ -1,46 +1,64 @@
-import { useState } from "react"
+import { connect } from "react-redux"
+import { togglePlayer, updateTime, prevMusic } from "../store/spotifyReducer"
+
 import styled from "styled-components"
+
 import ControlButton from "./controlButton"
 import Range from "./range"
+import useTimer from "../hooks/useTimer"
+import useFormatTime from "../hooks/useFormatTime"
 
-const PlayerControl = props => {
-  const [isPlaying, setIsPlaying] = useState(false)
+const MainPlayerControl = ({ time, durationInSeconds, isPlaying, dispatch }) => {
+  useTimer({ time, isPlaying, durationInSeconds })
+
+  const runningTime = useFormatTime(time)
+  const finalTime = useFormatTime(durationInSeconds)
 
   return (
     <Container>
       <div className="player-controls">
         <div className="control left">
           <ControlButton button="shuffle" />
-          <ControlButton button="prev-song" />
+          <ControlButton
+            button="prev-music"
+            action={() => dispatch(prevMusic())} />
         </div>
         <div className="main-control">
           <ControlButton
             button="playpause"
             isPlaying={isPlaying}
-            action={() => setIsPlaying(!isPlaying)} />
+            action={() => dispatch(togglePlayer())} />
         </div>
         <div className="control right">
-          <ControlButton button="next-song" />
+          <ControlButton button="next-music" />
           <ControlButton button="repeat" />
         </div>
       </div>
 
       <div className="playback-bar-container">
         <div className="playback-time current">
-          <span>0:00</span>
+          <span>{runningTime}</span>
         </div>
         <div className="playback-progress-bar-container">
-          <Range />
+          <Range
+            value={time}
+            onChange={value => dispatch(updateTime(value))}
+            max={durationInSeconds} />
         </div>
         <div className="playback-time total">
-          <span>3:19</span>
+          <span>{finalTime}</span>
         </div>
       </div>
     </Container>
   )
 }
 
-export default PlayerControl
+const mapStateToProps = state => ({
+  durationInSeconds: state.spotify.currentMusic.durationInSeconds,
+  time: state.spotify.time,
+  isPlaying: state.spotify.isPlaying
+})
+export default connect(mapStateToProps)(MainPlayerControl)
 
 const Container = styled.div`
   display: flex;

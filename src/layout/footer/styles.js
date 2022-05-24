@@ -10,9 +10,3 @@ export const PlayerContainer = styled.footer`
   padding: 0 1.6rem;
   border-top: 1px solid #282828;
 `
-
-export const PlayerButtons = styled.div`
-  width: 30%;
-  min-width: 18rem;
-`
-

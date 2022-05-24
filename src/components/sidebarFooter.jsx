@@ -1,22 +1,23 @@
-import styled from "styled-components"
+import { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import { toggleAlbum } from "../store/spotifyReducer"
-import Icons from "./icons";
+
+import styled from "styled-components"
 
 import MenuItem from "./menuItem";
-import { useEffect, useRef, useState } from "react";
+import Icons from "./icons";
+import { toggleAlbum } from "../store/spotifyReducer"
 
-const SidebarFooter = ({ expandedAlbum, dispatch }) => {
+const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
   const [height, setHeight] = useState(null)
   const image = useRef(null)
 
-  useEffect(() => expandedAlbum ? setHeight(image.current.getBoundingClientRect().height) : setHeight(0), [expandedAlbum])
+  useEffect(() => expandAlbum ? setHeight(image.current.getBoundingClientRect().height) : setHeight(0), [expandAlbum])
 
   return (
     <Container>
       <div style={{
         transform: `translateY(-${height || 0}px)`,
-        transition: `transform 0.4s ${expandedAlbum ? 'ease-in .4s' : 'ease-out 0s'}`
+        transition: `transform 0.4s ${expandAlbum ? 'ease-in .4s' : 'ease-out 0s'}`
       }}>
         <ul>
           <MenuItem path="/install" label="Install App" margin />
@@ -24,15 +25,15 @@ const SidebarFooter = ({ expandedAlbum, dispatch }) => {
 
         <div className="album-image-container">
           <div className="wrapper">
-            {expandedAlbum ? (
+            {expandAlbum ? (
               <button className="expand-image rotate" onClick={() => dispatch(toggleAlbum())}>
                 <Icons icon="arrow-up" />
               </button>
             ) : false}
             <img
               ref={image}
+              src={albumImage}
               className="album-image"
-              src="./images/image1.jpg"
               alt="Walk The Moon" />
           </div>
         </div>
@@ -41,7 +42,10 @@ const SidebarFooter = ({ expandedAlbum, dispatch }) => {
   )
 }
 
-const mapStateToProps = state => ({ expandedAlbum: state.spotify.expandedAlbum })
+const mapStateToProps = state => ({
+  expandAlbum: state.spotify.expandAlbum,
+  albumImage: state.spotify.currentMusic.albumImage
+})
 export default connect(mapStateToProps)(SidebarFooter)
 
 const Container = styled.div`
