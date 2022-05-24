@@ -32,6 +32,7 @@ const Button = styled.button`
 
   :hover {
     opacity: 1;
+    transform: scale(${props => props.mainControl ? '1.05' : '1'});
   }
 
   :active {

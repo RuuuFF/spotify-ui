@@ -1,24 +1,28 @@
 import { useEffect, useRef, useState } from "react"
 import { connect } from "react-redux";
+import { bindActionCreators } from "@reduxjs/toolkit";
 
 import styled from "styled-components"
 
 import Icons from "./icons"
 import { grow, shake } from "../assets/styles/keyframes"
-import { toggleAlbum } from "../store/spotifyReducer";
+import { toggleAlbum, toggleLiked } from "../store/spotifyReducer";
 
-const NowPlaying = ({ currentMusic, expandAlbum, dispatch }) => {
-  const [right, setRight] = useState(0)
-  const [liked, setLiked] = useState(false)
-  const [animation, setAnimation] = useState('')
+const NowPlaying = ({ currentMusic, expandAlbum, toggleAlbum, toggleLiked }) => {
   const image = useRef(null)
+  const [right, setRight] = useState(0)
+  const [animation, setAnimation] = useState("")
 
-  function animate() {
-    setAnimation(liked ? "shake" : "liked")
-    setLiked(!liked)
-  }
+  useEffect(() => {
+    if (currentMusic.liked || animation !== "") {
+      setAnimation(currentMusic.liked ? "liked" : "shake")
+    }
+  }, [currentMusic.liked, animation])
 
-  useEffect(() => setRight(image.current.getBoundingClientRect().right), [expandAlbum])
+  useEffect(() => {
+    const right = image.current.getBoundingClientRect().right
+    setRight(right)
+  }, [expandAlbum])
 
   return (
     <Container>
@@ -28,15 +32,15 @@ const NowPlaying = ({ currentMusic, expandAlbum, dispatch }) => {
       }}>
         <div className="album-image-container" >
           {!expandAlbum ? (
-            <button className="expand-image" onClick={() => dispatch(toggleAlbum())}>
-              <Icons icon="arrow-up" />
+            <button className="expand-image" onClick={() => toggleAlbum()}>
+              <Icons icon="arrow" />
             </button>
           ) : false}
           <img
             ref={image}
             className="album-image"
             src={currentMusic.albumImage}
-            alt="WALK THE MOON" />
+            alt={currentMusic.artist} />
         </div>
 
         <div className="music">
@@ -49,8 +53,8 @@ const NowPlaying = ({ currentMusic, expandAlbum, dispatch }) => {
         </div>
 
         <div className="buttons">
-          <button className={`btn ${animation}`} onClick={animate}>
-            <Icons like={liked} icon="heart" />
+          <button className={`btn ${animation}`} onClick={() => toggleLiked()}>
+            <Icons icon="heart" liked={currentMusic.liked} />
           </button>
           <button className="btn">
             <Icons icon="popup" />
@@ -62,10 +66,14 @@ const NowPlaying = ({ currentMusic, expandAlbum, dispatch }) => {
 }
 
 const mapStateToProps = state => ({
-  expandAlbum: state.spotify.expandAlbum,
-  currentMusic: state.spotify.currentMusic
+  expandAlbum: state.spotify.player.expandAlbum,
+  currentMusic: state.spotify.player.currentMusic
 })
-export default connect(mapStateToProps)(NowPlaying)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  toggleAlbum,
+  toggleLiked
+}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying)
 
 const Container = styled.div`
   width: 30%;

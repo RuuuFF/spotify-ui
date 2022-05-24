@@ -1,18 +1,25 @@
+import { useEffect } from "react"
 import { connect } from "react-redux"
-import { togglePlayer, updateTime, prevMusic } from "../store/spotifyReducer"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { togglePlaying, updateTime, prevMusic } from "../store/spotifyReducer"
 
 import styled from "styled-components"
-
+import useFormatMMSS from "../hooks/useFormatTime"
 import ControlButton from "./controlButton"
 import Range from "./range"
-import useTimer from "../hooks/useTimer"
-import useFormatTime from "../hooks/useFormatTime"
 
-const MainPlayerControl = ({ time, durationInSeconds, isPlaying, dispatch }) => {
-  useTimer({ time, isPlaying, durationInSeconds })
+const MainPlayerControl = props => {
+  const { time, isPlaying, durationInSeconds, togglePlaying, updateTime, prevMusic } = props
+  const runningTime = useFormatMMSS(time)
+  const finalTime = useFormatMMSS(durationInSeconds)
 
-  const runningTime = useFormatTime(time)
-  const finalTime = useFormatTime(durationInSeconds)
+  useEffect(() => {
+    const timerId = isPlaying ? setInterval(() => {
+      updateTime(time + 1)
+    }, 1000) : false
+
+    return () => clearInterval(timerId)
+  }, [time, isPlaying, durationInSeconds, togglePlaying, updateTime])
 
   return (
     <Container>
@@ -21,13 +28,13 @@ const MainPlayerControl = ({ time, durationInSeconds, isPlaying, dispatch }) => 
           <ControlButton button="shuffle" />
           <ControlButton
             button="prev-music"
-            action={() => dispatch(prevMusic())} />
+            action={prevMusic} />
         </div>
         <div className="main-control">
           <ControlButton
             button="playpause"
             isPlaying={isPlaying}
-            action={() => dispatch(togglePlayer())} />
+            action={togglePlaying} />
         </div>
         <div className="control right">
           <ControlButton button="next-music" />
@@ -42,7 +49,7 @@ const MainPlayerControl = ({ time, durationInSeconds, isPlaying, dispatch }) => 
         <div className="playback-progress-bar-container">
           <Range
             value={time}
-            onChange={value => dispatch(updateTime(value))}
+            onChange={value => updateTime(value)}
             max={durationInSeconds} />
         </div>
         <div className="playback-time total">
@@ -54,11 +61,17 @@ const MainPlayerControl = ({ time, durationInSeconds, isPlaying, dispatch }) => 
 }
 
 const mapStateToProps = state => ({
-  durationInSeconds: state.spotify.currentMusic.durationInSeconds,
-  time: state.spotify.time,
-  isPlaying: state.spotify.isPlaying
+  durationInSeconds: state.spotify.player.currentMusic.durationInSeconds,
+  time: state.spotify.player.time,
+  isPlaying: state.spotify.player.isPlaying
 })
-export default connect(mapStateToProps)(MainPlayerControl)
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  togglePlaying,
+  updateTime,
+  prevMusic,
+}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(MainPlayerControl)
 
 const Container = styled.div`
   display: flex;

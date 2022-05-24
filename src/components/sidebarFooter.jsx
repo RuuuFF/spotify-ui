@@ -27,7 +27,7 @@ const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
           <div className="wrapper">
             {expandAlbum ? (
               <button className="expand-image rotate" onClick={() => dispatch(toggleAlbum())}>
-                <Icons icon="arrow-up" />
+                <Icons icon="arrow" />
               </button>
             ) : false}
             <img
@@ -43,8 +43,8 @@ const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
 }
 
 const mapStateToProps = state => ({
-  expandAlbum: state.spotify.expandAlbum,
-  albumImage: state.spotify.currentMusic.albumImage
+  expandAlbum: state.spotify.player.expandAlbum,
+  albumImage: state.spotify.player.currentMusic.albumImage
 })
 export default connect(mapStateToProps)(SidebarFooter)
 

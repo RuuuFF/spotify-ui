@@ -9,6 +9,7 @@
 
 body {
   color: var(--gray);
+  font-family: "Spotify Circular Cyrillic", sans-serif;
 }
 
 a {

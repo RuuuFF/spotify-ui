@@ -12,14 +12,15 @@ const Banner = props => (
 export default Banner
 
 const Container = styled.div`
-  margin-bottom: 1.8rem;
+  margin-bottom: 2.3rem;
 
   a {
     display: block;
-    padding: 0 2.4rem 0.633rem;
+    padding: 0 2.4rem;
 
     svg {
       width: 100%;
+      height: 40px;
       max-width: 13.1rem;
       margin: 0;
     }
