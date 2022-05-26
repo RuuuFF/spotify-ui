@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { togglePlaying, updateTime, prevMusic } from "../store/spotifyReducer"
+import { togglePlaying, updateTime, prevMusic } from "../store/playerSlice"
 
 import styled from "styled-components"
 import useFormatMMSS from "../hooks/useFormatTime"
@@ -61,11 +61,10 @@ const MainPlayerControl = props => {
 }
 
 const mapStateToProps = state => ({
-  durationInSeconds: state.spotify.player.currentMusic.durationInSeconds,
-  time: state.spotify.player.time,
-  isPlaying: state.spotify.player.isPlaying
+  durationInSeconds: state.player.currentMusic.durationInSeconds,
+  time: state.player.time,
+  isPlaying: state.player.isPlaying
 })
-
 const mapDispatchToProps = dispatch => bindActionCreators({
   togglePlaying,
   updateTime,

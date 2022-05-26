@@ -1,23 +1,13 @@
 import { connect } from "react-redux"
-import { useEffect, useRef, useState } from "react"
 
 import styled from "styled-components"
 import UserPlaylistItem from "./userPlaylistItem"
 
-const UserPlaylists = ({ playlists = [] }) => {
-  const [height, setHeight] = useState(null)
-  const element = useRef(null)
-
-  useEffect(() => setHeight(element.current.getBoundingClientRect().height), [])
-
-  return (
-    <Container ref={element} height={height}>
-      {height ? (
-        playlists.map((name, index) => <UserPlaylistItem key={index} label={name} />)
-      ) : false}
-    </Container>
-  )
-}
+const UserPlaylists = ({ playlists = [] }) => (
+  <Container>
+    {playlists.map((name, index) => <UserPlaylistItem key={index} label={name} />)}
+  </Container>
+)
 
 const mapStateToProps = state => ({ playlists: state.spotify.playlists })
 export default connect(mapStateToProps)(UserPlaylists)
@@ -25,9 +15,7 @@ export default connect(mapStateToProps)(UserPlaylists)
 const Container = styled.ul`
   padding: 0.8rem 0;
   flex: 1;
-  height: 100%;
-  max-height: ${props => `${props?.height}px` || "100%"};
-  overflow: auto;
+  overflow-x: auto;
 
   ::-webkit-scrollbar {
     width: 12px;

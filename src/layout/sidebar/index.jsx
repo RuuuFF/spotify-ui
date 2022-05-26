@@ -1,3 +1,7 @@
+import { connect } from "react-redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { updateHeaderLeft } from "../../store/structureSlice"
+
 import Banner from "../../components/banner"
 import Menu from "../../components/menu"
 import SubMenu from "../../components/subMenu"
@@ -10,21 +14,32 @@ import {
   HorizontalRule,
   Shadow,
 } from "./styles"
+import { useRef } from "react"
+import { useEffect } from "react"
 
-const Sidebar = props => (
-  <SidebarContainer>
-    <MainNav>
-      <Banner />
-      <Menu />
-      <SubMenu />
+const Sidebar = props => {
+  const element = useRef(null)
 
-      <HorizontalRule />
-      <Shadow />
+  useEffect(() => {
+    const right = element.current.getBoundingClientRect().right
+    props.updateHeaderLeft(right)
+  }, [props])
+  return (
+    <SidebarContainer ref={element}>
+      <MainNav>
+        <Banner />
+        <Menu />
+        <SubMenu />
 
-      <UserPlaylists />
-      <SidebarFooter />
-    </MainNav>
-  </SidebarContainer>
-)
+        <HorizontalRule />
+        <Shadow />
 
-export default Sidebar
+        <UserPlaylists />
+        <SidebarFooter />
+      </MainNav>
+    </SidebarContainer>
+  )
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({ updateHeaderLeft }, dispatch)
+export default connect(null, mapDispatchToProps)(Sidebar)

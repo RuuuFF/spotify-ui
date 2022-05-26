@@ -48,7 +48,7 @@ const Input = styled.input`
   }
 
   &.middle::-webkit-slider-thumb {
-    background: linear-gradient(to right, var(--white), var(--progress-input-bg));
+    background: linear-gradient(to right, var(--white) 50%, var(--progress-input-bg) 50%);
   }
 
   &.end::-webkit-slider-thumb {

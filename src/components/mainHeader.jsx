@@ -1,8 +1,13 @@
+import { connect } from "react-redux"
+
 import styled from "styled-components"
 import Icons from "./icons"
 
-const MainHeader = props => (
-  <Header bg="rgba(92, 65, 10, 1)">
+const MainHeader = ({ mainHeaderLeft }) => (
+  <Header style={{
+    left: `${mainHeaderLeft}px`,
+    background: "transparent"
+  }}>
     <div className="buttons-container">
       <button className="btn left" disabled>
         <Icons icon="arrow-large" />
@@ -26,17 +31,16 @@ const MainHeader = props => (
   </Header>
 )
 
-export default MainHeader
+const mapStateToProps = state => ({ mainHeaderLeft: state.structure.mainHeaderLeft })
+export default connect(mapStateToProps)(MainHeader)
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   padding: 1.6rem 3.2rem;
-  background-color: ${props => props.bg ? props.bg : "transparent"};
   z-index: 10;
 
   .buttons-container {
@@ -78,6 +82,10 @@ const Header = styled.header`
     padding: 0.2rem;
     gap: 0.8rem;
     cursor: pointer;
+
+    &:hover {
+      background-color: var(--gray3);
+    }
 
     .user-widget-image {
       width: 2.8rem;

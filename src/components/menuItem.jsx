@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { selectTab } from "../store/spotifyReducer"
+import { selectTab } from "../store/spotifySlice"
 
 import styled from "styled-components"
 import Icons from "./icons"

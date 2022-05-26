@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { newPlaylist } from "../store/spotifyReducer"
+import { newPlaylist } from "../store/spotifySlice"
 
 import styled from "styled-components"
 import MenuItem from "./menuItem"

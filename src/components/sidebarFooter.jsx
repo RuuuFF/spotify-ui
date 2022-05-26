@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+
 import { connect } from "react-redux";
+import { bindActionCreators } from "@reduxjs/toolkit";
+import { toggleExpandAlbum } from "../store/structureSlice"
 
 import styled from "styled-components"
-
 import MenuItem from "./menuItem";
 import Icons from "./icons";
-import { toggleAlbum } from "../store/spotifyReducer"
 
-const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
+const SidebarFooter = ({ expandAlbum, albumImage, toggleExpandAlbum }) => {
   const [height, setHeight] = useState(null)
   const image = useRef(null)
 
-  useEffect(() => expandAlbum ? setHeight(image.current.getBoundingClientRect().height) : setHeight(0), [expandAlbum])
+  useEffect(() => {
+    const height = image.current.getBoundingClientRect().height
+    expandAlbum ? setHeight(height) : setHeight(0)
+  }, [expandAlbum])
 
   return (
     <Container>
@@ -26,7 +30,7 @@ const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
         <div className="album-image-container">
           <div className="wrapper">
             {expandAlbum ? (
-              <button className="expand-image rotate" onClick={() => dispatch(toggleAlbum())}>
+              <button className="expand-image rotate" onClick={() => toggleExpandAlbum()}>
                 <Icons icon="arrow" />
               </button>
             ) : false}
@@ -43,10 +47,13 @@ const SidebarFooter = ({ expandAlbum, albumImage, dispatch }) => {
 }
 
 const mapStateToProps = state => ({
-  expandAlbum: state.spotify.player.expandAlbum,
-  albumImage: state.spotify.player.currentMusic.albumImage
+  expandAlbum: state.structure.expandAlbum,
+  albumImage: state.player.currentMusic.albumImage
 })
-export default connect(mapStateToProps)(SidebarFooter)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  toggleExpandAlbum
+}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarFooter)
 
 const Container = styled.div`
   position: relative;

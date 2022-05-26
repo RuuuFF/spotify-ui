@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react"
+
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
+import { toggleLiked } from "../store/playerSlice";
+import { toggleExpandAlbum } from "../store/structureSlice";
 
 import styled from "styled-components"
-
 import Icons from "./icons"
 import { grow, shake } from "../assets/styles/keyframes"
-import { toggleAlbum, toggleLiked } from "../store/spotifyReducer";
 
-const NowPlaying = ({ currentMusic, expandAlbum, toggleAlbum, toggleLiked }) => {
+const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum, toggleExpandAlbum }) => {
   const image = useRef(null)
   const [right, setRight] = useState(0)
   const [animation, setAnimation] = useState("")
@@ -32,7 +33,7 @@ const NowPlaying = ({ currentMusic, expandAlbum, toggleAlbum, toggleLiked }) => 
       }}>
         <div className="album-image-container" >
           {!expandAlbum ? (
-            <button className="expand-image" onClick={() => toggleAlbum()}>
+            <button className="expand-image" onClick={() => toggleExpandAlbum()}>
               <Icons icon="arrow" />
             </button>
           ) : false}
@@ -66,11 +67,11 @@ const NowPlaying = ({ currentMusic, expandAlbum, toggleAlbum, toggleLiked }) => 
 }
 
 const mapStateToProps = state => ({
-  expandAlbum: state.spotify.player.expandAlbum,
-  currentMusic: state.spotify.player.currentMusic
+  expandAlbum: state.structure.expandAlbum,
+  currentMusic: state.player.currentMusic
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
-  toggleAlbum,
+  toggleExpandAlbum,
   toggleLiked
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying)

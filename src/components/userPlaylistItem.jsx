@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { connect } from "react-redux"
-import { selectTab } from "../store/spotifyReducer"
+import { selectTab } from "../store/spotifySlice"
 
 const UserPlaylistItem = props => {
   const { label, activeTab, dispatch } = props

@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { selectTab, updateVolume, toggleMute } from "../store/spotifyReducer"
+import { selectTab } from "../store/spotifySlice"
+import { updateVolume, toggleMute } from "../store/playerSlice"
 
 import styled from "styled-components"
 
@@ -33,8 +34,8 @@ const RightPlayerControl = props => {
 }
 
 const mapStateToProps = state => ({
-  currentVolume: state.spotify.player.volume.currentVolume,
-  maxVolume: state.spotify.player.volume.maxVolume
+  currentVolume: state.player.volume.currentVolume,
+  maxVolume: state.player.volume.maxVolume
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   selectTab,
