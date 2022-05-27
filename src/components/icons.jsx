@@ -121,6 +121,16 @@ const Icons = props => {
       return <svg height="16" width="16" viewBox="0 0 16 16" fill="var(--white)"><path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path><path d="M11.5 13.614a5.752 5.752 0 000-11.228v1.55a4.252 4.252 0 010 8.127v1.55z"></path></svg>
     }
   }
+
+  if (icon === "green-play") {
+    return <Greenplay>
+      <svg role="img" height="24" width="24" viewBox="0 0 24 24" fill="var(--black)"><path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path></svg>
+    </Greenplay>
+  }
+
+  if (icon === "ottava") {
+    return <svg width="80" height="81" viewBox="0 0 80 81" xmlns="http://www.w3.org/2000/svg" fill="var(--gray2)"><title>Playlist Icon</title><path d="M25.6 11.565v45.38c-2.643-3.27-6.68-5.37-11.2-5.37-7.94 0-14.4 6.46-14.4 14.4s6.46 14.4 14.4 14.4 14.4-6.46 14.4-14.4v-51.82l48-10.205V47.2c-2.642-3.27-6.678-5.37-11.2-5.37-7.94 0-14.4 6.46-14.4 14.4s6.46 14.4 14.4 14.4S80 64.17 80 56.23V0L25.6 11.565zm-11.2 65.61c-6.176 0-11.2-5.025-11.2-11.2 0-6.177 5.024-11.2 11.2-11.2 6.176 0 11.2 5.023 11.2 11.2 0 6.174-5.026 11.2-11.2 11.2zm51.2-9.745c-6.176 0-11.2-5.024-11.2-11.2 0-6.174 5.024-11.2 11.2-11.2 6.176 0 11.2 5.026 11.2 11.2 0 6.178-5.026 11.2-11.2 11.2z"></path></svg>
+  }
 }
 
 export default Icons
@@ -147,4 +157,23 @@ const Playpause = styled.div`
   :active {
   transform: scale(0.94);
 }
+`
+
+const Greenplay = styled.div`
+  background-color: var(--green);
+  width: 4.8rem;
+  height: 4.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 8px 8px rgb(0, 0, 0, .3);
+
+  :hover {
+    transform: scale(1.04);
+  }
+  
+  :active {
+    transform: scale(1);
+  }
 `

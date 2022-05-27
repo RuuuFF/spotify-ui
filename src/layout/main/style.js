@@ -4,10 +4,11 @@ export const Container = styled.div`
   grid-column: 2;
   grid-row: 1;
   background-color: var(--black2);
-  overflow-y: scroll;
+  overflow-y: overlay;
 
   ::-webkit-scrollbar {
     width: 12px;
+    max-height: 50%;
   }
   
   ::-webkit-scrollbar-thumb {
@@ -24,17 +25,21 @@ export const Container = styled.div`
 `
 
 export const MainContent = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
   padding: 8.8rem 3.2rem 3.2rem;
 
   .main-section {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1.6rem;
 
     .main-section-header {
       display: flex;
       height: 4.2rem;
       align-items: center;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.8rem;
   
       .main-section-title {
         color: var(--white);
@@ -42,6 +47,36 @@ export const MainContent = styled.main`
         line-height: var(--lh-36);
         letter-spacing: -0.04em;
       }
+    }
+
+    .main-section-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem 2.4rem;
+    }
+  }
+
+  .first-section {
+    .first-section-header {
+      height: 3.3rem;
+
+      .first-section-title {
+        font-size: var(--fs-24);
+        line-height: var(--lh-28);
+        letter-spacing: -0.04em;
+        margin-top: 3px;
+  
+        &:hover > a {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .first-section-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 27.2rem;
+      gap: 2.4rem;
     }
   }
 `
