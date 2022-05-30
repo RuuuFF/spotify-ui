@@ -13,7 +13,7 @@ const INITIAL_STATE = {
     name: "Shut Up and Dance",
     durationInSeconds: 199,
     liked: false,
-    albumImage: "./images/image1.jpg",
+    albumImage: "./images/album-image.jpg",
   }
 }
 

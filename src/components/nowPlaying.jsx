@@ -31,7 +31,7 @@ const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum, toggleExpandAlbum 
         transform: `translateX(-${expandAlbum ? right : 0}px)`,
         transition: `transform 0.4s ${expandAlbum ? 'ease-out 0s' : 'ease-in .4s'}`
       }}>
-        <div className="album-image-container" >
+        <div className="album-image-container">
           {!expandAlbum ? (
             <button className="expand-image" onClick={() => toggleExpandAlbum()}>
               <Icons icon="arrow" />
@@ -131,14 +131,21 @@ const Container = styled.div`
       margin: 0 1.4rem;
       line-height: var(--lh-16);
       font-family: "Spotify Circular Book";
+      overflow: hidden;
       
       .music-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
         font-size: var(--fs-14);
+        overflow: hidden;
       }
       
       .music-artist {
-        font-size: var(--fs-11);
         color: var(--gray);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: var(--fs-11);
+        overflow: hidden;
       }
 
       & :is(.music-name, .music-artist):hover {

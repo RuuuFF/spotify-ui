@@ -1,8 +1,6 @@
 :root {
   font-size: 62.5%;
   
-  
-  
   --white: #fff;
   --white-op-01: rgba(255,255,255, 0.1);
   --white-op-02: rgba(255,255,255, 0.2);
@@ -26,6 +24,7 @@
   --fs-24: 2.4rem;
   --fs-16: 1.6rem;
   --fs-14: 1.4rem;
+  --fs-12: 1.2rem;
   --fs-11: 1.1rem;
 
   --lh-36: 3.6rem;
