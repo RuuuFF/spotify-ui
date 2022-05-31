@@ -2,7 +2,6 @@ import styled from "styled-components"
 import Icons from "./icons"
 
 const Card = props => {
-  console.log(props.image)
   return (
     <Container>
       <a href={props.path || "/"} onClick={event => event.preventDefault()}>

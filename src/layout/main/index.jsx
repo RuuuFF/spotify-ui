@@ -1,6 +1,11 @@
+import { useRef, useEffect, useCallback } from "react"
+import { connect } from "react-redux"
+import { toggleHeaderBg } from "../../store/structureSlice"
+
 import {
   Container,
-  MainContent
+  MainContent,
+  Background
 } from "./style"
 
 import MainHeader from "../../components/mainHeader"
@@ -8,54 +13,78 @@ import MainSection from "../../components/mainSection"
 import Section from "../../components/section"
 import CardWide from "../../components/cardWide"
 import Card from "../../components/card"
+import { bindActionCreators } from "@reduxjs/toolkit"
 
-const Main = props => (
-  <Container>
-    <MainHeader />
+const Main = ({ toggleHeaderBg }) => {
+  const container = useRef(null)
+  const header = useRef(null)
+  const mainSection = useRef(null)
 
-    <MainContent>
-      <MainSection>
-        <CardWide name="Daily Mix 1" />
-        <CardWide name="Daily Mix 2" />
-        <CardWide name="Liked Songs" image="./images/liked-songs.png" />
-        <CardWide name="My Playlist #1" />
-        <CardWide name="My Playlist #2" />
-        <CardWide name="My Playlist #3" />
-      </MainSection>
+  const scroll = useCallback(() => {
+    const headerBottom = header.current.getBoundingClientRect().bottom
+    const mainSectionTop = mainSection.current.getBoundingClientRect().top
+    toggleHeaderBg({ headerBottom, mainSectionTop })
+  }, [toggleHeaderBg])
 
-      <Section title="Shows you might like">
-        <Card name="Podcast 1" description="Podcast 1" />
-        <Card name="Podcast 2" description="Podcast 2" />
-        <Card name="Podcast 3" description="Podcast 3" />
-        <Card name="Podcast 4" description="Podcast 4" />
-        <Card name="Podcast 5" description="Podcast 5" />
-      </Section>
+  useEffect(() => {
+    container.current.addEventListener("scroll", scroll)
+    scroll()
+  }, [scroll])
 
-      <Section title="Made For ruuuff">
-        <Card name="Daily Mix 1" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
-        <Card name="Daily Mix 2" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
-        <Card name="Daily Mix 3" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
-        <Card name="Daily Mix 4" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
-        <Card name="Daily Mix 5" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
-      </Section>
+  return (
+    <Container ref={container}>
+      <MainHeader refference={header} />
 
-      <Section title="Recently played">
-        <Card name="My Playlist #1" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
-        <Card name="My Playlist #2" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
-        <Card name="My Playlist #3" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
-        <Card name="My Playlist #4" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
-        <Card name="My Playlist #5" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
-      </Section>
+      <MainContent>
+        <Background style={{
+          backgroundImage: "linear-gradient(to bottom, #248524, transparent)"
+        }} />
+        <MainSection refference={mainSection}>
+          <CardWide name="Daily Mix 1" />
+          <CardWide name="Daily Mix 2" />
+          <CardWide name="Liked Songs" image="./images/liked-songs.png" />
+          <CardWide name="My Playlist #1" />
+          <CardWide name="My Playlist #2" />
+          <CardWide name="My Playlist #3" />
+        </MainSection>
 
-      <Section title="Your favorite artists">
-        <Card name="Kygo" image="./images/kygo.jpg" player artist />
-        <Card name="WALK THE MOON" image="./images/walk-the-moon.jpg" player artist />
-        <Card name="Sandro Cavazza" image="./images/sandro-cavazza.jpg" player artist />
-        <Card name="James Blunt" image="./images/james-blunt.jpg" player artist />
-        <Card name="David Guetta" image="./images/david-guetta.jpg" player artist />
-      </Section>
-    </MainContent>
-  </Container>
-)
+        <Section title="Shows you might like">
+          <Card name="Podcast 1" description="Podcast 1" />
+          <Card name="Podcast 2" description="Podcast 2" />
+          <Card name="Podcast 3" description="Podcast 3" />
+          <Card name="Podcast 4" description="Podcast 4" />
+          <Card name="Podcast 5" description="Podcast 5" />
+        </Section>
 
-export default Main
+        <Section title="Made For ruuuff">
+          <Card name="Daily Mix 1" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
+          <Card name="Daily Mix 2" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
+          <Card name="Daily Mix 3" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
+          <Card name="Daily Mix 4" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
+          <Card name="Daily Mix 5" description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati, velit." player />
+        </Section>
+
+        <Section title="Recently played">
+          <Card name="My Playlist #1" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
+          <Card name="My Playlist #2" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
+          <Card name="My Playlist #3" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
+          <Card name="My Playlist #4" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
+          <Card name="My Playlist #5" description="Lorem ipsum, dolor sit amet consectetur adipisicing." player />
+        </Section>
+
+        <Section title="Your favorite artists">
+          <Card name="Kygo" image="./images/kygo.jpg" player artist />
+          <Card name="WALK THE MOON" image="./images/walk-the-moon.jpg" player artist />
+          <Card name="Sandro Cavazza" image="./images/sandro-cavazza.jpg" player artist />
+          <Card name="James Blunt" image="./images/james-blunt.jpg" player artist />
+          <Card name="David Guetta" image="./images/david-guetta.jpg" player artist />
+        </Section>
+      </MainContent>
+    </Container>
+  )
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  toggleHeaderBg
+}, dispatch)
+export default connect(null, mapDispatchToProps)(Main)

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import MenuItem from "./menuItem"
 
-const Menu = props => (
+const SidebarMenu = props => (
   <Container>
     <MenuItem path="/" label="Home" />
     <MenuItem path="/search" label="Search" />
@@ -9,7 +9,7 @@ const Menu = props => (
   </Container>
 )
 
-export default Menu
+export default SidebarMenu
 
 export const Container = styled.ul`
   display: flex;

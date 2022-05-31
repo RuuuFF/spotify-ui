@@ -15,10 +15,10 @@ const MainSection = props => {
 
   return (
     <SectionContainer>
-      <div className="main-section-header">
-        <h2 className="main-section-title">{getGreeting()}</h2>
+      <div className="header">
+        <h2 className="title">{getGreeting()}</h2>
       </div>
-      <div className="main-section-cards">
+      <div className="cards" ref={props.refference}>
         {props.children}
       </div>
     </SectionContainer>
@@ -32,21 +32,21 @@ const SectionContainer = styled.section`
   flex-direction: column;
   margin-bottom: 1.6rem;
 
-  .main-section-header {
+  .header {
     display: flex;
     height: 4.2rem;
     align-items: center;
     margin-bottom: 1.8rem;
   }
 
-  .main-section-title {
+  .title {
     color: var(--white);
     font-size: var(--fs-32);
     line-height: var(--lh-36);
     letter-spacing: -0.04em;
   }
 
-  .main-section-cards {
+  .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem 2.4rem;

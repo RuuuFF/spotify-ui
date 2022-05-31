@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
-  mainHeaderLeft: null,
   expandAlbum: false,
+  userDropdown: false,
+  header: {
+    left: null,
+    showBg: false,
+    background: "#172e17",
+  }
 }
 
 export const structureSlice = createSlice({
@@ -11,18 +16,29 @@ export const structureSlice = createSlice({
 
   reducers: {
     updateHeaderLeft: (state, action) => {
-      state.mainHeaderLeft = action.payload
+      state.header.left = action.payload
     },
 
     toggleExpandAlbum: state => {
       state.expandAlbum = !state.expandAlbum
     },
+
+    toggleUserDropdown: state => {
+      state.userDropdown = !state.userDropdown
+    },
+
+    toggleHeaderBg: (state, action) => {
+      const { headerBottom, mainSectionTop } = action.payload
+      state.header.showBg = mainSectionTop < headerBottom
+    }
   }
 })
 
 export const {
   updateHeaderLeft,
-  toggleExpandAlbum
+  toggleExpandAlbum,
+  toggleUserDropdown,
+  toggleHeaderBg
 } = structureSlice.actions
 
 export default structureSlice.reducer

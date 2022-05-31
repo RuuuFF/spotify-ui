@@ -4,7 +4,7 @@ import { newPlaylist } from "../store/spotifySlice"
 import styled from "styled-components"
 import MenuItem from "./menuItem"
 
-const SubMenu = props => {
+const SidebarSubMenu = props => {
   const dispatch = useDispatch()
   const createNewPlaylist = event => {
     event.preventDefault()
@@ -20,7 +20,7 @@ const SubMenu = props => {
   )
 }
 
-export default SubMenu
+export default SidebarSubMenu
 
 const Container = styled.ul`
   margin-top: 2.4rem;

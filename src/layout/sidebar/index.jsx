@@ -3,8 +3,8 @@ import { bindActionCreators } from "@reduxjs/toolkit"
 import { updateHeaderLeft } from "../../store/structureSlice"
 
 import Banner from "../../components/banner"
-import Menu from "../../components/menu"
-import SubMenu from "../../components/subMenu"
+import SidebarMenu from "../../components/sidebarMenu"
+import SidebarSubMenu from "../../components/sidebarSubMenu"
 import UserPlaylists from "../../components/userPlaylists"
 import SidebarFooter from "../../components/sidebarFooter"
 
@@ -28,8 +28,8 @@ const Sidebar = props => {
     <SidebarContainer ref={element}>
       <MainNav>
         <Banner />
-        <Menu />
-        <SubMenu />
+        <SidebarMenu />
+        <SidebarSubMenu />
 
         <HorizontalRule />
         <Shadow />

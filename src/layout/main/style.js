@@ -29,4 +29,17 @@ export const MainContent = styled.main`
   flex-direction: column;
   gap: 2.4rem;
   padding: 8.8rem 3.2rem 3.2rem;
+  position: relative;
+  z-index: 1;
+`
+
+export const Background = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 33.2rem;
+  opacity: 0.3;
+  z-index: -1;
+  transition: background-image 0.2s ease;
 `

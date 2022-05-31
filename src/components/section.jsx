@@ -49,7 +49,7 @@ const SectionContainer = styled.section`
       align-self: flex-end;
       justify-self: flex-end;
       display: inline-block;
-      padding: 4px 0;
+      padding: 3px 0;
       color: var(--gray);
       font-size: var(--fs-12);
       line-height: var(--lh-16);
