@@ -13,15 +13,15 @@ const RightPlayerControl = props => {
   return (
     <Container>
       <ControlButton
-        button="lyric"
+        icon="lyric"
         action={() => selectTab("Lyric")} />
       <ControlButton
-        button="queue"
+        icon="queue"
         action={() => selectTab("Queue")} />
-      <ControlButton button="device" />
+      <ControlButton icon="device" />
       <div>
         <ControlButton
-          button="volume"
+          icon="volume"
           volume={currentVolume}
           action={toggleMute} />
         <Range

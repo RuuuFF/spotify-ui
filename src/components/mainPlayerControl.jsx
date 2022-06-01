@@ -25,20 +25,20 @@ const MainPlayerControl = props => {
     <Container>
       <div className="player-controls">
         <div className="control left">
-          <ControlButton button="shuffle" />
+          <ControlButton icon="shuffle" />
           <ControlButton
-            button="prev-music"
+            icon="prev-music"
             action={prevMusic} />
         </div>
         <div className="main-control">
           <ControlButton
-            button="playpause"
+            icon="playpause"
             isPlaying={isPlaying}
             action={togglePlaying} />
         </div>
         <div className="control right">
-          <ControlButton button="next-music" />
-          <ControlButton button="repeat" />
+          <ControlButton icon="next-music" />
+          <ControlButton icon="repeat" />
         </div>
       </div>
 

@@ -5,6 +5,7 @@ export const Container = styled.div`
   grid-row: 1;
   background-color: var(--black2);
   overflow-y: overlay;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     width: 12px;
@@ -35,11 +36,10 @@ export const MainContent = styled.main`
 
 export const Background = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto 0;
   height: 33.2rem;
   opacity: 0.3;
+  background-image: linear-gradient(to top, var(--black2) 10%, transparent);
+  transition: background-color 0.8s ease;
   z-index: -1;
-  transition: background-image 0.2s ease;
 `

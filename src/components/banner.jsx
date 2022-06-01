@@ -17,6 +17,7 @@ const Container = styled.div`
   a {
     display: block;
     padding: 0 2.4rem;
+    color: var(--white);
 
     svg {
       width: 100%;

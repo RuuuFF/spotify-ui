@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback } from "react"
 import { connect } from "react-redux"
-import { toggleHeaderBg } from "../../store/structureSlice"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { scaleHeaderBgOpacity } from "../../store/structureSlice"
 
 import {
   Container,
@@ -10,12 +11,11 @@ import {
 
 import MainHeader from "../../components/mainHeader"
 import MainSection from "../../components/mainSection"
-import Section from "../../components/section"
 import CardWide from "../../components/cardWide"
+import Section from "../../components/section"
 import Card from "../../components/card"
-import { bindActionCreators } from "@reduxjs/toolkit"
 
-const Main = ({ toggleHeaderBg }) => {
+const Main = ({ mainBackground, scaleHeaderBgOpacity }) => {
   const container = useRef(null)
   const header = useRef(null)
   const mainSection = useRef(null)
@@ -23,8 +23,8 @@ const Main = ({ toggleHeaderBg }) => {
   const scroll = useCallback(() => {
     const headerBottom = header.current.getBoundingClientRect().bottom
     const mainSectionTop = mainSection.current.getBoundingClientRect().top
-    toggleHeaderBg({ headerBottom, mainSectionTop })
-  }, [toggleHeaderBg])
+    scaleHeaderBgOpacity({ headerBottom, mainSectionTop })
+  }, [scaleHeaderBgOpacity])
 
   useEffect(() => {
     container.current.addEventListener("scroll", scroll)
@@ -36,9 +36,8 @@ const Main = ({ toggleHeaderBg }) => {
       <MainHeader refference={header} />
 
       <MainContent>
-        <Background style={{
-          backgroundImage: "linear-gradient(to bottom, #248524, transparent)"
-        }} />
+        <Background style={{ backgroundColor: mainBackground }} />
+
         <MainSection refference={mainSection}>
           <CardWide name="Daily Mix 1" />
           <CardWide name="Daily Mix 2" />
@@ -84,7 +83,6 @@ const Main = ({ toggleHeaderBg }) => {
   )
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  toggleHeaderBg
-}, dispatch)
-export default connect(null, mapDispatchToProps)(Main)
+const mapStateToProps = state => ({ mainBackground: state.structure.mainBackground })
+const mapDispatchToProps = dispatch => bindActionCreators({ scaleHeaderBgOpacity }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

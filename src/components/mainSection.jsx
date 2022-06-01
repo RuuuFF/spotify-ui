@@ -1,3 +1,7 @@
+import { connect } from "react-redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { setDefaultBackground } from "../store/structureSlice"
+
 import styled from "styled-components"
 
 const MainSection = props => {
@@ -18,14 +22,18 @@ const MainSection = props => {
       <div className="header">
         <h2 className="title">{getGreeting()}</h2>
       </div>
-      <div className="cards" ref={props.refference}>
+      <div
+        className="cards"
+        ref={props.refference}
+        onMouseLeave={() => props.setDefaultBackground()}>
         {props.children}
       </div>
     </SectionContainer>
   )
 }
 
-export default MainSection
+const mapDispatchToProps = dispatch => bindActionCreators({ setDefaultBackground }, dispatch)
+export default connect(null, mapDispatchToProps)(MainSection)
 
 const SectionContainer = styled.section`
   display: flex;

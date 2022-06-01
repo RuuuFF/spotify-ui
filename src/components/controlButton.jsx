@@ -3,20 +3,20 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 import Icons from "./icons";
 
-const ControlButton = ({ button, action, isPlaying = false, volume, activeTab }) => {
-  const active = button === activeTab.toLowerCase()
+const ControlButton = ({ icon, action, isPlaying = false, volume, activeTab }) => {
+  const active = icon === activeTab.toLowerCase()
   const myAction = action ? () => action() : event => event.preventDefault()
 
   return (
     <Button
       onClick={myAction}
-      mainControl={button === "playpause"}
+      mainControl={icon === "playpause"}
       className={active ? "active" : ""}>
       <Icons
-        icon={button}
+        icon={icon}
         active={active}
-        playing={button === "playpause" ? isPlaying : false}
-        volume={button === "volume" ? volume : false} />
+        playing={icon === "playpause" ? isPlaying : false}
+        volume={icon === "volume" ? volume : false} />
     </Button>
   )
 }
@@ -28,6 +28,7 @@ const Button = styled.button`
   position: relative;
   width: 3.2rem;
   height: 3.2rem;
+  color: var(--white);
   opacity: ${props => props.mainControl ? '1' : '0.7'};
 
   :hover {
@@ -40,6 +41,7 @@ const Button = styled.button`
   }
 
   &.active {
+    color: var(--green);
     opacity: 1;
   }
 
@@ -51,7 +53,7 @@ const Button = styled.button`
     transform: translate(-50%, -50%);
     width: 4px;
     height: 4px;
-    background: var(--green);
+    background: currentColor;
     border-radius: 2px;
   }
 `

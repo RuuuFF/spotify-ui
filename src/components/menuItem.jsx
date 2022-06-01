@@ -5,7 +5,7 @@ import styled from "styled-components"
 import Icons from "./icons"
 
 const MenuItem = props => {
-  const { label, path, action, bg, activeTab, dispatch } = props
+  const { label, path, action, bg, icon, activeTab, dispatch } = props
   const active = label === activeTab
 
   const handleClick = action ? (event, label) => action(event, label) : event => {
@@ -21,7 +21,7 @@ const MenuItem = props => {
   return (
     <li>
       <Link className={classes} href={path} onClick={handleClick}>
-        <Icons icon={label} active={active} bg={bg} />
+        <Icons icon={icon} active={active} bg={bg} />
         <span>{label}</span>
       </Link>
     </li>
@@ -49,11 +49,9 @@ const Link = styled.a`
     padding: 0 2.4rem;
   }
 
-  &.margin {
-    > svg {
-      padding-right: 0.4rem;
-      margin-left: 0.7rem;
-    }
+  &.margin > svg {
+    padding-right: 0.4rem;
+    margin-left: 0.7rem;
   }
 
   &:is(.active, :hover) {

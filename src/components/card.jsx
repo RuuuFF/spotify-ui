@@ -10,9 +10,9 @@ const Card = props => {
             {props.image && props.player ? (
               <>
                 <img className="image" src={props.image} alt={props.name} />
-                <div className="btn-container">
-                  <button className="btn">
-                    <Icons icon="green-play" />
+                <div className="playlist-btn-container">
+                  <button className="playlist-btn">
+                    <Icons icon="playlist" />
                   </button>
                 </div>
               </>
@@ -21,9 +21,9 @@ const Card = props => {
                 <div className="default-image">
                   <Icons icon="ottava" />
                 </div>
-                <div className="btn-container">
-                  <button className="btn">
-                    <Icons icon="green-play" />
+                <div className="playlist-btn-container">
+                  <button className="playlist-btn">
+                    <Icons icon="playlist" />
                   </button>
                 </div>
               </>
@@ -90,6 +90,7 @@ const Container = styled.article`
     justify-content: center;
     border-radius: 4px;
     overflow: hidden;
+    color: var(--gray2);
     background-color: var(--gray3);
 
     &.artist {
@@ -98,14 +99,15 @@ const Container = styled.article`
     }
   }
 
-  .btn-container {
+  .playlist-btn-container {
     position: absolute;
     bottom: 0.8rem;
     right: 0.8rem;
   }
     
-  .btn {
+  .playlist-btn {
     transform: translateY(8px);
+    color: var(--black);
     opacity: 0;
     cursor: pointer;
     transition: 0.3s ease;
@@ -136,7 +138,7 @@ const Container = styled.article`
   &:hover {
     background-color: var(--gray3);
 
-    .btn {
+    .playlist-btn {
       opacity: 1;
       transform: translateY(0);
     }

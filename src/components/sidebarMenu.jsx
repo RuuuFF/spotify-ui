@@ -3,9 +3,9 @@ import MenuItem from "./menuItem"
 
 const SidebarMenu = props => (
   <Container>
-    <MenuItem path="/" label="Home" />
-    <MenuItem path="/search" label="Search" />
-    <MenuItem path="/library" label="Your Library" />
+    <MenuItem path="/" label="Home" icon="home" />
+    <MenuItem path="/search" label="Search" icon="search" />
+    <MenuItem path="/library" label="Your Library" icon="library" />
   </Container>
 )
 

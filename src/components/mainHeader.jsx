@@ -5,13 +5,14 @@ import Icons from "./icons"
 import UserButtonDropdown from "./userButtonDropdown"
 
 const MainHeader = ({ header, refference }) => {
-  const headerStyles = {
-    left: `${header.left}px`,
-    background: header.showBg ? header.background : "transparent",
+  const backgroundStyles = {
+    background: header.background,
+    opacity: header.opacity
   }
 
   return (
-    <Header ref={refference} style={headerStyles}>
+    <Header ref={refference} style={{ left: `${header.left}px` }}>
+      <div className="background" style={backgroundStyles}></div>
       <div className="nav-btn-container">
         <button className="btn left" disabled>
           <Icons icon="arrow-large" />
@@ -20,7 +21,6 @@ const MainHeader = ({ header, refference }) => {
           <Icons icon="arrow-large" />
         </button>
       </div>
-
       <UserButtonDropdown />
     </Header>
   )
@@ -39,6 +39,11 @@ const Header = styled.header`
   transition: background-color 0.2s linear;
   z-index: 10;
 
+  .background {
+    position: absolute;
+    inset: 0;
+  }
+
   .nav-btn-container {
     display: flex;
     gap: 1.6rem;
@@ -49,6 +54,7 @@ const Header = styled.header`
       justify-content: center;
       width: 3.2rem;
       height: 3.2rem;
+      color: var(--white);
       background-color: var(--black-op-07);
       border-radius: 50%;
 

@@ -24,7 +24,7 @@ const SidebarFooter = ({ expandAlbum, albumImage, toggleExpandAlbum }) => {
         transition: `transform 0.4s ${expandAlbum ? 'ease-in .4s' : 'ease-out 0s'}`
       }}>
         <ul>
-          <MenuItem path="/install" label="Install App" margin />
+          <MenuItem path="/install" label="Install App" icon="download" margin />
         </ul>
 
         <div className="album-image-container">
@@ -82,6 +82,7 @@ const Container = styled.div`
         width: 2.4rem;
         border-radius: 50%;
         background-color: rgba(0, 0, 0, .7);
+        color: var(--white);
         opacity: 0;
         z-index: 21;
 

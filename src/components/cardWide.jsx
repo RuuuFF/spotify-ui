@@ -1,10 +1,17 @@
+import { connect } from "react-redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { getRandomBackground } from "../store/structureSlice"
+
 import styled from "styled-components"
 import Icons from "./icons"
 
 const CardWide = props => {
   return (
     <Container>
-      <a href={props.path || "/"} onClick={event => event.preventDefault()}>
+      <a
+        href={props.path || "/"}
+        onClick={event => event.preventDefault()}
+        onMouseEnter={() => props.getRandomBackground()}>
         <div className="image-container">
           {props.image ? (
             <img className="image" src={props.image} alt={props.name} />
@@ -17,9 +24,9 @@ const CardWide = props => {
         <div className="info-container">
           <p className="name">{props.name}</p>
         </div>
-        <div className="btn-container">
-          <button className="btn">
-            <Icons icon="green-play" />
+        <div className="playlist-btn-container">
+          <button className="playlist-btn">
+            <Icons icon="playlist" />
           </button>
         </div>
       </a>
@@ -27,7 +34,8 @@ const CardWide = props => {
   )
 }
 
-export default CardWide
+const mapDispatchToProps = dispatch => bindActionCreators({ getRandomBackground, }, dispatch)
+export default connect(null, mapDispatchToProps)(CardWide)
 
 const Container = styled.article`
   background-color: var(--white-op-01);
@@ -58,6 +66,7 @@ const Container = styled.article`
       justify-content: center;
       width: 100%;
       height: 100%;
+      color: var(--gray2);
       background-color: var(--gray3);
 
       > svg {
@@ -77,7 +86,7 @@ const Container = styled.article`
     margin-bottom: -3px;
   }
 
-  .btn {
+  .playlist-btn {
     transition: opacity .3s ease;
     opacity: 0;
     cursor: pointer;
@@ -86,7 +95,7 @@ const Container = styled.article`
   :hover {
     background-color: var(--white-op-02);
 
-    .btn {
+    .playlist-btn {
       opacity: 1;
     }
   }
