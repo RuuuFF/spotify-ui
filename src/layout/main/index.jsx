@@ -15,7 +15,7 @@ import CardWide from "../../components/cardWide"
 import Section from "../../components/section"
 import Card from "../../components/card"
 
-const Main = ({ mainBackground, scaleHeaderBgOpacity }) => {
+const Main = ({ headerBackground, scaleHeaderBgOpacity }) => {
   const container = useRef(null)
   const header = useRef(null)
   const mainSection = useRef(null)
@@ -34,10 +34,9 @@ const Main = ({ mainBackground, scaleHeaderBgOpacity }) => {
   return (
     <Container ref={container}>
       <MainHeader refference={header} />
+      <Background style={{ backgroundColor: headerBackground }} />
 
       <MainContent>
-        <Background style={{ backgroundColor: mainBackground }} />
-
         <MainSection refference={mainSection}>
           <CardWide name="Daily Mix 1" />
           <CardWide name="Daily Mix 2" />
@@ -83,6 +82,6 @@ const Main = ({ mainBackground, scaleHeaderBgOpacity }) => {
   )
 }
 
-const mapStateToProps = state => ({ mainBackground: state.structure.mainBackground })
+const mapStateToProps = state => ({ headerBackground: state.structure.header.background })
 const mapDispatchToProps = dispatch => bindActionCreators({ scaleHeaderBgOpacity }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

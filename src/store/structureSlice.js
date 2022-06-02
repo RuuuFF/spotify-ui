@@ -3,11 +3,10 @@ import { createSlice } from "@reduxjs/toolkit"
 const INITIAL_STATE = {
   expandAlbum: false,
   userDropdown: false,
-  mainBackground: "#248524",
   header: {
     left: null,
     opacity: 0,
-    background: "#172e17",
+    background: "#248524",
   }
 }
 
@@ -46,18 +45,18 @@ export const structureSlice = createSlice({
     },
 
     getRandomBackground: state => {
-      const colors = ["green", "blue", "yellow", "orange", "white"]
+      const colors = ["olive", "dodgerblue", "slategray", "indigo", "lavender"]
       let random = Math.floor(Math.random() * colors.length)
 
-      while (state.mainBackground === colors[random]) {
+      while (state.header.background === colors[random]) {
         random = Math.floor(Math.random() * colors.length)
       }
 
-      state.mainBackground = colors[random]
+      state.header.background = colors[random]
     },
 
     setDefaultBackground: state => {
-      state.mainBackground = "#248524"
+      state.header.background = "#248524"
     }
   }
 })

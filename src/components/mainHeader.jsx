@@ -42,6 +42,16 @@ const Header = styled.header`
   .background {
     position: absolute;
     inset: 0;
+    transition: background-color 0.8s ease;
+    z-index: -2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(hsl(0deg 0% 8% / .75), hsl(0deg 0% 8% / .75));
+      z-index: -1;
+    }
   }
 
   .nav-btn-container {
