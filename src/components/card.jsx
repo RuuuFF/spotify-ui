@@ -6,27 +6,24 @@ const Card = props => {
     <Container>
       <a href={props.path || "/"} onClick={event => event.preventDefault()}>
         <div className="image-container">
-          <div className={`image ${props.artist ? "artist" : ""}`}>
-            {props.image && props.player ? (
+          <div className={props.artist ? "artist" : ""}>
+            {props.player ? (
               <>
-                <img className="image" src={props.image} alt={props.name} />
+                {props.image ? (
+                  <img className="image" src={props.image} alt={props.name} />
+                ) : (
+                  <div className="default-image">
+                    <Icons icon="ottava" />
+                  </div>
+                )}
                 <div className="playlist-btn-container">
                   <button className="playlist-btn">
                     <Icons icon="playlist" />
                   </button>
                 </div>
               </>
-            ) : props.player ? (
-              <>
-                <div className="default-image">
-                  <Icons icon="ottava" />
-                </div>
-                <div className="playlist-btn-container">
-                  <button className="playlist-btn">
-                    <Icons icon="playlist" />
-                  </button>
-                </div>
-              </>
+            ) : props.image ? (
+              <img className="image" src={props.image} alt={props.name} />
             ) : (
               <div className="default-image">
                 <Icons icon="ottava" />

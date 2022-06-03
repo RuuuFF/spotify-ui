@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { getRandomBackground } from "../store/structureSlice"
+import { getRandomBackground, setDefaultBackground } from "../store/structureSlice"
 
 import styled from "styled-components"
 import Icons from "./icons"
@@ -11,7 +11,8 @@ const CardWide = props => {
       <a
         href={props.path || "/"}
         onClick={event => event.preventDefault()}
-        onMouseEnter={() => props.getRandomBackground()}>
+        onMouseEnter={() => props.getRandomBackground()}
+        onMouseLeave={() => props.setDefaultBackground()}>
         <div className="image-container">
           {props.image ? (
             <img className="image" src={props.image} alt={props.name} />
@@ -34,7 +35,10 @@ const CardWide = props => {
   )
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getRandomBackground, }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getRandomBackground,
+  setDefaultBackground
+}, dispatch)
 export default connect(null, mapDispatchToProps)(CardWide)
 
 const Container = styled.article`

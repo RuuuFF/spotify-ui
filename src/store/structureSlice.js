@@ -6,7 +6,9 @@ const INITIAL_STATE = {
   header: {
     left: null,
     opacity: 0,
+    triggerValue: null,
     background: "#248524",
+    prevBackground: null
   }
 }
 
@@ -29,7 +31,10 @@ export const structureSlice = createSlice({
 
     scaleHeaderBgOpacity: (state, action) => {
       const { headerBottom, mainSectionTop } = action.payload
-      const range = mainSectionTop - headerBottom
+
+      if (!state.header.triggerValue) {
+        state.header.triggerValue = mainSectionTop
+      }
 
       function scale(num, in_min, in_max, out_min, out_max) {
         const percentage = (num - in_min) / (in_max - in_min)
@@ -41,18 +46,20 @@ export const structureSlice = createSlice({
         return value
       }
 
-      state.header.opacity = scale(headerBottom, range, mainSectionTop, 0, 1)
+      const range = -(mainSectionTop) + state.header.triggerValue + headerBottom
+      state.header.opacity = scale(range, headerBottom, state.header.triggerValue, 0, 1)
     },
 
     getRandomBackground: state => {
       const colors = ["olive", "dodgerblue", "slategray", "indigo", "lavender"]
       let random = Math.floor(Math.random() * colors.length)
 
-      while (state.header.background === colors[random]) {
+      while (state.header.prevBackground === colors[random]) {
         random = Math.floor(Math.random() * colors.length)
       }
 
       state.header.background = colors[random]
+      state.header.prevBackground = colors[random]
     },
 
     setDefaultBackground: state => {
