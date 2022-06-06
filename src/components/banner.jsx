@@ -1,11 +1,13 @@
 import styled from "styled-components"
 import Icon from "./icons"
 
+import { Link } from "react-router-dom"
+
 const Banner = props => (
   <Container>
-    <a href="/" onClick={event => event.preventDefault()}>
+    <Link to="/">
       <Icon icon="logo" />
-    </a>
+    </Link>
   </Container>
 )
 

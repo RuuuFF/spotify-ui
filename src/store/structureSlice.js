@@ -30,10 +30,10 @@ export const structureSlice = createSlice({
     },
 
     scaleHeaderBgOpacity: (state, action) => {
-      const { headerBottom, mainSectionTop } = action.payload
+      const { headerBottom, triggerElementTop } = action.payload
 
       if (!state.header.triggerValue) {
-        state.header.triggerValue = mainSectionTop
+        state.header.triggerValue = triggerElementTop
       }
 
       function scale(num, in_min, in_max, out_min, out_max) {
@@ -46,7 +46,7 @@ export const structureSlice = createSlice({
         return value
       }
 
-      const range = -(mainSectionTop) + state.header.triggerValue + headerBottom
+      const range = -(triggerElementTop) + state.header.triggerValue + headerBottom
       state.header.opacity = scale(range, headerBottom, state.header.triggerValue, 0, 1)
     },
 

@@ -18,9 +18,7 @@ const MainSection = props => {
       <div className="header">
         <h2 className="title">{getGreeting()}</h2>
       </div>
-      <div
-        className="cards"
-        ref={props.refference}>
+      <div className="cards" ref={props.refference}>
         {props.children}
       </div>
     </SectionContainer>

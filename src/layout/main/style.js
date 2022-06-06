@@ -26,23 +26,3 @@ export const Container = styled.div`
     margin-top: 64px;
   }
 `
-
-export const Background = styled.div`
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 33.2rem;
-  opacity: 0.3;
-  background-image: linear-gradient(to top, var(--black2) 10%, transparent);
-  transition: background-color 0.8s ease;
-  z-index: -1;
-`
-
-export const MainContent = styled.main`
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-  padding: 8.8rem 3.2rem 3.2rem;
-  position: relative;
-  max-width: 195.5rem;
-  z-index: 1;
-`

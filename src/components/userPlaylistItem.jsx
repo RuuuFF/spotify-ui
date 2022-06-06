@@ -1,51 +1,51 @@
-import styled from "styled-components"
 import { connect } from "react-redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
 import { selectTab } from "../store/spotifySlice"
 
-const UserPlaylistItem = props => {
-  const { label, activeTab, dispatch } = props
-  const active = activeTab === label
+import styled from "styled-components"
+import { Link } from "react-router-dom"
 
-  function handleLink(event) {
-    event.preventDefault()
-    dispatch(selectTab(label))
-  }
-
-  return (
-    <li>
-      <Link href="/" onClick={handleLink} className={active ? 'active' : ''}>
-        <div>
-          {label}
-        </div>
-      </Link>
-    </li>
-  )
-}
+const UserPlaylistItem = ({ playlist, activeTab, selectTab }) => (
+  <Li>
+    <Link
+      to={`/playlist/${playlist.id}`}
+      onClick={() => selectTab(playlist.name)}
+      className={activeTab === playlist.name ? 'active' : ''}>
+      <div>
+        {playlist.name}
+      </div>
+    </Link>
+  </Li>
+)
 
 const mapStateToProps = state => ({ activeTab: state.spotify.tabs.activeTab })
-export default connect(mapStateToProps)(UserPlaylistItem)
+const mapDispatchToProps = dispatch => bindActionCreators({ selectTab }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylistItem)
 
-const Link = styled.a`
-  height: 3.2rem;
-  line-height: var(--lh-32);
-  font-size: var(--fs-14);
-  font-family: "Spotify Circular Book", sans-serif;
-  display: block;
-  width: 100%;
-  height: 100%;
-  opacity: 0.64;
-  position: relative;
-  cursor: default;
+const Li = styled.li`
+  a {
+    height: 3.2rem;
+    line-height: var(--lh-32);
+    font-size: var(--fs-14);
+    font-family: "Spotify Circular Book", sans-serif;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.64;
+    position: relative;
+    cursor: default;
 
-  > div {
+  }
+
+  a > div {
     padding: 0 2.4rem;
   }
 
-  :is(:hover, .active) {
+  a:is(:hover, .active) {
     opacity: 1;
   }
 
-  ::before {
+  a::before {
     position: absolute;
     content: '';
     top: 0;

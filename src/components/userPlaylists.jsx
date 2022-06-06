@@ -5,7 +5,9 @@ import UserPlaylistItem from "./userPlaylistItem"
 
 const UserPlaylists = ({ playlists = [] }) => (
   <Container>
-    {playlists.map((name, index) => <UserPlaylistItem key={index} label={name} />)}
+    {playlists.map(playlist => <UserPlaylistItem
+      key={playlist.id}
+      playlist={playlist} />)}
   </Container>
 )
 

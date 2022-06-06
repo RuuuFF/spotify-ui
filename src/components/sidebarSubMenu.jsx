@@ -5,23 +5,24 @@ import { newPlaylist } from "../store/spotifySlice"
 import styled from "styled-components"
 import MenuItem from "./menuItem"
 
-const SidebarSubMenu = ({ newPlaylist }) => {
-  const createNewPlaylist = event => {
-    event.preventDefault()
-    newPlaylist()
-  }
-
+const SidebarSubMenu = ({ newPlaylist, playlists }) => {
   return (
     <Container>
-      <MenuItem path="/create-playlist" label="Create Playlist" bg="var(--white)"
-        action={createNewPlaylist} icon="create-playlist" padding />
+      <MenuItem
+        path={`/playlist/${playlists.length + 1}`}
+        action={() => newPlaylist()}
+        label="Create Playlist"
+        icon="create-playlist"
+        bg="var(--white)"
+        padding />
       <MenuItem path="/liked-songs" label="Liked Songs" icon="heart-bg" padding />
     </Container>
   )
 }
 
+const mapStateToProps = state => ({ playlists: state.spotify.playlists })
 const mapDispatchToProps = dispatch => bindActionCreators({ newPlaylist }, dispatch)
-export default connect(null, mapDispatchToProps)(SidebarSubMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarSubMenu)
 
 const Container = styled.ul`
   margin-top: 2.4rem;

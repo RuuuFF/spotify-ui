@@ -17,9 +17,13 @@ export const spotifySlice = createSlice({
     },
 
     newPlaylist: state => {
-      const name = `My Playlist #${state.playlists.length + 1}`
-      state.playlists = [name, ...state.playlists]
-      state.tabs.activeTab = name
+      const playlist = {
+        id: state.playlists.length + 1,
+        name: `My Playlist #${state.playlists.length + 1}`
+      }
+
+      state.tabs.activeTab = playlist.name
+      state.playlists = [playlist, ...state.playlists]
     }
   }
 })

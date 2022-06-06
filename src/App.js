@@ -4,12 +4,16 @@ import Sidebar from "./layout/sidebar";
 import Main from "./layout/main";
 import Footer from "./layout/footer";
 
+import { BrowserRouter } from "react-router-dom";
+
 const App = props => (
-  <Container>
-    <Sidebar />
-    <Main />
-    <Footer />
-  </Container>
+  <BrowserRouter>
+    <Container>
+      <Sidebar />
+      <Main />
+      <Footer />
+    </Container>
+  </BrowserRouter>
 );
 
 export default App;
