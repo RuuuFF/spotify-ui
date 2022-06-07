@@ -141,6 +141,22 @@ const Icons = props => {
   if (icon === "triangle") {
     return <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M14 6l-6 6-6-6h12z"></path></svg>
   }
+
+  if (icon === "ellipsis") {
+    return <svg role="img" height="32" width="32" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 13.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm15 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm-7.5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+  }
+
+  if (icon === "search-mini") {
+    return <svg role="img" height="16" width="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5zM.25 7a6.75 6.75 0 1112.096 4.12l3.184 3.185a.75.75 0 11-1.06 1.06L11.304 12.2A6.75 6.75 0 01.25 7z"></path></svg>
+  }
+
+  if (icon === "xmark-mini") {
+    return <svg role="img" height="16" width="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1.47 1.47a.75.75 0 011.06 0L8 6.94l5.47-5.47a.75.75 0 111.06 1.06L9.06 8l5.47 5.47a.75.75 0 11-1.06 1.06L8 9.06l-5.47 5.47a.75.75 0 01-1.06-1.06L6.94 8 1.47 2.53a.75.75 0 010-1.06z"></path></svg>
+  }
+
+  if (icon === "xmark-large") {
+    return <svg role="img" height="24" width="24" fill="currentColor" viewBox="0 0 24 24"><path d="M3.293 3.293a1 1 0 011.414 0L12 10.586l7.293-7.293a1 1 0 111.414 1.414L13.414 12l7.293 7.293a1 1 0 01-1.414 1.414L12 13.414l-7.293 7.293a1 1 0 01-1.414-1.414L10.586 12 3.293 4.707a1 1 0 010-1.414z"></path></svg>
+  }
 }
 
 export default Icons

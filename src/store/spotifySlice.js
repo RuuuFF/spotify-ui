@@ -19,11 +19,12 @@ export const spotifySlice = createSlice({
     newPlaylist: state => {
       const playlist = {
         id: state.playlists.length + 1,
-        name: `My Playlist #${state.playlists.length + 1}`
+        name: `My Playlist #${state.playlists.length + 1}`,
+        imageUrl: "",
       }
 
       state.tabs.activeTab = playlist.name
-      state.playlists = [playlist, ...state.playlists]
+      state.playlists.unshift(playlist)
     }
   }
 })

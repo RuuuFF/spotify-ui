@@ -23,11 +23,11 @@ export const HorizontalRule = styled.hr`
   height: 1px;
   border: none;
   background-color: #282828;
-  z-index: 11;
+  z-index: 3;
 `
 
 export const Shadow = styled.div`
   position: relative;
   box-shadow: -40px 0px 10px 10px rgb(0 0 0 / 60%);
-  z-index: 10;
+  z-index: 2;
 `

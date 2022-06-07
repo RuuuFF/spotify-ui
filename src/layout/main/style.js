@@ -7,7 +7,7 @@ export const Container = styled.div`
   background-color: var(--black2);
   overflow-y: overlay;
   overflow-x: hidden;
-  z-index: 1;
+  z-index: 14;
 
   ::-webkit-scrollbar {
     width: 12px;

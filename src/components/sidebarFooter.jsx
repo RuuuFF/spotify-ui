@@ -58,7 +58,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SidebarFooter)
 const Container = styled.div`
   position: relative;
   padding: 0 0.8px;
-  z-index: 20;
+  z-index: 4;
 
   > div {
     background-color: var(--sidebar-nav-bg);
@@ -68,11 +68,10 @@ const Container = styled.div`
     position: absolute;
     top: 100%;
 
-    .wrapper { 
+    .wrapper {
       position: relative;
       width: 100%;
       height: 100%;
-      z-index: 20;
       
       .expand-image {
         position: absolute;
@@ -84,38 +83,32 @@ const Container = styled.div`
         background-color: rgba(0, 0, 0, .7);
         color: var(--white);
         opacity: 0;
-        z-index: 21;
 
         &.rotate {
           transform: rotate(180deg);
-
-          :hover {
-            transform: scale(1.1) rotate(180deg);
-          }
         }
     
-        > svg {
+        & > svg {
           opacity: 0.7;
         }
     
         &:hover {
           background-color: rgba(0, 0, 0, .8);
-          transform: scale(1.1);
+          transform: scale(1.1) rotate(180deg);
     
-          > svg {
+          & > svg {
             opacity: 1;
           }
         }
       }
     
-      :hover .expand-image {
+      &:hover .expand-image {
         opacity: 1;
       }
     }
 
     .album-image {
       width: 100%;
-      position: relative;
       object-fit: contain;
     }
   }

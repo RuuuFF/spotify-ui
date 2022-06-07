@@ -4,6 +4,8 @@
   --white: #fff;
   --white-op-01: rgba(255,255,255, 0.1);
   --white-op-02: rgba(255,255,255, 0.2);
+  --white-op-06: rgba(255,255,255, 0.6);
+  --white-op-07: rgba(255,255,255, 0.7);
   --white-op-09: rgba(255,255,255, 0.9);
 
   --black: #000;
