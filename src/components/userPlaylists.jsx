@@ -19,15 +19,15 @@ const Container = styled.ul`
   flex: 1;
   overflow-x: auto;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 12px;
   }
   
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
   }
   
-  ::-webkit-scrollbar-thumb:hover {
+  &::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
   }
 `

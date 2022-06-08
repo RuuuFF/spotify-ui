@@ -21,17 +21,27 @@ export const spotifySlice = createSlice({
         id: state.playlists.length + 1,
         name: `My Playlist #${state.playlists.length + 1}`,
         imageUrl: "",
+        description: "",
       }
 
       state.tabs.activeTab = playlist.name
       state.playlists.unshift(playlist)
+    },
+
+    updatePlaylistItem: (state, action) => {
+      const { newPlaylist, index } = action.payload
+      const prevPlaylist = state.playlists[index]
+
+      state.tabs.activeTab = newPlaylist.name
+      state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
     }
   }
 })
 
 export const {
   selectTab,
-  newPlaylist
+  newPlaylist,
+  updatePlaylistItem
 } = spotifySlice.actions
 
 export default spotifySlice.reducer

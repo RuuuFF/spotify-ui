@@ -67,49 +67,49 @@ const Container = styled.div`
   .album-image-container {
     position: absolute;
     top: 100%;
+  }
 
-    .wrapper {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      
-      .expand-image {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        height: 2.4rem;
-        width: 2.4rem;
-        border-radius: 50%;
-        background-color: rgba(0, 0, 0, .7);
-        color: var(--white);
-        opacity: 0;
-
-        &.rotate {
-          transform: rotate(180deg);
-        }
+  .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
     
+    .expand-image {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      height: 2.4rem;
+      width: 2.4rem;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, .7);
+      color: var(--white);
+      opacity: 0;
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
+  
+      & > svg {
+        opacity: 0.7;
+      }
+  
+      &:hover {
+        background-color: rgba(0, 0, 0, .8);
+        transform: scale(1.1) rotate(180deg);
+  
         & > svg {
-          opacity: 0.7;
+          opacity: 1;
         }
-    
-        &:hover {
-          background-color: rgba(0, 0, 0, .8);
-          transform: scale(1.1) rotate(180deg);
-    
-          & > svg {
-            opacity: 1;
-          }
-        }
-      }
-    
-      &:hover .expand-image {
-        opacity: 1;
       }
     }
+  
+    &:hover .expand-image {
+      opacity: 1;
+    }
+  }
 
-    .album-image {
-      width: 100%;
-      object-fit: contain;
-    }
+  .album-image {
+    width: 100%;
+    object-fit: contain;
   }
 `

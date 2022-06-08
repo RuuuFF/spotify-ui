@@ -1,16 +1,46 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { updatePlaylistItem } from "../../../store/spotifySlice"
+
 import styled from "styled-components"
 import Icons from "../../../components/icons"
 
-const Playlist = ({ playlist }) => {
-  const [value, setValue] = useState("")
-  const inputRef = useRef(null)
+const Playlist = ({ playlist, updatePlaylistItem }) => {
+  const [showModal, setShowModal] = useState(false)
+  const [name, setName] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [description, setDescription] = useState("")
+  const [search, setSearch] = useState("")
+
+  const nameRef = useRef(null)
+  const imageRef = useRef(null)
+  const searchRef = useRef(null)
+
+  function savePlaylist() {
+    toggleModal()
+    updatePlaylistItem({
+      newPlaylist: { name, imageUrl, description },
+      index: playlist.index
+    })
+  }
+
+  function toggleModal(element) {
+    setShowModal(!showModal)
+    if (element) setTimeout(() => element.select(), 10)
+  }
+
+  useEffect(() => {
+    setName(playlist.name || "")
+    setImageUrl(playlist.imageUrl || "")
+    setDescription(playlist.description || "")
+  }, [playlist, showModal])
 
   return (
     <>
       <Container>
         <Header>
-          <div className="image-container">
+          <div className="image-container" onClick={() => toggleModal(imageRef.current)}>
             {playlist.imageUrl ? (
               <img src={playlist.imageUrl} alt="Playlist" />
             ) : (
@@ -18,11 +48,23 @@ const Playlist = ({ playlist }) => {
                 <Icons icon="ottava" />
               </div>
             )}
+            <div
+              className="choose-photo"
+              style={{ backgroundColor: playlist.imageUrl ? "var(--black-op-07)" : "var(--gray3)" }}>
+              <div>
+                <Icons icon="pen" />
+                <span>Choose photo</span>
+              </div>
+            </div>
           </div>
           <div className="info-container">
             <h2>Playlist</h2>
             <div>
-              <h1>{playlist.name}</h1>
+              <button
+                className="playlist-name-btn"
+                onClick={() => toggleModal(nameRef.current)}>
+                <h1>{playlist.name}</h1>
+              </button>
             </div>
             <div>
               <a className="user" href="/" onClick={e => e.preventDefault()}>ruuuff</a>
@@ -49,19 +91,19 @@ const Playlist = ({ playlist }) => {
                   <input
                     type="text"
                     placeholder="Search for songs or episodes"
-                    value={value}
-                    ref={inputRef}
-                    onChange={event => setValue(event.target.value)} />
+                    value={search}
+                    ref={searchRef}
+                    onChange={event => setSearch(event.target.value)} />
 
                   <div
                     className="input-search-icon"
-                    onClick={() => inputRef.current.focus()}>
+                    onClick={() => searchRef.current.focus()}>
                     <Icons icon="search-mini" />
                   </div>
-                  {value !== "" ? (
+                  {search !== "" ? (
                     <button
                       className="erase-input-icon"
-                      onClick={() => setValue("")}>
+                      onClick={() => setSearch("")}>
                       <Icons icon="xmark-mini" />
                     </button>
                   ) : false}
@@ -78,16 +120,90 @@ const Playlist = ({ playlist }) => {
         </Wrapper >
       </Container >
 
-      <Modal>
-        Teste
+      <Modal className={`${showModal ? "visible" : ""}`}>
+        <div className="wrapper">
+          <div className="modal-container">
+            <header className="modal-header">
+              <h1>Edit details</h1>
+              <button onClick={() => toggleModal()}>
+                <Icons icon="xmark-mini" />
+              </button>
+            </header>
+
+            <div className="update-container">
+              <div className="image-container" onClick={() => imageRef.current.select()}>
+                {playlist.imageUrl ? (
+                  <img src={playlist.imageUrl} alt="Playlist" />
+                ) : (
+                  <div className="default-image">
+                    <Icons icon="ottava" />
+                  </div>
+                )}
+                <div
+                  className="choose-photo"
+                  style={{ backgroundColor: playlist.imageUrl ? "var(--black-op-07)" : "var(--gray3)" }}>
+                  <div>
+                    <Icons icon="pen" />
+                    <span>Choose photo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="input-container">
+                <div className="input-wrapper">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    id="name"
+                    type="text"
+                    value={name}
+                    ref={nameRef}
+                    placeholder="Add a name"
+                    onChange={e => setName(e.target.value)} />
+                </div>
+
+                <div className="input-wrapper">
+                  <label htmlFor="image">Image</label>
+                  <input
+                    id="image"
+                    type="url"
+                    ref={imageRef}
+                    value={imageUrl}
+                    placeholder="Add an optional photo (URL)"
+                    onChange={e => setImageUrl(e.target.value)} />
+                </div>
+
+                <div className="input-wrapper">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    id="description"
+                    type="text"
+                    value={description}
+                    placeholder="Add an optional description"
+                    onChange={e => setDescription(e.target.value)}></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div className="button-container">
+              <button className="btn" onClick={savePlaylist}>Save</button>
+            </div>
+
+            <div className="advice-container">
+              <span className="advice">By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure you have the right to upload the image.</span>
+            </div>
+          </div>
+        </div>
       </Modal>
     </>
   )
 }
 
-export default Playlist
+const mapDispatchToProps = dispatch => bindActionCreators({ updatePlaylistItem }, dispatch)
+export default connect(null, mapDispatchToProps)(Playlist)
 
 const Container = styled.main`
+  display: flex;
+  flex-direction: column;
   min-height: 88.1rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -99,7 +215,6 @@ const Header = styled.header`
   display: flex;
   padding: 8.4rem 3.2rem 2.4rem;
   background-color: rgb(83, 83, 83);
-  min-height: calc(((100vh - 64px) - 90px) - 519px);
   z-index: 1;
 
   &::before {
@@ -115,9 +230,13 @@ const Header = styled.header`
     height: 23.2rem;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
     margin-right: 2.4rem;
+    position: relative;
 
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+      -webkit-user-drag: none;
     }
 
     .default-image {
@@ -135,6 +254,35 @@ const Header = styled.header`
         transform: translateY(-4px);
       }
     }
+
+    .choose-photo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray3);
+      color: var(--white);
+      opacity: 0;
+
+      > div {
+        transform: translateY(8px);
+        text-align: center;
+      }
+      
+      span {
+        display: block;
+        margin-top: 1px;
+        font-size: var(--fs-16);
+        line-height: var(--lh-24);
+        font-family: "Spotify Circular Book", sans-serif;
+        user-select: none;
+      }
+    }
+
+    &:hover .choose-photo {
+      opacity: 1;
+    }
   }
 
   .info-container {
@@ -150,20 +298,25 @@ const Header = styled.header`
       color: var(--white);
       text-transform: uppercase;
     }
-
-    h1 {
-      font-family: "Spotify Circular Bold", sans-serif;
-      font-weight: 900;
-      font-size: var(--fs-96);
-      line-height: var(--fs-96);
-      color: var(--white);
-      letter-spacing: -5px;
-      padding: 0.7rem 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      user-select: none;
+    
+    .playlist-name-btn {
       cursor: pointer;
+      width: 100%;
+
+      h1 {
+        font-family: "Spotify Circular Bold", sans-serif;
+        font-weight: 900;
+        text-align: left;
+        letter-spacing: -5px;
+        font-size: var(--fs-96);
+        line-height: var(--fs-96);
+        color: var(--white);
+        user-select: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 0.7rem 0.7rem 0.7rem 0;
+      }
     }
 
     .user {
@@ -182,11 +335,16 @@ const Header = styled.header`
 `
 
 const Wrapper = styled.div`
-  background-image: linear-gradient(to bottom, rgba(83, 83, 83, 0.25), transparent 90%);
+  position: relative;
+  flex: 1;
 
   &::before {
+    content: "";
+    background-image: linear-gradient(to bottom, rgba(83, 83, 83, 0.25), transparent 80%);
     position: absolute;
     inset: 0 0 auto 0;
+    height: 20rem;
+    z-index: -1;
   }
 
   .paddingAround {
@@ -280,5 +438,223 @@ const Modal = styled.div`
   position: fixed;
   inset: 0;
   background-color: var(--black-op-07);
+  visibility: hidden;
+  opacity: 0;
   z-index: 100;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-container {
+    background-color: var(--gray3);
+    padding: 2.4rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 30%);
+    color: var(--white);
+    min-height: 384px;
+    width: 524px;
+  }
+
+  .modal-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2.4rem;
+    justify-content: space-between;
+
+    h1 {
+      font-size: var(--fs-24);
+      line-height: var(--lh-28);
+      letter-spacing: -0.96px;
+      transform: translateY(3px);
+    }
+
+    button {
+      color: var(--white-op-07);
+      width: 3.2rem;
+      height: 3.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -0.4rem -0.8rem 0 0;
+      border-radius: 3.2rem;
+
+      &:hover {
+        background-color: var(--white-op-01);
+      }
+    }
+  }
+
+  .update-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+  }
+
+  .image-container {
+    width: 18rem;
+    height: 18rem;
+    box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
+    position: relative;
+    overflow: hidden;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      -webkit-user-drag: none;
+    }
+
+    .default-image {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--gray2);
+      background-color: var(--gray3);
+      color: #7f7f7f;
+
+      & > * {
+        width: 6.4rem;
+        transform: translateY(-4px);
+      }
+    }
+
+    .choose-photo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray3);
+      color: var(--white);
+      opacity: 0;
+
+      > div {
+        transform: translateY(8px);
+        text-align: center;
+      }
+      
+      span {
+        display: block;
+        margin-top: 1px;
+        font-size: var(--fs-16);
+        line-height: var(--lh-24);
+        font-family: "Spotify Circular Book", sans-serif;
+        user-select: none;
+      }
+    }
+
+    &:hover .choose-photo {
+      opacity: 1;
+    }
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    flex: 1;
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper:last-child {
+      flex: 1;
+    }
+
+    label {
+      font-size: var(--fs-11);
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: opacity .2s;
+    }
+
+    .input-wrapper:focus-within label {
+      opacity: 1;
+    }
+
+    input {
+      padding: 0 1.2rem;
+      height: 4rem;
+    }
+
+    textarea {
+      padding: 0.8rem 0.8rem 2.2rem;
+      resize: none;
+
+      ::-webkit-scrollbar {
+        width: 12px;
+        max-height: 50%;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    & :is(input, textarea) {
+      background-color: var(--white-op-01);
+      border: 1px solid transparent;
+      border-radius: 4px;
+      width: 100%;
+      color: var(--white);
+      font-size: var(--fs-14);
+      font-family: "Spotify Circular Book";
+    }
+
+    & :is(input, textarea):focus {
+      background-color: #333;
+      border: 1px solid #535353;
+      outline: none;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.8rem 0;
+
+    .btn {
+      padding: 1.2rem 3.2rem;
+      font-size: var(--fs-16);
+      line-height: var(--lh-24);
+      font-family: "Spotify Circular Cyrillic";
+      background-color: var(--white);
+      border-radius: 500px;
+
+      &:hover {
+        transform: scale(1.04);
+      }
+
+      &:active {
+        transform: scale(1);
+        background-color: var(--white-op-07);
+      }
+    }
+  }
+
+  .advice {
+    color: var(--white);
+    font-size: var(--fs-11);
+    line-height: var(--lh-16);
+  }
 `

@@ -11,9 +11,9 @@ const UserPlaylistItem = ({ playlist, activeTab, selectTab }) => (
       to={`/playlist/${playlist.id}`}
       onClick={() => selectTab(playlist.name)}
       className={activeTab === playlist.name ? 'active' : ''}>
-      <div>
+      <span>
         {playlist.name}
-      </div>
+      </span>
     </Link>
   </Li>
 )
@@ -34,24 +34,19 @@ const Li = styled.li`
     opacity: 0.64;
     position: relative;
     cursor: default;
-
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
-  a > div {
+  a > span {
+    display: block;
     padding: 0 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   a:is(:hover, .active) {
     opacity: 1;
-  }
-
-  a::before {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
   }
 `
