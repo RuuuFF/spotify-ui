@@ -32,8 +32,10 @@ export const spotifySlice = createSlice({
       const { newPlaylist, index } = action.payload
       const prevPlaylist = state.playlists[index]
 
-      state.tabs.activeTab = newPlaylist.name
-      state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
+      if (newPlaylist.name !== "") {
+        state.tabs.activeTab = newPlaylist.name
+        state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
+      }
     }
   }
 })

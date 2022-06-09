@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { updatePlaylistItem } from "../../../store/spotifySlice"
@@ -15,6 +16,7 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
 
   const nameRef = useRef(null)
   const imageRef = useRef(null)
+  const descriptionRef = useRef(null)
   const searchRef = useRef(null)
 
   function savePlaylist() {
@@ -23,6 +25,12 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
       newPlaylist: { name, imageUrl, description },
       index: playlist.index
     })
+  }
+
+  function pressEnter(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      savePlaylist()
+    }
   }
 
   function toggleModal(element) {
@@ -66,6 +74,15 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
                 <h1>{playlist.name}</h1>
               </button>
             </div>
+            {playlist.description ? (
+              <div>
+                <button
+                  className="playlist-description-btn"
+                  onClick={() => toggleModal(descriptionRef.current)}>
+                  <p className="description">{playlist.description}</p>
+                </button>
+              </div>
+            ) : false}
             <div>
               <a className="user" href="/" onClick={e => e.preventDefault()}>ruuuff</a>
             </div>
@@ -157,6 +174,8 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
                     type="text"
                     value={name}
                     ref={nameRef}
+                    onKeyDown={pressEnter}
+                    max={100}
                     placeholder="Add a name"
                     onChange={e => setName(e.target.value)} />
                 </div>
@@ -168,6 +187,8 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
                     type="url"
                     ref={imageRef}
                     value={imageUrl}
+                    onKeyDown={pressEnter}
+                    max={300}
                     placeholder="Add an optional photo (URL)"
                     onChange={e => setImageUrl(e.target.value)} />
                 </div>
@@ -177,7 +198,10 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
                   <textarea
                     id="description"
                     type="text"
+                    ref={descriptionRef}
                     value={description}
+                    onKeyDown={pressEnter}
+                    max={300}
                     placeholder="Add an optional description"
                     onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
@@ -317,6 +341,21 @@ const Header = styled.header`
         overflow: hidden;
         padding: 0.7rem 0.7rem 0.7rem 0;
       }
+    }
+
+    .playlist-description-btn {
+      margin-top: 0.8rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .description {
+      font-size: var(--fs-16);
+      line-height: var(--lh-24);
+      color: var(--white-op-07);
+      word-break: break-all;
+      text-align: left;
+      font-family: "Spotify Circular Book", sans-serif;
     }
 
     .user {

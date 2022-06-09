@@ -4,7 +4,7 @@ import { bindActionCreators } from "@reduxjs/toolkit"
 import { togglePlaying, updateTime, prevMusic } from "../store/playerSlice"
 
 import styled from "styled-components"
-import useFormatMMSS from "../hooks/useFormatTime"
+import useFormatMMSS from "../hooks/useTimeFormater"
 import ControlButton from "./controlButton"
 import Range from "./range"
 
