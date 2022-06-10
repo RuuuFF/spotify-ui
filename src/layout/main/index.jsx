@@ -1,15 +1,15 @@
 import { useRef, useEffect, useCallback } from "react"
+import { Routes, Route } from "react-router-dom"
 
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { scaleHeaderBgOpacity } from "../../store/structureSlice"
 
-import { Container } from "./style"
+import Header from "../../components/main/header"
+import MainPage from "../../components/main/pages/mainPage"
+import Playlist from "../../components/main/pages/playlist"
 
-import { Routes, Route } from "react-router-dom"
-import MainHeader from "../../components/mainHeader"
-import MainPage from "./pages/mainPage"
-import Playlist from "./pages/playlist"
+import { Container } from "./style"
 
 const Main = ({ scaleHeaderBgOpacity, playlists }) => {
   const container = useRef(null)
@@ -30,7 +30,7 @@ const Main = ({ scaleHeaderBgOpacity, playlists }) => {
 
   return (
     <Container ref={container}>
-      <MainHeader refference={header} />
+      <Header refference={header} />
 
       <Routes>
         <Route path="/" element={<MainPage refference={triggerElement} />} />

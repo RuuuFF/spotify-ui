@@ -1,58 +1,50 @@
 import styled from "styled-components"
-import Icons from "./icons"
+import Icons from "../icons"
 
-const Card = props => {
-  return (
-    <Container>
-      <a href={props.path || "/"} onClick={event => event.preventDefault()}>
-        <div className="image-container">
-          <div className={props.artist ? "artist" : ""}>
-            {props.player ? (
-              <>
-                {props.image ? (
-                  <img className="image" src={props.image} alt={props.name} />
-                ) : (
-                  <div className="default-image">
-                    <Icons icon="ottava" />
-                  </div>
-                )}
-                <div className="playlist-btn-container">
-                  <button className="playlist-btn">
-                    <Icons icon="playlist" />
-                  </button>
-                </div>
-              </>
-            ) : props.image ? (
-              <img className="image" src={props.image} alt={props.name} />
-            ) : (
-              <div className="default-image">
-                <Icons icon="ottava" />
-              </div>
-            )}
-          </div>
-        </div>
-        <div>
-          <p className="name">{props.name}</p>
-          {props.artist || props.description ? (
-            <p className="description">{props.artist ? "Artist" : props.description}</p>
+const Card = props => (
+  <Container>
+    <a href={props.path || "/"} onClick={event => event.preventDefault()}>
+      <div className="image-container">
+        <div className={props.artist ? "artist" : ""}>
+          {props.image ? (
+            <img className="image" src={props.image} alt={props.name} />
+          ) : (
+            <div className="default-image">
+              <Icons icon="ottava" />
+            </div>
+          )}
+          {props.player ? (
+            <div className="playlist-btn-container">
+              <button className="playlist-btn">
+                <Icons icon="playlist" />
+              </button>
+            </div>
           ) : false}
         </div>
-      </a>
-    </Container>
-  )
-}
+      </div>
+      <div className="content-info">
+        <p className="name">{props.name}</p>
+        {props.artist || props.description ? (
+          <p className="description">{props.artist ? "Artist" : props.description}</p>
+        ) : false}
+      </div>
+    </a>
+  </Container>
+)
 
 export default Card
 
 const Container = styled.article`
   display: flex;
   background-color: var(--black3);
-  height: 100%;
   border-radius: 4px;
   overflow: hidden;
   transition: background-color .3s ease;
   
   > a {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     display: inline-block;
     width: 100%;
     padding: 1.6rem;
@@ -108,6 +100,10 @@ const Container = styled.article`
     opacity: 0;
     cursor: pointer;
     transition: 0.3s ease;
+  }
+
+  .content-info {
+    min-height: 6.5rem;
   }
 
   .name {

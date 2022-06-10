@@ -2,28 +2,25 @@ import { useEffect, useRef, useState } from "react"
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
-import { toggleLiked } from "../store/playerSlice";
-import { toggleExpandAlbum } from "../store/structureSlice";
+import { toggleLiked } from "../../store/playerSlice";
+import { toggleExpandAlbum } from "../../store/structureSlice";
 
 import styled from "styled-components"
-import Icons from "./icons"
-import { grow, shake } from "../assets/styles/keyframes"
+import Icons from "../icons"
+import { grow, shake } from "../../assets/styles/keyframes"
 
 const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum, toggleExpandAlbum }) => {
   const image = useRef(null)
   const [right, setRight] = useState(0)
   const [animation, setAnimation] = useState("")
 
+  useEffect(() => setRight(image.current.getBoundingClientRect().right), [])
+
   useEffect(() => {
     if (currentMusic.liked || animation !== "") {
       setAnimation(currentMusic.liked ? "liked" : "shake")
     }
   }, [currentMusic.liked, animation])
-
-  useEffect(() => {
-    const right = image.current.getBoundingClientRect().right
-    setRight(right)
-  }, [expandAlbum])
 
   return (
     <Container>
@@ -44,7 +41,7 @@ const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum, toggleExpandAlbum 
             alt={currentMusic.artist} />
         </div>
 
-        <div className="music">
+        <div className="music-container">
           <a href="/" className="music-name" onClick={e => e.preventDefault()}>
             {currentMusic.name}
           </a>
@@ -53,11 +50,11 @@ const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum, toggleExpandAlbum 
           </a>
         </div>
 
-        <div className="buttons">
+        <div className="button-container">
           <button
             className={`btn ${animation}`}
             onClick={() => toggleLiked()}>
-            <Icons icon="heart" liked={currentMusic.liked} />
+            <Icons icon={currentMusic.liked ? "heart-green" : "heart"} />
           </button>
           <button className="btn">
             <Icons icon="popup" />
@@ -93,43 +90,36 @@ const Container = styled.div`
     width: 5.6rem;
     height: 5.6rem;
 
-    .expand-image {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      height: 2.4rem;
-      width: 2.4rem;
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, .7);
-      color: var(--white);
-      opacity: 0;
-
-      > svg {
-        opacity: 0.7;
-      }
-
-      &:hover {
-        background-color: rgba(0, 0, 0, .8);
-        transform: scale(1.1);
-
-        > svg {
-          opacity: 1;
-        }
-      }
-    }
-
-    :hover .expand-image {
+    &:hover .expand-image {
       opacity: 1;
-    }
-
-    .album-image {
-      width: 100%;
-      height: 100%;
-      -webkit-user-drag: none;
     }
   }
 
-  .music {
+  .expand-image {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .7);
+    color: var(--white-op-07);
+    opacity: 0;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .8);
+      transform: scale(1.1);
+      color: var(--white);
+    }
+  }
+
+  .album-image {
+    width: 100%;
+    height: 100%;
+    -webkit-user-drag: none;
+  }
+
+  .music-container {
     display: flex;
     flex-direction: column;
     margin: 0 1.4rem;
@@ -158,47 +148,47 @@ const Container = styled.div`
     }
   }
 
-  .buttons {
+  .button-container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     margin-left: 0.6rem;
     color: var(--white);
+  }
 
-    .btn {
-      position: relative;
-      width: 3.2rem;
-      height: 3.2rem;
-      z-index: 10;
-      opacity: 0.7;
-      color: inherit;
-      
-      &.liked {
-        color: var(--green);
-      }
+  .btn {
+    position: relative;
+    width: 3.2rem;
+    height: 3.2rem;
+    z-index: 10;
+    opacity: 0.7;
+    color: inherit;
+    
+    &.liked {
+      color: var(--green);
+    }
 
-      &.shake > svg {
-        animation: ${shake} 0.4s linear;
-      }
+    &.liked::before {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--green);
+      animation: ${grow} 0.4s linear forwards;
+      z-index: 9;
+    }
 
-      &.liked::before {
-        position: absolute;
-        content: "";
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        background-color: var(--green);
-        animation: ${grow} 0.4s linear forwards;
-        z-index: 9;
-      }
+    &:is(.liked, :hover) {
+      opacity: 1;
+    }
 
-      &:is(.liked, :hover) {
-        opacity: 1;
-      }
+    &.shake {
+      animation: ${shake} 0.4s linear;
     }
   }
 `

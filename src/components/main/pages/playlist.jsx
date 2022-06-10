@@ -4,8 +4,9 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { updatePlaylistItem } from "../../../store/spotifySlice"
 
-import styled from "styled-components"
 import Icons from "../../../components/icons"
+import ModalInput from "../modalInput"
+import styled from "styled-components"
 
 const Playlist = ({ playlist, updatePlaylistItem }) => {
   const [showModal, setShowModal] = useState(false)
@@ -167,44 +168,32 @@ const Playlist = ({ playlist, updatePlaylistItem }) => {
               </div>
 
               <div className="input-container">
-                <div className="input-wrapper">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    ref={nameRef}
-                    onKeyDown={pressEnter}
-                    max={100}
-                    placeholder="Add a name"
-                    onChange={e => setName(e.target.value)} />
-                </div>
-
-                <div className="input-wrapper">
-                  <label htmlFor="image">Image</label>
-                  <input
-                    id="image"
-                    type="url"
-                    ref={imageRef}
-                    value={imageUrl}
-                    onKeyDown={pressEnter}
-                    max={300}
-                    placeholder="Add an optional photo (URL)"
-                    onChange={e => setImageUrl(e.target.value)} />
-                </div>
-
-                <div className="input-wrapper">
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    id="description"
-                    type="text"
-                    ref={descriptionRef}
-                    value={description}
-                    onKeyDown={pressEnter}
-                    max={300}
-                    placeholder="Add an optional description"
-                    onChange={e => setDescription(e.target.value)}></textarea>
-                </div>
+                <ModalInput
+                  name="Name"
+                  value={name}
+                  maxLength={100}
+                  reference={nameRef}
+                  onKeyDown={pressEnter}
+                  onChange={setName}
+                  placeholder="Add a name" />
+                <ModalInput
+                  name="Image"
+                  type="url"
+                  value={imageUrl}
+                  maxLength={300}
+                  reference={imageRef}
+                  onKeyDown={pressEnter}
+                  onChange={setImageUrl}
+                  placeholder="Add an optional photo (URL)" />
+                <ModalInput
+                  name="Description"
+                  element="textarea"
+                  value={description}
+                  maxLength={300}
+                  reference={descriptionRef}
+                  onKeyDown={pressEnter}
+                  onChange={setDescription}
+                  placeholder="Add an optional description" />
               </div>
             </div>
 
@@ -605,66 +594,10 @@ const Modal = styled.div`
     gap: 1.6rem;
     flex: 1;
 
-    .input-wrapper {
-      position: relative;
-    }
+  }
 
-    .input-wrapper:last-child {
-      flex: 1;
-    }
-
-    label {
-      font-size: var(--fs-11);
-      position: absolute;
-      top: 0;
-      left: 1rem;
-      opacity: 0;
-      transform: translateY(-50%);
-      transition: opacity .2s;
-    }
-
-    .input-wrapper:focus-within label {
-      opacity: 1;
-    }
-
-    input {
-      padding: 0 1.2rem;
-      height: 4rem;
-    }
-
-    textarea {
-      padding: 0.8rem 0.8rem 2.2rem;
-      resize: none;
-
-      ::-webkit-scrollbar {
-        width: 12px;
-        max-height: 50%;
-      }
-      
-      ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
-      }
-      
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
-      }
-    }
-
-    & :is(input, textarea) {
-      background-color: var(--white-op-01);
-      border: 1px solid transparent;
-      border-radius: 4px;
-      width: 100%;
-      color: var(--white);
-      font-size: var(--fs-14);
-      font-family: "Spotify Circular Book";
-    }
-
-    & :is(input, textarea):focus {
-      background-color: #333;
-      border: 1px solid #535353;
-      outline: none;
-    }
+  .input-wrapper:last-child {
+    flex: 1;
   }
 
   .button-container {

@@ -1,17 +1,15 @@
-import NowPlaying from "../../components/nowPlaying"
-import MainPlayerControl from "../../components/mainPlayerControl"
-import RightPlayerControl from "../../components/rightPlayerControl"
+import NowPlaying from "../../components/footer/nowPlaying"
+import PlayerControl from "../../components/footer/playerControl"
+import SideControl from "../../components/footer/sideControl"
 
-import { PlayerContainer } from "./styles"
+import { Container } from "./styles"
 
-const Footer = props => {
-  return (
-    <PlayerContainer>
-      <NowPlaying />
-      <MainPlayerControl />
-      <RightPlayerControl />
-    </PlayerContainer>
-  )
-}
+const Footer = props => (
+  <Container>
+    <NowPlaying />
+    <PlayerControl />
+    <SideControl />
+  </Container>
+)
 
 export default Footer

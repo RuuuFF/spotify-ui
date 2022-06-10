@@ -14,20 +14,20 @@ const MainSection = props => {
   }
 
   return (
-    <SectionContainer>
+    <Container>
       <div className="header">
         <h2 className="title">{getGreeting()}</h2>
       </div>
       <div className="cards" ref={props.refference}>
         {props.children}
       </div>
-    </SectionContainer>
+    </Container>
   )
 }
 
 export default MainSection
 
-const SectionContainer = styled.section`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.6rem;

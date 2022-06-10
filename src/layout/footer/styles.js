@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const PlayerContainer = styled.footer`
+export const Container = styled.footer`
   grid-column: 1 / span 2;
   grid-row: 2;
   display: flex;

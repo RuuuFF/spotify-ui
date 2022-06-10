@@ -1,9 +1,9 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { selectTab } from "../store/spotifySlice"
+import { selectTab } from "../../store/spotifySlice"
+import { Link } from "react-router-dom"
 
 import styled from "styled-components"
-import { Link } from "react-router-dom"
 
 const UserPlaylistItem = ({ playlist, activeTab, selectTab }) => (
   <Li>

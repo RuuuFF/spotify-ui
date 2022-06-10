@@ -1,8 +1,9 @@
-import styled from "styled-components"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { toggleUserDropdown } from "../store/structureSlice"
-import Icons from "./icons"
+import { toggleUserDropdown } from "../../store/structureSlice"
+
+import Icons from "../icons"
+import styled from "styled-components"
 
 const UserButtonDropdown = ({ userDropdown, toggleUserDropdown }) => (
   <Container>

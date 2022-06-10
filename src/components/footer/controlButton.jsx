@@ -1,9 +1,8 @@
 import { connect } from "react-redux"
-
+import Icons from "../icons";
 import styled from "styled-components"
-import Icons from "./icons";
 
-const ControlButton = ({ icon, action, isPlaying = false, volume, activeTab }) => {
+const ControlButton = ({ icon, action, isPlaying = false, currentVolume, activeTab }) => {
   const active = icon === activeTab.toLowerCase()
   const myAction = action ? () => action() : event => event.preventDefault()
 
@@ -14,9 +13,8 @@ const ControlButton = ({ icon, action, isPlaying = false, volume, activeTab }) =
       className={active ? "active" : ""}>
       <Icons
         icon={icon}
-        active={active}
-        playing={icon === "playpause" ? isPlaying : false}
-        volume={icon === "volume" ? volume : false} />
+        isPlaying={icon === "playpause" ? isPlaying : false}
+        currentVolume={icon === "volume" ? currentVolume : false} />
     </Button>
   )
 }
@@ -31,12 +29,12 @@ const Button = styled.button`
   color: var(--white);
   opacity: ${props => props.mainControl ? '1' : '0.7'};
 
-  :hover {
+  &:hover {
     opacity: 1;
     transform: scale(${props => props.mainControl ? '1.05' : '1'});
   }
 
-  :active {
+  &:active {
     opacity: ${props => props.mainControl ? '1' : '0.7'};
   }
 

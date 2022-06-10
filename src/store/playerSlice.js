@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
-  time: 0,
+  currentTime: 0,
   isPlaying: false,
   volume: {
     currentVolume: 0,
@@ -34,9 +34,9 @@ export const playerSlice = createSlice({
     },
 
     updateTime: (state, action) => {
-      state.time = action.payload
+      state.currentTime = action.payload
 
-      if (state.time >= state.currentMusic.durationInSeconds) {
+      if (state.currentTime >= state.currentMusic.durationInSeconds) {
         state.isPlaying = false
       }
     },

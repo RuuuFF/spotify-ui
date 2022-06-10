@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
 
 import styled from "styled-components"
-import UserPlaylistItem from "./userPlaylistItem"
+import PlaylistItem from "./playlistItem"
 
 const UserPlaylists = ({ playlists = [] }) => (
   <Container>
-    {playlists.map(playlist => <UserPlaylistItem
+    {playlists.map(playlist => <PlaylistItem
       key={playlist.id}
       playlist={playlist} />)}
   </Container>

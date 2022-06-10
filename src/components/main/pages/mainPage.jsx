@@ -1,9 +1,10 @@
-import MainSection from "../../../components/mainSection"
-import CardWide from "../../../components/cardWide"
-import Section from "../../../components/section"
-import Card from "../../../components/card"
-
 import { connect } from "react-redux"
+
+import MainSection from "../mainSection"
+import CardWide from "../cardWide"
+import Section from "../section"
+import Card from "../card"
+
 import styled from "styled-components"
 
 const MainPage = ({ headerBackground, refference }) => (

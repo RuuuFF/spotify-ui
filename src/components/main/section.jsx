@@ -1,28 +1,27 @@
 import styled from "styled-components"
 
-const Section = props => {
-  return (
-    <SectionContainer>
-      <div className="header">
-        <h2 className="title">
-          <a href={props.path || "/"} onClick={e => e.preventDefault()}>{props.title}</a>
-        </h2>
-        <div className="more">
-          <a href={props.path || "/"} onClick={e => e.preventDefault()}>See All</a>
-        </div>
+const Section = props => (
+  <Container>
+    <div className="header">
+      <h2 className="title">
+        <a href={props.path || "/"} onClick={e => e.preventDefault()}>{props.title}</a>
+      </h2>
+      <div className="more">
+        <a href={props.path || "/"} onClick={e => e.preventDefault()}>See All</a>
       </div>
+    </div>
 
-      <div className="cards">
-        {props.children}
-      </div>
-    </SectionContainer>
-  )
-}
+    <div className="cards">
+      {props.children}
+    </div>
+  </Container>
+)
 
 export default Section
 
-const SectionContainer = styled.section`
+const Container = styled.section`
   margin-bottom: 1.6rem;
+  min-height: 30rem;
 
   .header {
     display: flex;
@@ -56,29 +55,32 @@ const SectionContainer = styled.section`
       letter-spacing: 1.2px;
       text-transform: uppercase;
 
-      :hover {
+      &:hover {
         text-decoration: underline;
       }
-    }
-  }
-
-  @media (max-width: 1480px) {
-    .more {
-      display: flex;
     }
   }
 
   .cards {
     display: grid;
     grid-template-columns: repeat(5, 18.15rem);
-    grid-auto-rows: 25.95rem;
+    grid-auto-rows: 1fr;
     gap: 2.4rem;
   }
 
   @media (max-width: 1480px) {
     .cards {
       grid-template-columns: repeat(5, 19.4rem);
-      grid-auto-rows: 27.2rem;
+    }
+
+    .more {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 1340px) {
+    .cards {
+      grid-template-columns: repeat(5, 18.6rem);
     }
   }
 `

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const Range = ({ value, max, onChange }) => {
+const ProgressBar = ({ value, max, onChange }) => {
   const moreThan = value >= (max * 90) / 100
   const lowerThan = value <= (max * 10) / 100
 
@@ -15,12 +15,12 @@ const Range = ({ value, max, onChange }) => {
   )
 }
 
-export default Range
+export default ProgressBar
 
 const makeLongShadow = (color, size) => {
   let offsetX = 4
   let shadow = `${offsetX}px 0 0 ${size} ${color}`
-  while (offsetX < 722) { shadow = `${shadow}, ${offsetX++}px 0 0 ${size} ${color}`; }
+  while (offsetX < 722) { shadow = `${shadow}, ${offsetX++}px 0 0 ${size} ${color}` }
   return shadow
 }
 
@@ -33,7 +33,7 @@ const Input = styled.input`
   overflow: hidden;
   border-radius: 4px;
 
-  // Bolinha
+  // Ball
   &::-webkit-slider-thumb {
     appearance: none;
     height: 12px;
@@ -55,7 +55,7 @@ const Input = styled.input`
     background-color: var(--white);
   }
 
-  // Barra
+  // Bar
   &::-webkit-slider-runnable-track {
     appearance: none;
     height: 4px;

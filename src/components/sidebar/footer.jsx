@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
-import { toggleExpandAlbum } from "../store/structureSlice"
+import { toggleExpandAlbum } from "../../store/structureSlice"
 
 import styled from "styled-components"
 import MenuItem from "./menuItem";
-import Icons from "./icons";
+import Icons from "../icons";
 
 const SidebarFooter = ({ expandAlbum, albumImage, toggleExpandAlbum }) => {
   const [height, setHeight] = useState(null)
@@ -50,9 +50,7 @@ const mapStateToProps = state => ({
   expandAlbum: state.structure.expandAlbum,
   albumImage: state.player.currentMusic.albumImage
 })
-const mapDispatchToProps = dispatch => bindActionCreators({
-  toggleExpandAlbum
-}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ toggleExpandAlbum }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarFooter)
 
 const Container = styled.div`

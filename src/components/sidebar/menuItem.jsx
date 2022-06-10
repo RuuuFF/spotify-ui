@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
-import { selectTab } from "../store/spotifySlice"
+import { selectTab } from "../../store/spotifySlice"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { Link } from "react-router-dom"
 
 import styled from "styled-components"
-import Icons from "./icons"
+import Icons from "../icons"
 
 const MenuItem = ({ label, path, action, bg, icon, activeTab, selectTab, margin, padding }) => {
   const active = label === activeTab

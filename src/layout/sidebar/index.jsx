@@ -1,12 +1,12 @@
+import { useRef, useEffect } from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { updateHeaderLeft } from "../../store/structureSlice"
 
-import Banner from "../../components/banner"
-import SidebarMenu from "../../components/sidebarMenu"
-import SidebarSubMenu from "../../components/sidebarSubMenu"
-import UserPlaylists from "../../components/userPlaylists"
-import SidebarFooter from "../../components/sidebarFooter"
+import Banner from "../../components/sidebar/banner"
+import Menu from "../../components/sidebar/menu"
+import Playlists from "../../components/sidebar/playlists"
+import Footer from "../../components/sidebar/footer"
 
 import {
   SidebarContainer,
@@ -14,8 +14,6 @@ import {
   HorizontalRule,
   Shadow,
 } from "./styles"
-import { useRef } from "react"
-import { useEffect } from "react"
 
 const Sidebar = props => {
   const element = useRef(null)
@@ -28,14 +26,11 @@ const Sidebar = props => {
     <SidebarContainer ref={element}>
       <MainNav>
         <Banner />
-        <SidebarMenu />
-        <SidebarSubMenu />
-
+        <Menu />
         <HorizontalRule />
         <Shadow />
-
-        <UserPlaylists />
-        <SidebarFooter />
+        <Playlists />
+        <Footer />
       </MainNav>
     </SidebarContainer>
   )

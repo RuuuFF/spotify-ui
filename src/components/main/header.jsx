@@ -1,35 +1,37 @@
 import { connect } from "react-redux"
 
 import styled from "styled-components"
-import Icons from "./icons"
+import Icons from "../icons"
 import UserButtonDropdown from "./userButtonDropdown"
 
-const MainHeader = ({ header, refference }) => {
+const Header = ({ header, refference }) => {
   const backgroundStyles = {
     background: header.background,
     opacity: header.opacity
   }
 
   return (
-    <Header ref={refference} style={{ left: `${header.left}px` }}>
+    <Container ref={refference} style={{ left: `${header.left}px` }}>
       <div className="background" style={backgroundStyles}></div>
-      <div className="nav-btn-container">
+
+      <nav className="nav-container">
         <button className="btn left" disabled>
           <Icons icon="arrow-large" />
         </button>
         <button className="btn right" disabled>
           <Icons icon="arrow-large" />
         </button>
-      </div>
+      </nav>
+
       <UserButtonDropdown />
-    </Header>
+    </Container>
   )
 }
 
 const mapStateToProps = state => ({ header: state.structure.header })
-export default connect(mapStateToProps)(MainHeader)
+export default connect(mapStateToProps)(Header)
 
-const Header = styled.header`
+const Container = styled.header`
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -54,7 +56,7 @@ const Header = styled.header`
     }
   }
 
-  .nav-btn-container {
+  .nav-container {
     display: flex;
     gap: 1.6rem;
 

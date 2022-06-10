@@ -1,39 +1,37 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { getRandomBackground, setDefaultBackground } from "../store/structureSlice"
+import { getRandomBackground, setDefaultBackground } from "../../store/structureSlice"
 
 import styled from "styled-components"
-import Icons from "./icons"
+import Icons from "../icons"
 
-const CardWide = props => {
-  return (
-    <Container>
-      <a
-        href={props.path || "/"}
-        onClick={event => event.preventDefault()}
-        onMouseEnter={() => props.getRandomBackground()}
-        onMouseLeave={() => props.setDefaultBackground()}>
-        <div className="image-container">
-          {props.image ? (
-            <img className="image" src={props.image} alt={props.name} />
-          ) : (
-            <div className="default-image">
-              <Icons icon="ottava" />
-            </div>
-          )}
-        </div>
-        <div className="info-container">
-          <p className="name">{props.name}</p>
-        </div>
-        <div className="playlist-btn-container">
-          <button className="playlist-btn">
-            <Icons icon="playlist" />
-          </button>
-        </div>
-      </a>
-    </Container>
-  )
-}
+const CardWide = props => (
+  <Container>
+    <a
+      href={props.path || "/"}
+      onClick={event => event.preventDefault()}
+      onMouseEnter={() => props.getRandomBackground()}
+      onMouseLeave={() => props.setDefaultBackground()}>
+      <div className="image-container">
+        {props.image ? (
+          <img className="image" src={props.image} alt={props.name} />
+        ) : (
+          <div className="default-image">
+            <Icons icon="ottava" />
+          </div>
+        )}
+      </div>
+      <div className="info-container">
+        <p className="name">{props.name}</p>
+      </div>
+      <div className="playlist-btn-container">
+        <button className="playlist-btn">
+          <Icons icon="playlist" />
+        </button>
+      </div>
+    </a>
+  </Container>
+)
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getRandomBackground,
