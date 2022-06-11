@@ -4,14 +4,14 @@ import styled from "styled-components"
 import Icons from "../icons"
 import UserButtonDropdown from "./userButtonDropdown"
 
-const Header = ({ header, refference }) => {
+const Header = ({ header, reference }) => {
   const backgroundStyles = {
     background: header.background,
     opacity: header.opacity
   }
 
   return (
-    <Container ref={refference} style={{ left: `${header.left}px` }}>
+    <Container ref={reference} style={{ left: `${header.left}px` }}>
       <div className="background" style={backgroundStyles}></div>
 
       <nav className="nav-container">

@@ -1,24 +1,23 @@
 import { connect } from "react-redux"
 
-import MainSection from "../mainSection"
-import CardWide from "../cardWide"
-import Section from "../section"
-import Card from "../card"
-
+import HeaderSection from "../mainPage/headerSection"
+import CardWide from "../mainPage/cardWide"
+import Section from "../mainPage/section"
+import Card from "../mainPage/card"
 import styled from "styled-components"
 
-const MainPage = ({ headerBackground, refference }) => (
+const MainPage = ({ headerBackground, reference }) => (
   <Content>
     <Background style={{ backgroundColor: headerBackground }} />
 
-    <MainSection refference={refference}>
+    <HeaderSection reference={reference}>
       <CardWide name="Daily Mix 1" />
       <CardWide name="Daily Mix 2" />
       <CardWide name="Liked Songs" image="/images/liked-songs.png" />
       <CardWide name="My Playlist #1" />
       <CardWide name="My Playlist #2" />
       <CardWide name="My Playlist #3" />
-    </MainSection>
+    </HeaderSection>
 
     <Section title="Shows you might like">
       <Card name="Podcast 1" description="Podcast 1" />

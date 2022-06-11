@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
-  playlists: [],
+  playlists: JSON.parse(localStorage.getItem("playlists")) || [],
   tabs: {
-    activeTab: 'Home'
+    activeTab: 'Home',
+    tabId: null,
   }
 }
 
@@ -16,6 +17,10 @@ export const spotifySlice = createSlice({
       state.tabs.activeTab = action.payload
     },
 
+    setTabId: (state, action) => {
+      state.tabs.tabId = action.payload
+    },
+
     newPlaylist: state => {
       const playlist = {
         id: state.playlists.length + 1,
@@ -24,8 +29,8 @@ export const spotifySlice = createSlice({
         description: "",
       }
 
-      state.tabs.activeTab = playlist.name
-      state.playlists.unshift(playlist)
+      state.playlists.push(playlist)
+      localStorage.setItem("playlists", JSON.stringify(state.playlists))
     },
 
     updatePlaylistItem: (state, action) => {
@@ -33,8 +38,8 @@ export const spotifySlice = createSlice({
       const prevPlaylist = state.playlists[index]
 
       if (newPlaylist.name !== "") {
-        state.tabs.activeTab = newPlaylist.name
         state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
+        localStorage.setItem("playlists", JSON.stringify(state.playlists))
       }
     }
   }
@@ -42,6 +47,7 @@ export const spotifySlice = createSlice({
 
 export const {
   selectTab,
+  setTabId,
   newPlaylist,
   updatePlaylistItem
 } = spotifySlice.actions

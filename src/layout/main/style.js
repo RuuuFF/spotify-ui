@@ -4,7 +4,7 @@ export const Container = styled.div`
   position: relative;
   grid-column: 2;
   grid-row: 1;
-  background-color: var(--black2);
+  background-color: var(--main-bg);
   overflow-y: overlay;
   overflow-x: hidden;
   z-index: 14;

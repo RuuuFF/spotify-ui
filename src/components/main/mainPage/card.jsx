@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Icons from "../icons"
+import Icons from "../../icons"
 
 const Card = props => (
   <Container>
@@ -69,6 +69,7 @@ const Container = styled.article`
     
     .image {
       width: 100%;
+      -webkit-user-drag: none;
     }
   }
 

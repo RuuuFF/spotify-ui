@@ -1,16 +1,12 @@
 import { connect } from "react-redux"
-import { bindActionCreators } from "@reduxjs/toolkit"
-import { selectTab } from "../../store/spotifySlice"
 import { Link } from "react-router-dom"
-
 import styled from "styled-components"
 
-const UserPlaylistItem = ({ playlist, activeTab, selectTab }) => (
+const UserPlaylistItem = ({ playlist, activeTab, tabId }) => (
   <Li>
     <Link
       to={`/playlist/${playlist.id}`}
-      onClick={() => selectTab(playlist.name)}
-      className={activeTab === playlist.name ? 'active' : ''}>
+      className={activeTab === playlist.name && tabId === playlist.id ? 'active' : ''}>
       <span>
         {playlist.name}
       </span>
@@ -18,9 +14,11 @@ const UserPlaylistItem = ({ playlist, activeTab, selectTab }) => (
   </Li>
 )
 
-const mapStateToProps = state => ({ activeTab: state.spotify.tabs.activeTab })
-const mapDispatchToProps = dispatch => bindActionCreators({ selectTab }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylistItem)
+const mapStateToProps = state => ({
+  activeTab: state.spotify.tabs.activeTab,
+  tabId: state.spotify.tabs.tabId
+})
+export default connect(mapStateToProps)(UserPlaylistItem)
 
 const Li = styled.li`
   a {

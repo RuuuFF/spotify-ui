@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const MainSection = props => {
+const HeaderSection = props => {
   function getGreeting() {
     const hourNow = new Date().getHours()
 
@@ -18,14 +18,14 @@ const MainSection = props => {
       <div className="header">
         <h2 className="title">{getGreeting()}</h2>
       </div>
-      <div className="cards" ref={props.refference}>
+      <div className="cards" ref={props.reference}>
         {props.children}
       </div>
     </Container>
   )
 }
 
-export default MainSection
+export default HeaderSection
 
 const Container = styled.section`
   display: flex;

@@ -1,9 +1,9 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { getRandomBackground, setDefaultBackground } from "../../store/structureSlice"
+import { getRandomBackground, setDefaultBackground } from "../../../store/structureSlice"
 
 import styled from "styled-components"
-import Icons from "../icons"
+import Icons from "../../icons"
 
 const CardWide = props => (
   <Container>
