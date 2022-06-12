@@ -1,14 +1,14 @@
 import { useRef, useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
-import { selectTab, setTabId, updatePlaylistItem } from "../../../store/spotifySlice"
+import { selectTab, setTabId, updatePlaylist, deletePlaylist } from "../../../store/spotifySlice"
 
 import PlaylistHeader from "../playlistPage/playlistHeader"
 import PlaylistContent from "../playlistPage/playlistContent"
 import PlaylistModal from "../playlistPage/playlistModal"
 import styled from "styled-components"
 
-const PlaylistPage = ({ playlist, updatePlaylistItem, selectTab, setTabId }) => {
+const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, setTabId }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const nameRef = useRef(null)
   const imageRef = useRef(null)
@@ -21,7 +21,7 @@ const PlaylistPage = ({ playlist, updatePlaylistItem, selectTab, setTabId }) => 
 
   function savePlaylist(newPlaylist = {}) {
     toggleModal()
-    updatePlaylistItem({ newPlaylist, index: playlist.index })
+    updatePlaylist({ newPlaylist, index: playlist.index })
   }
 
   useEffect(() => {
@@ -37,19 +37,22 @@ const PlaylistPage = ({ playlist, updatePlaylistItem, selectTab, setTabId }) => 
         focusName={() => toggleModal(nameRef.current)}
         focusDescription={() => toggleModal(descriptionRef.current)} />
 
-      <PlaylistContent />
+      <PlaylistContent
+        toggleModal={toggleModal}
+        deletePlaylist={() => deletePlaylist(playlist.index)} />
 
       <PlaylistModal
         playlist={playlist}
         savePlaylist={savePlaylist}
         modal={{ modalVisible, toggleModal }}
         inputReferences={{ nameRef, imageRef, descriptionRef }} />
-    </Container >
+    </Container>
   )
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  updatePlaylistItem,
+  updatePlaylist,
+  deletePlaylist,
   selectTab,
   setTabId
 }, dispatch)

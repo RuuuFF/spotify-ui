@@ -1,18 +1,38 @@
 import { useRef, useState } from "react"
+import Dropdown from "../dropdown"
+import DropdownItem from "../dropdownItem"
 import Icons from "../../icons"
 import styled from "styled-components"
 
-const PlaylistContent = props => {
+const PlaylistContent = ({ toggleModal, deletePlaylist }) => {
+  const [dropdown, setDropdown] = useState(false)
   const [search, setSearch] = useState("")
   const searchRef = useRef(null)
+
+  function editDetails() {
+    setDropdown(false)
+    toggleModal()
+  }
 
   return (
     <Wrapper>
       <div className="paddingAround">
         <div>
-          <button className="btn">
-            <Icons icon="ellipsis" />
-          </button>
+          <div className="button-container">
+            <button className="btn" onClick={() => setDropdown(!dropdown)}>
+              <Icons icon="ellipsis" />
+            </button>
+
+            <Dropdown active={dropdown} top left minWidth={"16.2rem"}>
+              <DropdownItem name="Add to queue" />
+              <DropdownItem name="Go to playlist radio" />
+              <DropdownItem name="Add to profile" />
+              <DropdownItem name="Edit details" action={editDetails} separator />
+              <DropdownItem name="Delete" action={deletePlaylist} />
+              <DropdownItem name="Share" separator />
+              <DropdownItem name="Open in Desktop app" separator />
+            </Dropdown>
+          </div>
         </div>
       </div>
 
@@ -73,6 +93,11 @@ const Wrapper = styled.div`
 
   .paddingAround {
     padding: 2.4rem 3.2rem;
+  }
+
+  .button-container {
+    display: inline-block;
+    position: relative;
   }
 
   .btn {

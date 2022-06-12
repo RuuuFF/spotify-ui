@@ -32,7 +32,7 @@ const Main = ({ scaleHeaderBgOpacity, playlists }) => {
         <Route path="/" element={<MainPage reference={triggerElement} />} />
         <Route path="*" element={<MainPage reference={triggerElement} />} />
 
-        <Route path="/playlist" >
+        <Route path="/playlist">
           {playlists.map((playlist, index) => <Route
             key={playlist.id}
             path={`${playlist.id}`}

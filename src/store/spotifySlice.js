@@ -33,7 +33,7 @@ export const spotifySlice = createSlice({
       localStorage.setItem("playlists", JSON.stringify(state.playlists))
     },
 
-    updatePlaylistItem: (state, action) => {
+    updatePlaylist: (state, action) => {
       const { newPlaylist, index } = action.payload
       const prevPlaylist = state.playlists[index]
 
@@ -41,6 +41,11 @@ export const spotifySlice = createSlice({
         state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
         localStorage.setItem("playlists", JSON.stringify(state.playlists))
       }
+    },
+
+    deletePlaylist: (state, action) => {
+      state.playlists.splice(action.payload, 1)
+      localStorage.setItem("playlists", JSON.stringify(state.playlists))
     }
   }
 })
@@ -49,7 +54,8 @@ export const {
   selectTab,
   setTabId,
   newPlaylist,
-  updatePlaylistItem
+  updatePlaylist,
+  deletePlaylist
 } = spotifySlice.actions
 
 export default spotifySlice.reducer

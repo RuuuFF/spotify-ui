@@ -1,8 +1,7 @@
 import { connect } from "react-redux"
-
 import styled from "styled-components"
 import Icons from "../icons"
-import UserButtonDropdown from "./userButtonDropdown"
+import UserButton from "./userButton"
 
 const Header = ({ header, reference }) => {
   const backgroundStyles = {
@@ -23,7 +22,7 @@ const Header = ({ header, reference }) => {
         </button>
       </nav>
 
-      <UserButtonDropdown />
+      <UserButton />
     </Container>
   )
 }

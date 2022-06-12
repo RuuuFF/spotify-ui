@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
   expandAlbum: false,
-  userDropdown: false,
   header: {
     left: null,
     opacity: 0,
@@ -23,10 +22,6 @@ export const structureSlice = createSlice({
 
     toggleExpandAlbum: state => {
       state.expandAlbum = !state.expandAlbum
-    },
-
-    toggleUserDropdown: state => {
-      state.userDropdown = !state.userDropdown
     },
 
     scaleHeaderBgOpacity: (state, action) => {
