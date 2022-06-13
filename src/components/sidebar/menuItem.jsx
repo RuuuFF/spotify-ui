@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Icons from "../icons"
 
-const MenuItem = ({ label, path, action, bg, icon, activeTab, selectTab, margin, padding }) => {
+const MenuItem = ({ label, path, action, bg, icon, activeTab, selectTab, margin, padding, button }) => {
   const active = label === activeTab
 
   let classes = ''
@@ -16,13 +16,21 @@ const MenuItem = ({ label, path, action, bg, icon, activeTab, selectTab, margin,
 
   return (
     <Li>
-      <Link
-        to={path}
-        className={classes}
-        onClick={action ? action : () => selectTab(label)}>
-        <Icons icon={icon} active={active} bg={bg} />
-        <span>{label}</span>
-      </Link>
+      {!button ? (
+        <Link
+          to={path}
+          className={classes}
+          onClick={action ? action : () => selectTab(label)}>
+          <Icons icon={icon} active={active} bg={bg} />
+          <span>{label}</span>
+        </Link>) : (
+        <button
+          className={classes}
+          onClick={action ? action : () => selectTab(label)}>
+          <Icons icon={icon} active={active} bg={bg} />
+          <span>{label}</span>
+        </button>
+      )}
     </Li>
   )
 }
@@ -32,7 +40,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({ selectTab }, dispatc
 export default connect(mapStateToProps, mapDispatchToProps)(MenuItem)
 
 const Li = styled.li`
- a {
+ a, button {
    display: flex;
    gap: 1.6rem;
    align-items: center;
@@ -44,6 +52,7 @@ const Li = styled.li`
    line-height: var(--lh-16);
    font-family: "Spotify Circular Bold", sans-serif;
    opacity: 0.7;
+   cursor: pointer;
    transition: opacity 0.2s linear;
 
    &.padding {

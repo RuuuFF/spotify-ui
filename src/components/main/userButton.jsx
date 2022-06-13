@@ -1,6 +1,6 @@
 import { useState } from "react"
-import Dropdown from "./dropdown"
-import DropdownItem from "./dropdownItem"
+import Dropdown from "../dropdown"
+import DropdownItem from "../dropdownItem"
 import Icons from "../icons"
 import styled from "styled-components"
 

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Icons from "../icons"
+import Icons from "./icons"
 
 const DropdownItem = ({ name, icon = false, action, separator = false }) => (
   <Container separator={separator}>

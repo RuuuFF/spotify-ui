@@ -12,7 +12,6 @@ import {
   SidebarContainer,
   MainNav,
   HorizontalRule,
-  Shadow,
 } from "./styles"
 
 const Sidebar = props => {
@@ -28,7 +27,6 @@ const Sidebar = props => {
         <Banner />
         <Menu />
         <HorizontalRule />
-        <Shadow />
         <Playlists />
         <Footer />
       </MainNav>

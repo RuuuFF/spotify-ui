@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
-import Dropdown from "../dropdown"
-import DropdownItem from "../dropdownItem"
+import Dropdown from "../../dropdown"
+import DropdownItem from "../../dropdownItem"
 import Icons from "../../icons"
 import styled from "styled-components"
 
@@ -38,38 +38,41 @@ const PlaylistContent = ({ toggleModal, deletePlaylist }) => {
 
       <div className="sidePadding">
         <section>
-          <div className="input-wrapper">
-            <div className="title-container">
-              <h1>Let's find something for your playlist</h1>
-            </div>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Search for songs or episodes"
-                value={search}
-                ref={searchRef}
-                onChange={event => setSearch(event.target.value)} />
-
-              <div
-                className="input-search-icon"
-                onClick={() => searchRef.current.focus()}>
-                <Icons icon="search-mini" />
+          <div>
+            <div className="input-wrapper">
+              <div className="title-container">
+                <h1>Let's find something for your playlist</h1>
               </div>
-              {search !== "" ? (
-                <button
-                  className="erase-input-icon"
-                  onClick={() => setSearch("")}>
-                  <Icons icon="xmark-mini" />
-                </button>
-              ) : false}
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Search for songs or episodes"
+                  value={search}
+                  ref={searchRef}
+                  onChange={event => setSearch(event.target.value)} />
+
+                <div
+                  className="input-search-icon"
+                  onClick={() => searchRef.current.focus()}>
+                  <Icons icon="search-mini" />
+                </div>
+                {search !== "" ? (
+                  <button
+                    className="erase-input-icon"
+                    onClick={() => setSearch("")}>
+                    <Icons icon="xmark-mini" />
+                  </button>
+                ) : false}
+              </div>
+            </div>
+
+            <div className="erase-section-container">
+              <button className="erase-section-button">
+                <Icons icon="xmark-large" />
+              </button>
             </div>
           </div>
-
-          <div className="erase-section-container">
-            <button className="erase-section-button">
-              <Icons icon="xmark-large" />
-            </button>
-          </div>
+          <div className="fillSpace"></div>
         </section>
       </div>
     </Wrapper >
@@ -112,7 +115,7 @@ const Wrapper = styled.div`
     padding: 0 3.2rem;
   }
 
-  section {
+  section > div:not(.fillSpace) {
     padding: 2.4rem 0;
     margin-top: 2.4rem;
     border-top: 1px solid var(--white-op-01);
@@ -121,6 +124,10 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .fillSpace {
+    min-height: calc(60vh - 12.2rem);
   }
 
   .input-wrapper {

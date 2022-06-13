@@ -1,49 +1,64 @@
 import Icons from "../../icons"
 import styled from "styled-components"
+import { useState } from "react"
 
-const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription }) => (
-  <Container>
-    <div className="image-container" onClick={focusImage}>
-      {playlist.imageUrl ? (
-        <img src={playlist.imageUrl} alt="Playlist" />
-      ) : (
-        <div className="default-image">
-          <Icons icon="ottava" />
-        </div>
-      )}
-      <div
-        className="choose-photo"
-        style={{ backgroundColor: playlist.imageUrl ? "var(--black-op-07)" : "var(--gray3)" }}>
-        <div>
-          <Icons icon="pen" />
-          <span>Choose photo</span>
+const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription }) => {
+  const [bgColor, setBgColor] = useState("rgb(83, 83, 83)")
+
+  function getPrimaryColor(event) {
+    const colorThief = window.colorThief
+    const color = colorThief.getColor(event.target)
+    setBgColor(`rgb(${color[0]}, ${color[1]}, ${color[2]})`)
+  }
+
+  return (
+    <Container style={{ backgroundColor: bgColor }}>
+      <div className="image-container" onClick={focusImage}>
+        {playlist.imageUrl ? (
+          <img
+            src={playlist.imageUrl}
+            onLoad={getPrimaryColor}
+            alt="Playlist"
+            crossOrigin="" />
+        ) : (
+          <div className="default-image">
+            <Icons icon="ottava" />
+          </div>
+        )}
+        <div
+          className="choose-photo"
+          style={{ backgroundColor: playlist.imageUrl ? "var(--black-op-07)" : "var(--gray3)" }}>
+          <div>
+            <Icons icon="pen" />
+            <span>Choose photo</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="info-container">
-      <h2>Playlist</h2>
-      <div>
-        <button
-          className="playlist-name-btn"
-          onClick={focusName}>
-          <h1>{playlist.name}</h1>
-        </button>
-      </div>
-      {playlist.description ? (
+      <div className="info-container">
+        <h2>Playlist</h2>
         <div>
           <button
-            className="playlist-description-btn"
-            onClick={focusDescription}>
-            <p className="description">{playlist.description}</p>
+            className="playlist-name-btn"
+            onClick={focusName}>
+            <h1>{playlist.name}</h1>
           </button>
         </div>
-      ) : false}
-      <div>
-        <a className="user" href="/" onClick={e => e.preventDefault()}>ruuuff</a>
+        {playlist.description ? (
+          <div>
+            <button
+              className="playlist-description-btn"
+              onClick={focusDescription}>
+              <p className="description">{playlist.description}</p>
+            </button>
+          </div>
+        ) : false}
+        <div>
+          <a className="user" href="/" onClick={e => e.preventDefault()}>ruuuff</a>
+        </div>
       </div>
-    </div>
-  </Container>
-)
+    </Container>
+  )
+}
 
 export default PlaylistHeader
 

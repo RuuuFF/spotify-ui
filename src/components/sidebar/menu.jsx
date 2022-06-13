@@ -5,7 +5,7 @@ import { newPlaylist } from "../../store/spotifySlice"
 import styled from "styled-components"
 import MenuItem from "./menuItem"
 
-const Menu = ({ newPlaylist, newPlaylistPath }) => (
+const Menu = ({ newPlaylist }) => (
   <Container>
     <div className="padding">
       <MenuItem path="/" label="Home" icon="home" />
@@ -15,24 +15,23 @@ const Menu = ({ newPlaylist, newPlaylistPath }) => (
     <div className="separator"></div>
     <div>
       <MenuItem
-        path={`/playlist/${newPlaylistPath}`}
-        action={() => newPlaylist()}
-        label="Create Playlist"
+        button
+        padding
         icon="plus"
         bg="var(--white)"
-        padding />
+        label="Create Playlist"
+        action={() => newPlaylist()} />
       <MenuItem
-        path="/liked-songs"
-        label="Liked Songs"
+        padding
         icon="heart-bg"
-        padding />
+        path="/liked-songs"
+        label="Liked Songs" />
     </div>
   </Container>
 )
 
-const mapStateToProps = state => ({ newPlaylistPath: state.spotify.playlists.length + 1 })
 const mapDispatchToProps = dispatch => bindActionCreators({ newPlaylist }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Menu)
+export default connect(null, mapDispatchToProps)(Menu)
 
 export const Container = styled.ul`
   display: flex;

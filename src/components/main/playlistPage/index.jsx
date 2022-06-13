@@ -61,7 +61,7 @@ export default connect(null, mapDispatchToProps)(PlaylistPage)
 const Container = styled.main`
   display: flex;
   flex-direction: column;
-  min-height: 88.1rem;
+  min-height: calc(((100vh - 64px) - 90px) - 519px);
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 3.2rem;
