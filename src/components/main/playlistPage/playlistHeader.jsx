@@ -1,25 +1,28 @@
+import { connect } from "react-redux/es/exports"
+import { bindActionCreators } from "@reduxjs/toolkit"
+import { setPlaylistBackground } from "../../../store/spotifySlice"
+
 import Icons from "../../icons"
 import styled from "styled-components"
-import { useState } from "react"
 
-const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription }) => {
-  const [bgColor, setBgColor] = useState("rgb(83, 83, 83)")
+const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription, setPlaylistBackground }) => {
+  function getPrimaryColor({ target: imageEl }) {
+    if (playlist.background !== "") return
 
-  function getPrimaryColor(event) {
     const colorThief = window.colorThief
-    const color = colorThief.getColor(event.target)
-    setBgColor(`rgb(${color[0]}, ${color[1]}, ${color[2]})`)
+    const colorValues = colorThief.getPalette(imageEl)[5]
+    setPlaylistBackground({ index: playlist.index, colorValues })
   }
 
   return (
-    <Container style={{ backgroundColor: bgColor }}>
+    <Container style={{ backgroundColor: playlist.background || "rgb(83, 83, 83)" }}>
       <div className="image-container" onClick={focusImage}>
         {playlist.imageUrl ? (
           <img
-            src={playlist.imageUrl}
-            onLoad={getPrimaryColor}
             alt="Playlist"
-            crossOrigin="" />
+            crossOrigin="Anonymous"
+            src={playlist.imageUrl}
+            onLoad={getPrimaryColor} />
         ) : (
           <div className="default-image">
             <Icons icon="ottava" />
@@ -60,14 +63,14 @@ const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription }) =
   )
 }
 
-export default PlaylistHeader
+const mapDispatchToProps = dispatch => bindActionCreators({ setPlaylistBackground }, dispatch)
+export default connect(null, mapDispatchToProps)(PlaylistHeader)
 
 const Container = styled.header`
   display: flex;
   flex-direction: row;
   position: relative;
   padding: 8.4rem 3.2rem 2.4rem;
-  background-color: rgb(83, 83, 83);
   z-index: 1;
 
   &::before {

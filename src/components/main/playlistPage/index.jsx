@@ -39,6 +39,7 @@ const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, set
 
       <PlaylistContent
         toggleModal={toggleModal}
+        playlistBackground={playlist.background}
         deletePlaylist={() => deletePlaylist(playlist.index)} />
 
       <PlaylistModal

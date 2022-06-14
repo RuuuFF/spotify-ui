@@ -4,7 +4,7 @@ import DropdownItem from "../../dropdownItem"
 import Icons from "../../icons"
 import styled from "styled-components"
 
-const PlaylistContent = ({ toggleModal, deletePlaylist }) => {
+const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) => {
   const [dropdown, setDropdown] = useState(false)
   const [search, setSearch] = useState("")
   const searchRef = useRef(null)
@@ -15,7 +15,7 @@ const PlaylistContent = ({ toggleModal, deletePlaylist }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper style={{ "--playlist-bg-shadow": playlistBackground || "rgb(83, 83, 83)" }}>
       <div className="paddingAround">
         <div>
           <div className="button-container">
@@ -87,10 +87,11 @@ const Wrapper = styled.div`
 
   &::before {
     content: "";
-    background-image: linear-gradient(to bottom, rgba(83, 83, 83, 0.25), transparent 80%);
     position: absolute;
     inset: 0 0 auto 0;
     height: 20rem;
+    background-color: var(--playlist-bg-shadow);
+    background-image: linear-gradient(rgba(0, 0, 0, .6) 0, var(--main-bg) 100%);
     z-index: -1;
   }
 

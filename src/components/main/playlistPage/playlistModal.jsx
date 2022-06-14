@@ -72,7 +72,7 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
                 reference={imageRef}
                 onKeyDown={keyHandler}
                 onChange={setImageUrl}
-                placeholder="Add an optional photo (URL)" />
+                placeholder="https://i.imgur.com/example.png" />
               <ModalInput
                 name="Description"
                 element="textarea"

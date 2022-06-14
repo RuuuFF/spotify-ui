@@ -46,6 +46,7 @@ export const spotifySlice = createSlice({
         id,
         imageUrl: "",
         description: "",
+        background: "",
         name: `My Playlist #${state.playlists.length + 1}`,
       }
 
@@ -57,9 +58,10 @@ export const spotifySlice = createSlice({
     updatePlaylist: (state, action) => {
       const { newPlaylist, index } = action.payload
       const prevPlaylist = state.playlists[index]
+      const background = prevPlaylist.imageUrl !== newPlaylist.imageUrl ? "" : prevPlaylist.background
 
       if (newPlaylist.name !== "") {
-        state.playlists[index] = { ...prevPlaylist, ...newPlaylist }
+        state.playlists[index] = { ...prevPlaylist, background, ...newPlaylist }
         localStorage.setItem("playlists", JSON.stringify(state.playlists))
       }
     },
@@ -68,6 +70,13 @@ export const spotifySlice = createSlice({
       window.location.hash = "#/"
       state.tabs.activeTab = "Home"
       state.playlists.splice(action.payload, 1)
+      localStorage.setItem("playlists", JSON.stringify(state.playlists))
+    },
+
+    setPlaylistBackground: (state, action) => {
+      const { index, colorValues } = action.payload
+      const color = `rgb(${colorValues[0]}, ${colorValues[1]}, ${colorValues[2]})`
+      state.playlists[index].background = color
       localStorage.setItem("playlists", JSON.stringify(state.playlists))
     }
   }
@@ -78,7 +87,8 @@ export const {
   setTabId,
   newPlaylist,
   updatePlaylist,
-  deletePlaylist
+  deletePlaylist,
+  setPlaylistBackground
 } = spotifySlice.actions
 
 export default spotifySlice.reducer
