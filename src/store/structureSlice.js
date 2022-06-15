@@ -5,7 +5,6 @@ const INITIAL_STATE = {
   header: {
     left: null,
     opacity: 0,
-    triggerValue: null,
     background: "#248524",
     prevBackground: null
   }
@@ -25,24 +24,19 @@ export const structureSlice = createSlice({
     },
 
     scaleHeaderBgOpacity: (state, action) => {
-      const { headerBottom, triggerElementTop } = action.payload
-
-      if (!state.header.triggerValue) {
-        state.header.triggerValue = triggerElementTop
-      }
+      const { headerBottom, firstTriggerTop, secondTriggerTop } = action.payload
 
       function scale(num, in_min, in_max, out_min, out_max) {
         const percentage = (num - in_min) / (in_max - in_min)
         let value = percentage * (out_max - out_min) + out_min
-
-        value = value < out_min ? out_min : value
-        value = value > out_max ? out_max : value
-
-        return value
+        return value = value < out_min ? out_min : value > out_max ? out_max : value
       }
 
-      const range = -(triggerElementTop) + state.header.triggerValue + headerBottom
-      state.header.opacity = scale(range, headerBottom, state.header.triggerValue, 0, 1)
+      state.header.opacity = scale(headerBottom - headerBottom, firstTriggerTop, secondTriggerTop - headerBottom, 0, 1)
+    },
+
+    setBackground: (state, action) => {
+      state.header.background = action.payload
     },
 
     getRandomBackground: state => {
@@ -68,8 +62,9 @@ export const {
   toggleExpandAlbum,
   toggleUserDropdown,
   scaleHeaderBgOpacity,
+  setBackground,
   getRandomBackground,
-  setDefaultBackground
+  setDefaultBackground,
 } = structureSlice.actions
 
 export default structureSlice.reducer

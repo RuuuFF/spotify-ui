@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
+import { setBackground } from "../../../store/structureSlice"
 import { selectTab, setTabId, updatePlaylist, deletePlaylist } from "../../../store/spotifySlice"
 
 import PlaylistHeader from "../playlistPage/playlistHeader"
@@ -8,7 +9,7 @@ import PlaylistContent from "../playlistPage/playlistContent"
 import PlaylistModal from "../playlistPage/playlistModal"
 import styled from "styled-components"
 
-const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, setTabId }) => {
+const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, setTabId, setBackground }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const nameRef = useRef(null)
   const imageRef = useRef(null)
@@ -25,9 +26,10 @@ const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, set
   }
 
   useEffect(() => {
+    setBackground(playlist.background)
     selectTab(playlist.name)
     setTabId(playlist.id)
-  }, [playlist.name, playlist.id, selectTab, setTabId])
+  }, [playlist.name, playlist.id, playlist.background, setBackground, selectTab, setTabId])
 
   return (
     <Container>
@@ -52,10 +54,11 @@ const PlaylistPage = ({ playlist, updatePlaylist, deletePlaylist, selectTab, set
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  setBackground,
   updatePlaylist,
   deletePlaylist,
   selectTab,
-  setTabId
+  setTabId,
 }, dispatch)
 export default connect(null, mapDispatchToProps)(PlaylistPage)
 

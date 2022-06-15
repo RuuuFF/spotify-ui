@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react"
+import { useEffect, useCallback } from "react"
 import { Routes, Route } from "react-router-dom"
 import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
@@ -10,15 +10,15 @@ import PlaylistPage from "../../components/main/playlistPage"
 import { Container } from "./style"
 
 const Main = ({ scaleHeaderBgOpacity, playlists }) => {
-  const header = useRef(null)
-  const triggerElement = useRef(null)
-
   const scroll = useCallback(() => {
-    const headerBottom = header.current.getBoundingClientRect().bottom
-    const triggerElementTop = triggerElement.current?.getBoundingClientRect().top
+    const { spotifyHeaderEl, spotifyFirstTriggerEl, spotifySecondTriggerEl } = window
 
-    if (headerBottom && triggerElementTop) {
-      scaleHeaderBgOpacity({ headerBottom, triggerElementTop })
+    const headerBottom = spotifyHeaderEl?.getBoundingClientRect().bottom
+    const firstTriggerTop = Number(spotifyFirstTriggerEl?.getBoundingClientRect().top)
+    const secondTriggerTop = spotifySecondTriggerEl?.getBoundingClientRect().top
+
+    if (headerBottom && firstTriggerTop && secondTriggerTop) {
+      scaleHeaderBgOpacity({ headerBottom, firstTriggerTop, secondTriggerTop })
     }
   }, [scaleHeaderBgOpacity])
 
@@ -26,11 +26,11 @@ const Main = ({ scaleHeaderBgOpacity, playlists }) => {
 
   return (
     <Container onScroll={scroll}>
-      <Header reference={header} />
+      <Header />
 
       <Routes>
-        <Route path="/" element={<MainPage reference={triggerElement} />} />
-        <Route path="*" element={<MainPage reference={triggerElement} />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
 
         <Route path="/playlist">
           {playlists.map((playlist, index) => <Route

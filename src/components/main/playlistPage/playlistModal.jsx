@@ -11,7 +11,11 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
   const [imageUrl, setImageUrl] = useState("")
   const [description, setDescription] = useState("")
 
-  const postNewPlaylist = () => savePlaylist({ name, imageUrl, description })
+  const postNewPlaylist = () => savePlaylist({
+    name: name.trim(),
+    imageUrl: imageUrl.trim(),
+    description: description.trim()
+  })
 
   function keyHandler(event) {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -57,6 +61,7 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
 
             <div className="input-container">
               <ModalInput
+                required
                 name="Name"
                 value={name}
                 maxLength={100}

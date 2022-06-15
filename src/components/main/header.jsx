@@ -1,16 +1,24 @@
+import { useEffect } from "react"
+import { useRef } from "react"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import Icons from "../icons"
 import UserButton from "./userButton"
 
-const Header = ({ header, reference }) => {
+const Header = ({ header }) => {
+  const headerRef = useRef(null)
+
   const backgroundStyles = {
-    background: header.background,
+    background: header.background || "rgb(83, 83, 83)",
     opacity: header.opacity
   }
 
+  useEffect(() => {
+    window.spotifyHeaderEl = headerRef.current
+  }, [])
+
   return (
-    <Container ref={reference} style={{ left: `${header.left}px` }}>
+    <Container ref={headerRef} style={{ left: `${header.left}px` }}>
       <div className="background" style={backgroundStyles}></div>
 
       <nav className="nav-container">

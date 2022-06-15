@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { connect } from "react-redux/es/exports"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { setPlaylistBackground } from "../../../store/spotifySlice"
@@ -6,6 +7,18 @@ import Icons from "../../icons"
 import styled from "styled-components"
 
 const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription, setPlaylistBackground }) => {
+  const nameLength = playlist.name.length
+  const titleSize = nameLength < 20 ? "var(--fs-96)" : nameLength < 26 ? "7.2rem" : "4.8rem"
+  const titleLetterSpacing = nameLength < 20 ? "-5px" : nameLength < 26 ? "-4px" : "-2.4px"
+  const titlePadding = nameLength < 20 ? "7px" : nameLength < 26 ? "5px" : "3.7px"
+
+  const style = {
+    "--playlist-title-size": titleSize,
+    "--title-letter-spacing": titleLetterSpacing,
+    "--title-padding": titlePadding,
+    backgroundColor: playlist.background || "rgb(83, 83, 83)"
+  }
+
   function getPrimaryColor({ target: imageEl }) {
     if (playlist.background !== "") return
 
@@ -14,8 +27,11 @@ const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription, set
     setPlaylistBackground({ index: playlist.index, colorValues })
   }
 
+  const firstTriggerRef = useRef(null)
+  useEffect(() => { window.spotifyFirstTriggerEl = firstTriggerRef.current }, [])
+
   return (
-    <Container style={{ backgroundColor: playlist.background || "rgb(83, 83, 83)" }}>
+    <Container style={style}>
       <div className="image-container" onClick={focusImage}>
         {playlist.imageUrl ? (
           <img
@@ -43,7 +59,7 @@ const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription, set
           <button
             className="playlist-name-btn"
             onClick={focusName}>
-            <h1>{playlist.name}</h1>
+            <h1 ref={firstTriggerRef}>{playlist.name}</h1>
           </button>
         </div>
         {playlist.description ? (
@@ -92,6 +108,7 @@ const Container = styled.header`
       width: 100%;
       height: 100%;
       object-fit: cover;
+      user-select: none;
       -webkit-user-drag: none;
     }
 
@@ -163,15 +180,13 @@ const Container = styled.header`
         font-family: "Spotify Circular Bold", sans-serif;
         font-weight: 900;
         text-align: left;
-        letter-spacing: -5px;
-        font-size: var(--fs-96);
-        line-height: var(--fs-96);
+        font-size: var(--playlist-title-size);
+        line-height: var(--playlist-title-size);
+        letter-spacing: var(--title-letter-spacing);
         color: var(--white);
         user-select: none;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        padding: 0.7rem 0.7rem 0.7rem 0;
+        word-break: break-all;
+        padding: var(--title-padding) var(--title-padding) var(--title-padding) 0;
       }
     }
 

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import styled from "styled-components"
 
 const HeaderSection = props => {
@@ -13,12 +14,15 @@ const HeaderSection = props => {
     }
   }
 
+  const secondTriggerRef = useRef(null)
+  useEffect(() => { window.spotifySecondTriggerEl = secondTriggerRef.current }, [])
+
   return (
     <Container>
       <div className="header">
         <h2 className="title">{getGreeting()}</h2>
       </div>
-      <div className="cards" ref={props.reference}>
+      <div className="cards" ref={secondTriggerRef}>
         {props.children}
       </div>
     </Container>

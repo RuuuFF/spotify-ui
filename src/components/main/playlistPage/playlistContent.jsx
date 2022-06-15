@@ -1,10 +1,11 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import Dropdown from "../../dropdown"
 import DropdownItem from "../../dropdownItem"
 import Icons from "../../icons"
 import styled from "styled-components"
 
 const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) => {
+
   const [dropdown, setDropdown] = useState(false)
   const [search, setSearch] = useState("")
   const searchRef = useRef(null)
@@ -14,8 +15,13 @@ const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) =>
     toggleModal()
   }
 
+  const style = { "--playlist-bg-shadow": playlistBackground || "rgb(83, 83, 83)" }
+
+  const secondTriggerRef = useRef(null)
+  useEffect(() => { window.spotifySecondTriggerEl = secondTriggerRef.current }, [])
+
   return (
-    <Wrapper style={{ "--playlist-bg-shadow": playlistBackground || "rgb(83, 83, 83)" }}>
+    <Wrapper ref={secondTriggerRef} style={style}>
       <div className="paddingAround">
         <div>
           <div className="button-container">

@@ -1,30 +1,42 @@
 import styled from "styled-components"
 
-const ModalInput = props => {
+const ModalInput = ({ name, type, value, maxLength, placeholder, required, reference, onKeyDown, onChange, element }) => {
+  let inputCharacterAlert = ""
+
+  if (value.length === maxLength || (value.length === 0 && required)) {
+    inputCharacterAlert = "limit"
+  } else if ((value.length * 100) / maxLength >= 90) {
+    inputCharacterAlert = "visible"
+  }
+
   return (
-    <Container className="input-wrapper">
-      <label htmlFor={props.name}>{props.name}</label>
-      {props.element !== "textarea" ? (
+    <Container className={`input-wrapper`}>
+      <label htmlFor={name}>{name}</label>
+      {element !== "textarea" ? (
         <input
-          id={props.name}
-          type={props.type || "text"}
-          ref={props.reference}
-          value={props.value}
-          onKeyDown={props.onKeyDown}
-          maxLength={props.maxLength}
-          placeholder={props.placeholder}
-          onChange={event => props.onChange(event.target.value)} />
+          id={name}
+          type={type || "text"}
+          ref={reference}
+          value={value}
+          onKeyDown={onKeyDown}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          onChange={event => onChange(event.target.value)} />
       ) : (
         <textarea
-          id={props.name}
-          type={props.type}
-          ref={props.reference}
-          value={props.value}
-          onKeyDown={props.onKeyDown}
-          maxLength={props.maxLength}
-          placeholder={props.placeholder}
-          onChange={event => props.onChange(event.target.value)}></textarea>
+          id={name}
+          type={type}
+          ref={reference}
+          value={value}
+          onKeyDown={onKeyDown}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          onChange={event => onChange(event.target.value)}></textarea>
       )}
+
+      <span className={`character-length ${inputCharacterAlert}`}>
+        {value.length}/{maxLength}
+      </span>
     </Container>
   )
 }
@@ -78,12 +90,34 @@ const Container = styled.div`
     width: 100%;
     color: var(--white);
     font-size: var(--fs-14);
-    font-family: "Spotify Circular Book";
+    font-family: "Spotify Circular Book", sans-serif;
   }
 
   & :is(input, textarea):focus {
     background-color: #333;
     border: 1px solid #535353;
     outline: none;
+  }
+
+  .character-length {
+    position: absolute;
+    opacity: 0;
+    visibility: 0;
+    right: 0.8rem;
+    bottom: 0;
+    font-size: var(--fs-16);
+    font-family: "Spotify Circular Light", sans-serif;
+    border-radius: 2px;
+    padding: 0 0.4rem;
+    background-color: #2e77d0;
+  }
+
+  .character-length:is(.visible, .limit) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .character-length.limit {
+    background-color: #ff0000;
   }
 `
