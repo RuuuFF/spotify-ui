@@ -5,7 +5,8 @@ import { togglePlaying, updateTime, prevMusic } from "../../store/playerSlice"
 
 import useFormatMMSS from "../../hooks/useTimeFormatter"
 import ControlButton from "./controlButton"
-import ProgressBar from "../progressBar"
+import ProgressBar from "./progressBar"
+import Div from "../div"
 import styled from "styled-components"
 
 const PlayerControl = ({ music, togglePlaying, updateTime, prevMusic }) => {
@@ -23,7 +24,7 @@ const PlayerControl = ({ music, togglePlaying, updateTime, prevMusic }) => {
 
   return (
     <Container>
-      <div className="controls-container">
+      <Div flex align="center" justify="center" gap="1.6rem" mb="0.8rem">
         <div className="control left">
           <ControlButton icon="shuffle" />
           <ControlButton
@@ -40,9 +41,9 @@ const PlayerControl = ({ music, togglePlaying, updateTime, prevMusic }) => {
           <ControlButton icon="next-music" />
           <ControlButton icon="repeat" />
         </div>
-      </div>
+      </Div>
 
-      <div className="progress-container">
+      <Div flex align="center" justify="center" gap="0.8rem">
         <div className="progress-time current">{currentFormattedTime}</div>
         <div className="progress-bar-container">
           <ProgressBar
@@ -51,7 +52,7 @@ const PlayerControl = ({ music, togglePlaying, updateTime, prevMusic }) => {
             onChange={value => updateTime(value)} />
         </div>
         <div className="progress-time final">{finalFormattedTime}</div>
-      </div>
+      </Div>
     </Container>
   )
 }
@@ -77,53 +78,37 @@ const Container = styled.div`
   max-width: 72.2rem;
   width: 40%;
 
-  .controls-container {
+  .control {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 0.8rem;
     width: 100%;
-    gap: 1.6rem;
-    margin-bottom: 0.8rem;
 
-    .control {
-      display: flex;
-      gap: 0.8rem;
-      width: 100%;
+    &.left {
+      justify-content: flex-end;
+    }
 
-      &.left {
-        justify-content: flex-end;
-      }
-
-      &.right {
-        justify-content: flex-start;
-      }
+    &.right {
+      justify-content: flex-start;
     }
   }
 
-  .progress-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
+  .progress-time {
+    color: var(--gray2);
+    font-size: var(--fs-11);
+    line-height: var(--lh-16);
+    font-family: "Spotify Circular Book", sans-serif;
+    min-width: 4rem;
 
-    .progress-time {
-      color: var(--gray2);
-      font-size: var(--fs-11);
-      line-height: var(--lh-16);
-      min-width: 4rem;
-      font-family: "Spotify Circular Book";
-
-      &.current {
-        text-align: right;
-      }
-
-      &.final{
-        text-align: left;
-      }
+    &.current {
+      text-align: right;
     }
 
-    .progress-bar-container {
-      flex: 1;
+    &.final{
+      text-align: left;
     }
+  }
+
+  .progress-bar-container {
+    flex: 1;
   }
 `

@@ -1,15 +1,13 @@
 import { connect } from "react-redux"
-
-import styled from "styled-components"
 import PlaylistItem from "./playlistItem"
+import styled from "styled-components"
 
 const Playlists = ({ playlists = [] }) => (
   <Container>
     <div className="scroll">
       <ul>
-        {[...playlists].reverse().map(playlist => <PlaylistItem
-          key={playlist.id}
-          playlist={playlist} />)}
+        {[...playlists].reverse()
+          .map(playlist => <PlaylistItem key={playlist.id} playlist={playlist} />)}
       </ul>
     </div>
   </Container>
@@ -19,7 +17,6 @@ const mapStateToProps = state => ({ playlists: state.spotify.playlists })
 export default connect(mapStateToProps)(Playlists)
 
 const Container = styled.div`
-  display: flex;
   flex: 1;
   position: relative;
   overflow: hidden;
@@ -33,7 +30,7 @@ const Container = styled.div`
   }
 
   .scroll {
-    flex: 1;
+    height: 100%;
     padding: 0.8rem 0;
     overflow-x: auto;
   }

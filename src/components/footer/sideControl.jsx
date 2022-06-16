@@ -6,7 +6,7 @@ import { updateVolume, toggleMute } from "../../store/playerSlice"
 import styled from "styled-components"
 
 import ControlButton from "./controlButton"
-import ProgressBar from "../progressBar"
+import ProgressBar from "./progressBar"
 
 const SideControl = ({ currentVolume, maxVolume, selectTab, updateVolume, toggleMute }) => (
   <Container>
@@ -62,7 +62,19 @@ const Container = styled.div`
         background: var(--white);
       }
 
+      &::-moz-range-thumb {
+        --moz-shadow-height: -4px;
+        height: 12px;
+        background: var(--white);
+        border-radius: 50%;
+      }
+
       &::-webkit-slider-runnable-track {
+        background: var(--active-progress-bar);
+        overflow: visible;
+      }
+
+      &::-moz-range-track {
         background: var(--active-progress-bar);
         overflow: visible;
       }

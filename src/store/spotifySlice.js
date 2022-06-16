@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const INITIAL_STATE = {
   playlists: JSON.parse(localStorage.getItem("playlists")) || [],
-  tabs: {
-    activeTab: 'Home',
-    tabId: null,
-  }
+  tabs: { activeTab: 'Home' }
 }
 
 function getUniqueId(idList, length = 6) {
@@ -32,10 +29,6 @@ export const spotifySlice = createSlice({
   reducers: {
     selectTab: (state, action) => {
       state.tabs.activeTab = action.payload
-    },
-
-    setTabId: (state, action) => {
-      state.tabs.tabId = action.payload
     },
 
     newPlaylist: state => {
@@ -84,7 +77,6 @@ export const spotifySlice = createSlice({
 
 export const {
   selectTab,
-  setTabId,
   newPlaylist,
   updatePlaylist,
   deletePlaylist,

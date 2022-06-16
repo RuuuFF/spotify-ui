@@ -8,25 +8,22 @@ import Icons from "../icons"
 
 const MenuItem = ({ label, path, action, bg, icon, activeTab, selectTab, margin, padding, button }) => {
   const active = label === activeTab
+  const myAction = action ? action : () => selectTab(label)
 
-  let classes = ''
-  classes += active ? 'active' : ''
-  classes += margin ? ' margin' : ''
-  classes += padding ? ' padding' : ''
+  let classNames = ''
+  classNames += active ? 'active' : ''
+  classNames += margin ? ' margin' : ''
+  classNames += padding ? ' padding' : ''
 
   return (
     <Li>
       {!button ? (
-        <Link
-          to={path}
-          className={classes}
-          onClick={action ? action : () => selectTab(label)}>
+        <Link to={path} className={classNames} onClick={myAction}>
           <Icons icon={icon} active={active} bg={bg} />
           <span>{label}</span>
-        </Link>) : (
-        <button
-          className={classes}
-          onClick={action ? action : () => selectTab(label)}>
+        </Link>
+      ) : (
+        <button className={classNames} onClick={myAction}>
           <Icons icon={icon} active={active} bg={bg} />
           <span>{label}</span>
         </button>
@@ -42,10 +39,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(MenuItem)
 const Li = styled.li`
  a, button {
    display: flex;
-   gap: 1.6rem;
    align-items: center;
-   padding: 0 1.6rem;
    height: 4rem;
+   gap: 1.6rem;
+   padding: 0 1.6rem;
    font-weight: 700;
    color: var(--white);
    font-size: var(--fs-14);
