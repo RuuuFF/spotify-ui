@@ -1,22 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { toggleExpandAlbum } from "../../store/structureSlice"
 
 import MenuItem from "./menuItem";
-import styled from "styled-components"
 import ExpandImageBtn from "../expandImageBtn";
+import styled from "styled-components"
 
 const SidebarFooter = ({ expandAlbum, currentMusic }) => {
   const [height, setHeight] = useState(null)
-  const image = useRef(null)
 
-  useEffect(() => setHeight(image.current.getBoundingClientRect().height), [])
+  function updateHeight(el) {
+    const elHeight = el.getBoundingClientRect().height
+    setHeight(elHeight)
+  }
 
   return (
     <Container style={{
       transform: `translateY(-${expandAlbum ? height : 0}px)`,
-      transition: `transform 0.4s ${expandAlbum ? 'ease-in .4s' : 'ease-out 0s'}`
+      transition: `transform .4s ${expandAlbum ? 'ease-in .4s' : 'ease-out 0s'}`
     }}>
       <ul>
         <MenuItem path="/install" label="Install App" icon="download" margin />
@@ -26,10 +28,10 @@ const SidebarFooter = ({ expandAlbum, currentMusic }) => {
         <div className="wrapper">
           {expandAlbum ? <ExpandImageBtn arrowDown /> : false}
           <img
-            ref={image}
             className="image"
+            alt={currentMusic.artist}
             src={currentMusic.albumImage}
-            alt={currentMusic.artist} />
+            onLoad={event => updateHeight(event.target)} />
         </div>
       </div>
     </Container>

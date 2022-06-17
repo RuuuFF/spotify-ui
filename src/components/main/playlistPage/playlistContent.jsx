@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react"
 import Dropdown from "../../dropdown"
 import DropdownItem from "../../dropdownItem"
 import Icons from "../../icons"
+import Div from "../../div"
 import styled from "styled-components"
 
 const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) => {
@@ -21,31 +22,29 @@ const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) =>
   useEffect(() => { window.spotifySecondTriggerEl = secondTriggerRef.current }, [])
 
   return (
-    <Wrapper ref={secondTriggerRef} style={style}>
-      <div className="paddingAround">
-        <div>
-          <div className="button-container">
-            <button className="btn" onClick={() => setDropdown(!dropdown)}>
-              <Icons icon="ellipsis" />
-            </button>
+    <Container ref={secondTriggerRef} style={style}>
+      <Div padding="2.4rem 3.2rem">
+        <div className="button-container">
+          <button className="btn" onClick={() => setDropdown(!dropdown)}>
+            <Icons icon="ellipsis" />
+          </button>
 
-            <Dropdown active={dropdown} top left minWidth={"16.2rem"}>
-              <DropdownItem name="Add to queue" />
-              <DropdownItem name="Go to playlist radio" />
-              <DropdownItem name="Add to profile" />
-              <DropdownItem name="Edit details" action={editDetails} separator />
-              <DropdownItem name="Delete" action={deletePlaylist} />
-              <DropdownItem name="Share" separator />
-              <DropdownItem name="Open in Desktop app" separator />
-            </Dropdown>
-          </div>
+          <Dropdown active={dropdown} top left minWidth={"16.2rem"}>
+            <DropdownItem name="Add to queue" />
+            <DropdownItem name="Go to playlist radio" />
+            <DropdownItem name="Add to profile" />
+            <DropdownItem name="Edit details" action={editDetails} separator />
+            <DropdownItem name="Delete" action={deletePlaylist} />
+            <DropdownItem name="Share" separator />
+            <DropdownItem name="Open in Desktop app" separator />
+          </Dropdown>
         </div>
-      </div>
+      </Div>
 
-      <div className="sidePadding">
+      <Div px="3.2rem">
         <section>
           <div>
-            <div className="input-wrapper">
+            <div>
               <div className="title-container">
                 <h1>Let's find something for your playlist</h1>
               </div>
@@ -56,7 +55,6 @@ const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) =>
                   value={search}
                   ref={searchRef}
                   onChange={event => setSearch(event.target.value)} />
-
                 <div
                   className="input-search-icon"
                   onClick={() => searchRef.current.focus()}>
@@ -80,14 +78,14 @@ const PlaylistContent = ({ toggleModal, deletePlaylist, playlistBackground }) =>
           </div>
           <div className="fillSpace"></div>
         </section>
-      </div>
-    </Wrapper >
+      </Div>
+    </Container>
   )
 }
 
 export default PlaylistContent
 
-const Wrapper = styled.div`
+const Container = styled.div`
   position: relative;
   flex: 1;
 
@@ -101,10 +99,6 @@ const Wrapper = styled.div`
     z-index: -1;
   }
 
-  .paddingAround {
-    padding: 2.4rem 3.2rem;
-  }
-
   .button-container {
     display: inline-block;
     position: relative;
@@ -116,10 +110,6 @@ const Wrapper = styled.div`
     &:hover {
       color: var(--white);
     }
-  }
-
-  .sidePadding {
-    padding: 0 3.2rem;
   }
 
   section > div:not(.fillSpace) {
@@ -137,17 +127,13 @@ const Wrapper = styled.div`
     min-height: calc(60vh - 12.2rem);
   }
 
-  .input-wrapper {
-    display: flex;
-    flex-direction: column;
 
-    h1 {
-      color: var(--white);
-      font-size: var(--fs-24);
-      line-height: var(--lh-28);
-      letter-spacing: -0.96px;
-      margin-bottom: 1.4rem;
-    }
+  h1 {
+    color: var(--white);
+    font-size: var(--fs-24);
+    line-height: var(--lh-28);
+    letter-spacing: -0.96px;
+    margin-bottom: 1.4rem;
   }
 
   .input-container {
@@ -174,7 +160,8 @@ const Wrapper = styled.div`
       }
     }
 
-    .input-search-icon, .erase-input-icon {
+    .input-search-icon,
+    .erase-input-icon {
       position: absolute;
       transform: translateY(-50%);
       color: var(--white-op-07);

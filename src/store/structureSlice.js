@@ -40,7 +40,7 @@ export const structureSlice = createSlice({
     },
 
     getRandomBackground: state => {
-      const colors = ["olive", "dodgerblue", "slategray", "indigo", "lavender"]
+      const colors = ["#808000", "#1e90ff", "#708090", "#4b0082", "#e6e6fa"]
       let random = Math.floor(Math.random() * colors.length)
 
       while (state.header.prevBackground === colors[random]) {

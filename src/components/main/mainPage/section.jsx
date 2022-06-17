@@ -1,15 +1,16 @@
+import Div from "../../div"
 import styled from "styled-components"
 
 const Section = props => (
   <Container>
-    <div className="header">
+    <Div flex justify="space-between" sizeY="3.3rem" mb="1.6rem">
       <h2 className="title">
         <a href={props.path || "/"} onClick={e => e.preventDefault()}>{props.title}</a>
       </h2>
       <div className="more">
         <a href={props.path || "/"} onClick={e => e.preventDefault()}>See All</a>
       </div>
-    </div>
+    </Div>
 
     <div className="cards">
       {props.children}
@@ -22,13 +23,6 @@ export default Section
 const Container = styled.section`
   margin-bottom: 1.6rem;
   min-height: 30rem;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    height: 3.3rem;
-    margin-bottom: 1.6rem;
-  }
 
   .title {
     font-size: var(--fs-24);

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import Div from "../../div"
 import styled from "styled-components"
 
 const HeaderSection = props => {
@@ -19,9 +20,9 @@ const HeaderSection = props => {
 
   return (
     <Container>
-      <div className="header">
+      <Div flex align="center" mb="1.8rem" sizeY="4.2rem">
         <h2 className="title">{getGreeting()}</h2>
-      </div>
+      </Div>
       <div className="cards" ref={secondTriggerRef}>
         {props.children}
       </div>
@@ -32,16 +33,7 @@ const HeaderSection = props => {
 export default HeaderSection
 
 const Container = styled.section`
-  display: flex;
-  flex-direction: column;
   margin-bottom: 1.6rem;
-
-  .header {
-    display: flex;
-    height: 4.2rem;
-    align-items: center;
-    margin-bottom: 1.8rem;
-  }
 
   .title {
     color: var(--white);

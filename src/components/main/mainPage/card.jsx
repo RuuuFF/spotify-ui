@@ -45,7 +45,6 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     flex: 1;
-    display: inline-block;
     width: 100%;
     padding: 1.6rem;
   }

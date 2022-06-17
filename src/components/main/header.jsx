@@ -45,7 +45,6 @@ const Container = styled.header`
   top: 0;
   right: 0;
   padding: 1.6rem 3.2rem;
-  transition: background-color 0.2s linear;
   z-index: 10;
 
   .background {

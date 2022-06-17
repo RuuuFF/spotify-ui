@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { toggleLiked } from "../../store/playerSlice";
@@ -12,9 +12,11 @@ import { grow, shake } from "../../assets/styles/keyframes"
 const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum }) => {
   const [animation, setAnimation] = useState("")
   const [right, setRight] = useState(0)
-  const image = useRef(null)
 
-  useEffect(() => setRight(image.current.getBoundingClientRect().right), [])
+  function updateRight(el) {
+    const elRight = el.getBoundingClientRect().right
+    setRight(elRight)
+  }
 
   useEffect(() => {
     if (currentMusic.liked || animation !== "") {
@@ -25,15 +27,15 @@ const NowPlaying = ({ currentMusic, toggleLiked, expandAlbum }) => {
   return (
     <Container style={{
       transform: `translateX(-${expandAlbum ? right : 0}px)`,
-      transition: `transform 0.4s ${expandAlbum ? 'ease-out 0s' : 'ease-in .4s'}`
+      transition: `transform .4s ${expandAlbum ? 'ease-out 0s' : 'ease-in .4s'}`
     }}>
       <div className="image-container">
         {!expandAlbum ? <ExpandImageBtn /> : false}
         <img
-          ref={image}
           className="image"
+          alt={currentMusic.artist}
           src={currentMusic.albumImage}
-          alt={currentMusic.artist} />
+          onLoad={event => updateRight(event.target)} />
       </div>
 
       <Div flex column mx="1.4rem" overflow="hidden">

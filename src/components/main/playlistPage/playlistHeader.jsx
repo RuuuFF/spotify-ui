@@ -84,7 +84,6 @@ export default connect(null, mapDispatchToProps)(PlaylistHeader)
 
 const Container = styled.header`
   display: flex;
-  flex-direction: row;
   position: relative;
   padding: 8.4rem 3.2rem 2.4rem;
   z-index: 1;

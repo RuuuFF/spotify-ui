@@ -23,8 +23,8 @@ export const playerSlice = createSlice({
 
   reducers: {
     togglePlaying: state => {
-      if (!state.isPlaying && state.time >= state.currentMusic.durationInSeconds) {
-        state.time = 0
+      if (!state.isPlaying && state.currentTime >= state.currentMusic.durationInSeconds) {
+        state.currentTime = 0
       }
       state.isPlaying = !state.isPlaying
     },
@@ -59,7 +59,7 @@ export const playerSlice = createSlice({
     },
 
     prevMusic: state => {
-      state.time = 0
+      state.currentTime = 0
       state.isPlaying = true
     }
   }

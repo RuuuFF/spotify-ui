@@ -2,8 +2,9 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "@reduxjs/toolkit"
 import { getRandomBackground, setDefaultBackground } from "../../../store/structureSlice"
 
-import styled from "styled-components"
+import Div from "../../div"
 import Icons from "../../icons"
+import styled from "styled-components"
 
 const CardWide = props => (
   <Container>
@@ -12,23 +13,25 @@ const CardWide = props => (
       onClick={event => event.preventDefault()}
       onMouseEnter={() => props.getRandomBackground()}
       onMouseLeave={() => props.setDefaultBackground()}>
-      <div className="image-container">
-        {props.image ? (
-          <img className="image" src={props.image} alt={props.name} />
-        ) : (
-          <div className="default-image">
-            <Icons icon="ottava" />
-          </div>
-        )}
-      </div>
-      <div className="info-container">
-        <p className="name">{props.name}</p>
-      </div>
-      <div className="playlist-btn-container">
-        <button className="playlist-btn">
-          <Icons icon="playlist" />
-        </button>
-      </div>
+      <Div flex align="center" pr="1.6rem" gap="1.6rem">
+        <div className="image-container">
+          {props.image ? (
+            <img className="image" src={props.image} alt={props.name} />
+          ) : (
+            <div className="default-image">
+              <Icons icon="ottava" />
+            </div>
+          )}
+        </div>
+        <div className="info-container">
+          <p className="name">{props.name}</p>
+        </div>
+        <div className="playlist-btn-container">
+          <button className="playlist-btn">
+            <Icons icon="playlist" />
+          </button>
+        </div>
+      </Div>
     </a>
   </Container>
 )
@@ -44,13 +47,6 @@ const Container = styled.article`
   border-radius: 4px;
   overflow: hidden;
   transition: background-color .3s ease;
-
-  > a {
-    display: flex;
-    align-items: center;
-    padding-right: 1.6rem;
-    gap: 1.6rem;
-  }
 
   .image-container {
     width: 8rem;

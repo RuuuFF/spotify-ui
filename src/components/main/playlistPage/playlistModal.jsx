@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import ModalInput from "./modalInput"
 import Icons from "../../icons"
+import Div from "../../div"
 import styled from "styled-components"
 
 const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
@@ -31,16 +32,16 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
 
   return (
     <Container className={`${modalVisible ? "visible" : ""}`}>
-      <div className="wrapper">
+      <Div flex align="center" justify="center" sizeX="100%" sizeY="100%">
         <div className="modal-container">
-          <header className="modal-header">
-            <h1>Edit details</h1>
-            <button onClick={() => toggleModal()}>
+          <Div flex mb="2.4rem" justify="space-between">
+            <h1 className="modal-title">Edit details</h1>
+            <button className="modal-close-btn" onClick={() => toggleModal()}>
               <Icons icon="xmark-mini" />
             </button>
-          </header>
+          </Div>
 
-          <div className="update-container">
+          <Div flex gap="1.6rem">
             <div className="image-container" onClick={() => imageRef.current.select()}>
               {playlist.imageUrl ? (
                 <img src={playlist.imageUrl} alt="Playlist" />
@@ -59,7 +60,7 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
               </div>
             </div>
 
-            <div className="input-container">
+            <Div flex column gap="1.6rem" grow="1">
               <ModalInput
                 required
                 name="Name"
@@ -87,18 +88,18 @@ const PlaylistModal = ({ playlist, savePlaylist, modal, inputReferences }) => {
                 onKeyDown={keyHandler}
                 onChange={setDescription}
                 placeholder="Add an optional description" />
-            </div>
-          </div>
+            </Div>
+          </Div>
 
-          <div className="button-container">
-            <button className="btn" onClick={postNewPlaylist}>Save</button>
-          </div>
+          <Div flex justify="flex-end" my="0.8rem">
+            <button className="modal-save-btn" onClick={postNewPlaylist}>Save</button>
+          </Div>
 
-          <div className="advice-container">
+          <div>
             <span className="advice">By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure you have the right to upload the image.</span>
           </div>
         </div>
-      </div>
+      </Div>
     </Container>
   )
 }
@@ -118,14 +119,6 @@ const Container = styled.div`
     visibility: visible;
   }
 
-  .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-
   .modal-container {
     background-color: var(--gray3);
     padding: 2.4rem;
@@ -136,39 +129,26 @@ const Container = styled.div`
     width: 524px;
   }
 
-  .modal-header {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 2.4rem;
-    justify-content: space-between;
-
-    h1 {
-      font-size: var(--fs-24);
-      line-height: var(--lh-28);
-      letter-spacing: -0.96px;
-      transform: translateY(3px);
-    }
-
-    button {
-      color: var(--white-op-07);
-      width: 3.2rem;
-      height: 3.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: -0.4rem -0.8rem 0 0;
-      border-radius: 3.2rem;
-
-      &:hover {
-        background-color: var(--white-op-01);
-      }
-    }
+  .modal-title {
+    font-size: var(--fs-24);
+    line-height: var(--lh-28);
+    letter-spacing: -0.96px;
+    transform: translateY(3px);
   }
 
-  .update-container {
+  .modal-close-btn {
+    color: var(--white-op-07);
+    width: 3.2rem;
+    height: 3.2rem;
     display: flex;
-    flex-direction: row;
-    gap: 1.6rem;
+    align-items: center;
+    justify-content: center;
+    margin: -0.4rem -0.8rem 0 0;
+    border-radius: 3.2rem;
+
+    &:hover {
+      background-color: var(--white-op-01);
+    }
   }
 
   .image-container {
@@ -231,39 +211,25 @@ const Container = styled.div`
     }
   }
 
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-    flex: 1;
-
-  }
-
   .input-wrapper:last-child {
     flex: 1;
   }
 
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0.8rem 0;
+  .modal-save-btn {
+    padding: 1.2rem 3.2rem;
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+    font-family: "Spotify Circular Cyrillic", sans-serif;
+    background-color: var(--white);
+    border-radius: 500px;
 
-    .btn {
-      padding: 1.2rem 3.2rem;
-      font-size: var(--fs-16);
-      line-height: var(--lh-24);
-      font-family: "Spotify Circular Cyrillic", sans-serif;
-      background-color: var(--white);
-      border-radius: 500px;
+    &:hover {
+      transform: scale(1.04);
+    }
 
-      &:hover {
-        transform: scale(1.04);
-      }
-
-      &:active {
-        transform: scale(1);
-        background-color: var(--white-op-07);
-      }
+    &:active {
+      transform: scale(1);
+      background-color: var(--white-op-07);
     }
   }
 
