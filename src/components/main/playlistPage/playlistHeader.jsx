@@ -23,7 +23,7 @@ const PlaylistHeader = ({ playlist, focusName, focusImage, focusDescription, set
     if (playlist.background !== "") return
 
     const colorThief = window.colorThief
-    const colorValues = colorThief.getPalette(imageEl)[5]
+    const colorValues = colorThief.getColor(imageEl)
     setPlaylistBackground({ index: playlist.index, colorValues })
   }
 

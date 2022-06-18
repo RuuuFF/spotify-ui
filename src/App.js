@@ -1,20 +1,31 @@
-import styled from "styled-components";
+import { useState, useEffect } from "react"
+import { HashRouter } from "react-router-dom"
 
-import Sidebar from "./layout/sidebar";
-import Main from "./layout/main";
-import Footer from "./layout/footer";
+import Sidebar from "./layout/sidebar"
+import Main from "./layout/main"
+import Footer from "./layout/footer"
+import ResponsiveMessage from "./components/responsiveMessage"
+import styled from "styled-components"
 
-import { HashRouter } from "react-router-dom";
+const App = props => {
+  const [width, setWidth] = useState(window.innerWidth)
 
-const App = props => (
-  <HashRouter>
-    <Container>
-      <Sidebar />
-      <Main />
-      <Footer />
-    </Container>
-  </HashRouter>
-);
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth))
+  }, [])
+
+  return (
+    <HashRouter>
+      {width > 1280 ? (
+        <Container>
+          <Sidebar />
+          <Main />
+          <Footer />
+        </Container>
+      ) : <ResponsiveMessage width={width} />}
+    </HashRouter>
+  )
+}
 
 export default App;
 
