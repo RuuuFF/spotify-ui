@@ -1,13 +1,8 @@
 # ⚙️ Projeto
-Reprodução da interface do Spotify com alguns recursos:
-- Redux Toolkit para armazenar os estados da aplicação
-- React Router para as rotas das playlists
-- Criação e edição de playlist com armazenamento no localStorage
-- Biblioteca Color Thief para obter a cor predominante de imagens
-- Animação na cor e opacidade do Header, sendo diferente na página principal e na playlist
+Reprodução da interface do Spotify utilizando ReactJS, Styled Components e Redux Toolkit.
 
 # ✈️ Tecnologias
-- React
+- ReactJS
 - React Router
 - Styled Components
 - Redux Toolkit
