@@ -6,7 +6,7 @@ const ModalInput = ({ name, type, value, maxLength, placeholder, required, refer
   if (value.length === maxLength || (value.length === 0 && required)) {
     inputCharacterAlert = "limit"
   } else if ((value.length * 100) / maxLength >= 90) {
-    inputCharacterAlert = "visible"
+    inputCharacterAlert = "advice"
   }
 
   return (
@@ -15,9 +15,9 @@ const ModalInput = ({ name, type, value, maxLength, placeholder, required, refer
       {element !== "textarea" ? (
         <input
           id={name}
+          value={value}
           type={type || "text"}
           ref={reference}
-          value={value}
           onKeyDown={onKeyDown}
           maxLength={maxLength}
           placeholder={placeholder}
@@ -25,15 +25,13 @@ const ModalInput = ({ name, type, value, maxLength, placeholder, required, refer
       ) : (
         <textarea
           id={name}
-          type={type}
-          ref={reference}
           value={value}
+          ref={reference}
           onKeyDown={onKeyDown}
           maxLength={maxLength}
           placeholder={placeholder}
           onChange={event => onChange(event.target.value)}></textarea>
       )}
-
       <span className={`character-length ${inputCharacterAlert}`}>
         {value.length}/{maxLength}
       </span>
@@ -102,7 +100,7 @@ const Container = styled.div`
   .character-length {
     position: absolute;
     opacity: 0;
-    visibility: 0;
+    visibility: hidden;
     right: 0.8rem;
     bottom: 0;
     font-size: var(--fs-16);
